@@ -119,7 +119,7 @@ ArbValue() = ArbValue(sint0,uint0,sint0,sint0,sint0,uint0,FastArbPrecision)
 
 
 convert(::Type{ArbStruct}, x::ArbValue) =
-    ArbStruct(x.mid_exp, x.mid_size, x.mid_d1, x.mid_d2, x.rad_exp, x.rad_man)
+    ArbStruct(x.mid_exp, x.mid_mpsz, x.mid_d1, x.mid_d2, x.rad_expn, x.rad_sgnf)
 
 convert(::Type{ArfStruct}, x::ArbValue) = convert(ArfStruct, convert(ArbStruct, x))
 convert(::Type{ArbValue}, x::ArbStruct) =
@@ -142,5 +142,69 @@ convert(::Type{MagStruct}, x::ArbValue) = MagStruct(x.rad_expn, x.rad_sgnf)
 convert(::Type{ArbValue}, x::MagStruct) = convert(ArbValue, convert(ArbStruct,x))
 
 
+
+type ArfSpanStruct                       #  JAS 2016-03-27
+  expn ::Int     # fmpz?
+  mpsz::UInt     # mp_size_t
+  d1   ::Int     # SignificandStruct     # mantissa_struct
+  d2   ::Int     #
+  d3   ::Int     #
+  d4   ::Int     #
+end
+
+ArfSpanStruct() = ArfSpanStruct(zero(Int),zero(UInt),zero(Int),zero(Int),zero(Int),zero(Int))
+
+type ArbSpan # <: FieldElem              #  JAS 2016-03-27
+  mid_expn  ::Int # fmpz
+  mid_mpsz  ::UInt # mp_size_t
+  mid_d1    ::Int # mantissa_struct
+  mid_d2    ::Int
+  mid_d3    ::Int
+  mid_d4    ::Int
+  rad_expn  ::Int # fmpz?
+  rad_sgnf  ::UInt
+  parent    ::ArbPrecision
+end
+
+ArbSpan() = ArbSpan(sint0,uint0,sint0,sint0,sint0,sint0,sint0,uint0,FastArbPrecision)
+
+
+
+function convert(::Type{ArbSpan}, x::ArbValue)
+    if x.mid_mpsz < 3
+        ArbSpan(x.mid_expn,x.mid_mpsz, x.mid_d1,x.mid_d2,sint0,sint0,x.rad_expn,x.rad_sgnf,x.parent)
+    else
+        NotImplemented("conversion of indirect memory into quad limbs of struct")
+    end
+end    
+
+function convert(::Type{ArbValue}, x::ArbSpan)
+    if x.mid_mpsz < 3
+        ArbValue(x.mid_expn,x.mid_mpsz, x.mid_d1,x.mid_d2,x.rad_expn,x.rad_sgnf,x.parent)
+    else
+        NotImplemented("conversion of indirect memory into quad limbs of struct")
+    end
+end    
+
+
+convert(::Type{ArbValue} , x::ArbSpanStruct) = 
+    ArbSpan(x.expn,x.mpsz, x.d1,x.d2,x.d3,x.d4,x.rad_expn,x.rad_sgnf, FastArbPrecision)
+
+
+convert(::Type{ArbSpanStruct}, x::ArbSpan) =
+    ArbSpanStruct(x.mid_expn,x.mid_mpsz, x.mid_d1,x.mid_d2,x.mid_d3,x.mid_d4,x.rad_expn,x.rad_sgnf)
+convert(::Type{ArbSpan} , x::ArbSpanStruct) = 
+    ArbSpan(x.expn,x.mpsz, x.d1,x.d2,x.d3,x.d4,x.rad_expn,x.rad_sgnf, FastArbPrecision)
+convert(::Type{ArbSpanStruct}, x::ArbValue) =
+    ArbSpanStruct(x.mid_expn,x.mid_mpsz, x.mid_d1,x.mid_d2,sint0,sint0,x.rad_expn,x.rad_sgnf)
+
+convert(ArfStruct, convert(ArbSpanStruct, x))
+convert(::Type{ArbValue}, x::ArbSpanStruct) =
+    ArbValue( x.mid_expn, x.mid_mpsz, x.mid_d1, x.mid_d2, x.rad_expn, x.rad_sgnf, FastArbPrecision)
+    
+function convert(::Type{ArbValue}, x::ArbStruct, n::Int)
+    arbprec = getkey(ArbPrecisions, n, (ArbPrecisions[n] = ArbPrecision(n))  )
+    ArbValue( x.mid_expn, x.mid_mpsz, x.mid_d1, x.mid_d2, x.rad_expn, x.rad_sgnf, arbprec )
+end
 
 
