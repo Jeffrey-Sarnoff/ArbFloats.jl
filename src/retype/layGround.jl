@@ -17,7 +17,7 @@ typealias SmallerNumbers Union{Float32,Int32,UInt32,Float16,Int16,UInt16,Int8,UI
 #      "these may be used for shallow operations"
 
 immutable ArbPrecision  # precision is the number of bits in the significand
-  precision::Int32       # Int32 allows > 600,000,000 digits, Arb does not use more than 16,000
+  precision::Int        # Int32 allows > 600,000,000 digits, Arb does not use more than 16,000
 
   ArbPrecision(x::Integer) = new( convert(Int32,x) )
 end
