@@ -41,10 +41,10 @@ include("api/HypergeoLib.jl")
 include("api/EllipticLib.jl")
 include("api/CalculusLib.jl")
 
-include("retype/ArbSpan.jl")
-include("retype/ArbBox.jl")
-include("retype/ArbPoly.jl")
-include("retype/ArbMatrix.jl")
+include("retype/ArbSpans.jl")
+include("retype/ArbBoxes.jl")
+include("retype/ArbPolys.jl")
+include("retype/ArbMatricies.jl")
 
 include("type/ArbFloat.jl")
 
