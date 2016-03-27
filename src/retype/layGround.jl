@@ -50,8 +50,8 @@ type SignificandStruc     t              # mantissa_struct (arb/master/arf.h)
   d2  ::Int      #                   imm mantissa value low     ptr2 mantissa value
 end
 
-SignificandStruct() = SignificandStruct(zero(Int), zero(Int))
-SignificandStruct(d1::Int) = SignificandStruct(d1, zero(Int))
+SignificandStruct() = SignificandStruct(sint0, sint0)
+SignificandStruct(d1::Int) = SignificandStruct(d1, sint0)
 
 type ArfStruct                           #  arf_struct (arb/master/arf.h) 
   exp ::Int      # fmpz?
@@ -72,7 +72,7 @@ type ArbStruct                           #  arf_struct (arb/master/arf.h)
   rad_man ::UInt                         #  mag_struct
 end
 
-ArbStruct() = ArbStruct(zero(Int),zero(UInt),zero(Int),zero(Int),zero(Int),zero(UInt))
+ArbStruct() = ArbStruct(sint0,uint0,sint0,sint0,sint0,uint0)
 
 
 type ArbValue # <: FieldElem
@@ -85,10 +85,10 @@ type ArbValue # <: FieldElem
   parent   ::ArbPrecision
 end
 
-ArbValue() = ArbValue(zero(Int),zero(UInt),zero(Int),zero(Int),zero(Int),zero(UInt),FastArbPrecision)
+ArbValue() = ArbValue(sint0,uint0,sint0,sint0,sint0,uint0,FastArbPrecision)
 
 function convert(::Type{ArbStruct}, x::ArbValue)
-    ArfStruct( x.mid_exp, x.mid_size, x.mid_d1, x.mid_d2, x.rad_exp, x.rad_man, x.parent )
+    ArbStruct(x.mid_exp, x.mid_size, x.mid_d1, x.mid_d2, x.rad_exp, x.rad_man)
 end
 
 function convert(::Type{ArbValue}, x::ArbStruct, n::Int)
