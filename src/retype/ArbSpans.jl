@@ -5,21 +5,10 @@
 @doc"""
     ArbSpan
 """
-type ArbSpan <: Real
-    midpoint::Real
-    halfspan::Real
-    
-    internal::ArbValue
-    
-    ArbSpan{MP<:Float64, HS<:Float32}(midpoint::MP, halfspan::HS)
-        
-    end
-    
-end
 
 """ArbSpan ↦  Float64 """
 
-function convert(::Type{Float64}, x::ArbSpan)
+function convert(::Type{Float64}, x::ArbValue)
     t = ArfStruct()
     t.exp  = x.internal.mid_exp
     t.size = x.internal.mid_size
@@ -30,8 +19,8 @@ function convert(::Type{Float64}, x::ArbSpan)
 end
 
 
-function convert(::Type{ArbSpan}, x::Float64)
-    t = ArfSstruct()
+function convert(::Type{ArbValue}, x::Float64)
+    t = ArfStruct()
     #                          (the rounding mode number 4 rounds to nearest)
     return ccall((:arf_set_d, :libarb), Float64, (Ptr{Arf_struct}, Int), &t, 4)
 
