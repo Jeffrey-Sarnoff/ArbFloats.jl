@@ -84,7 +84,11 @@ end
 
 ArbValue() = ArbValue(zero(Int),zero(UInt),zero(Int),zero(Int),zero(Int),zero(UInt),FastArbPrecision)
 
-function convert(::Type{ArfStruct}, x::ArbValue)
+function convert(::Type{ArbStruct}, x::ArbValue)
     ArfStruct( x.mid_exp, x.mid_size, x.mid_d1, x.mid_d2, x.rad_exp, x.rad_man, x.parent )
 end
 
+function convert(::Type{ArbValue}, x::ArbStruct, n::Int)
+    arbprec = getkey(ArbPrecisions, n, (ArbPrecisions[n] = ArbPrecision(n))  )
+    ArbValue( x.mid_exp, x.mid_size, x.mid_d1, x.mid_d2, x.rad_exp, x.rad_man, arbprec )
+end
