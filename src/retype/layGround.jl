@@ -23,34 +23,44 @@ immutable ArbPrecision  # precision is the number of bits in the significand
 end
 precision(x::ArbPrecision) = convert(Int, x.precision)
 
-ArbPrecs = Dict(   53=>ArbPrecision(  53),   60=>ArbPrecision(  60),  
-                   72=>ArbPrecision(  72),   75=>ArbPrecision(  75),
-                  120=>ArbPrecision( 120),  240=>ArbPrecision( 240), 
-                  250=>ArbPrecision( 250),  504=>ArbPrecision( 504), 
-                 1000=>ArbPrecision(1000), 3584=>ArbPrecision(3584)
-               )
+ArbPrecisions = Dict(   
+    53   => ArbPrecision(  53),   60 => ArbPrecision(  60),  
+    72   => ArbPrecision(  72),   75 => ArbPrecision(  75),
+    120  => ArbPrecision( 120),  240 => ArbPrecision( 240), 
+    250  => ArbPrecision( 250),  504 => ArbPrecision( 504), 
+    1000 => ArbPrecision(1000), 3584 => ArbPrecision(3584),
+)
+
+# does not require indirect memory allocations
+const FastArbPrecison = ArbPrecision( fld(480, (12-sizeof(Int))) )   
 
 
-immutable Mag_struct                     #  mag_struct (arb/master/mag.h)
+immutable MagStruct                      #  mag_struct (arb/master/mag.h)
   rad_exp ::Int  #                       #  exponent    of 'radius' magnitude
   rad_man ::UInt # 30? significand bits  #  significand of 'radius' magnitude
 end
 
-immutable Mantissa_struct                # mantissa_struct (arb/master/arf.h)
+MagStruct() = MagStruct(zero(Int), zero(UInt))
+
+immutable SignificandStruct              # mantissa_struct (arb/master/arf.h)
   d1  ::Int      # mantissa_struct   imm mantissa value high or mantissa alloc size
   d2  ::Int      #                   imm mantissa value low     ptr2 mantissa value
 end
 
+SignificandStruct() = SignificandStruct(zero(Int), zero(Int))
+SignificandStruct(d1::Int) = SignificandStruct(d1, zero(Int))
 
-type Arf_struct                          #  arf_struct (arb/master/arf.h) 
-  exp ::Int      # fmpz
+type ArfStruct                           #  arf_struct (arb/master/arf.h) 
+  exp ::Int      # fmpz?
   size::UInt     # mp_size_t
   d1  ::Int      # mantissa_struct
   d2  ::Int      #
 end
 
+ArfStruct() = ArfStruct(zero(Int),zero(UInt),zero(Int),zero(Int))
 
-type Arb_struct                          #  arf_struct (arb/master/arf.h)
+
+type ArbStruct                           #  arf_struct (arb/master/arf.h)
   mid_exp ::Int  # fmpz                  #
   mid_size::UInt # mp_size_t             #
   mid_d1  ::Int  # mantissa_struct       #   
@@ -58,6 +68,9 @@ type Arb_struct                          #  arf_struct (arb/master/arf.h)
   rad_exp ::Int  # fmpz                  #  mag_struct (arb/master/mag.h)
   rad_man ::UInt                         #  mag_struct
 end
+
+ArbStruct() = ArbStruct(zero(Int),zero(UInt),zero(Int),zero(Int),zero(Int),zero(UInt))
+
 
 type ArbValue # <: FieldElem
   mid_exp  ::Int # fmpz
@@ -68,3 +81,5 @@ type ArbValue # <: FieldElem
   rad_man  ::UInt
   parent   ::ArbPrecision
 end
+
+ArbValue() = ArbValue(zero(Int),zero(UInt),zero(Int),zero(Int),zero(Int),zero(UInt),)
