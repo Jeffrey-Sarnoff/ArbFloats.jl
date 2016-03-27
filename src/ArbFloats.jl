@@ -11,6 +11,10 @@ import Base: hash, convert, promote_rule, isa,
     trunc, round, ceil, floor,
     fld, cld, div, mod, rem, divrem, fldmod
 
+
+NotImplemented(info::AbstractString="") = error("this ($info) is not implemented")
+
+
 export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round(lo,n,10)
        ArbSpan,       # midpoint ± 'radius' ('radius' is an equiprobable span, a line segment)
        ArbBox,        # as Complex(real ArbSegment, imaginary ArbSegment)
