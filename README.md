@@ -1,5 +1,5 @@
 ## ArbFloat.jl
 ```               Arb available as an extended precision floating point context.          ```
 ```ruby
-                                                Jeffrey Sarnoff © 2016-Mar-26 in New_York USA
+                                                Jeffrey Sarnoff © 2016-Mar-26 in New_York
 ```
