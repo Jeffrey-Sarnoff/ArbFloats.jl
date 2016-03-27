@@ -19,9 +19,9 @@ typealias SmallerNumbers Union{Float32,Int32,UInt32,Float16,Int16,UInt16,Int8,UI
 immutable ArbPrecision  # precision is the number of bits in the significand
   precision::Int        # Int32 allows > 600,000,000 digits, Arb does not use more than 16,000
 
-  ArbPrecision(x::Integer) = new( convert(Int32,x) )
+  ArbPrecision(x::Integer) = new( convert(Int,x) )
 end
-precision(x::ArbPrecision) = convert(Int, x.precision)
+precision(x::ArbPrecision) = x.precision
 
 ArbPrecisions = Dict(   
     53   => ArbPrecision(  53),   60 => ArbPrecision(  60),  
