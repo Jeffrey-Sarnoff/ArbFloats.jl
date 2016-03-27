@@ -12,7 +12,7 @@ import Base: hash, convert, promote_rule, isa,
     fld, cld, div, mod, rem, divrem, fldmod
 
 
-NotImplemented(info::AbstractString="") = error("this ($info) is not implemented")
+NotImplemented(info::AbstractString="") = error(string("this is not implemented\n\t",info,"\n"))
 
 
 export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round(lo,n,10)
