@@ -18,7 +18,7 @@ type ArbSpan <: Real
 end
 
 function convert(::Type{Float64}, x::ArbSpan)
-    t = Arf_struct(0, 0, 0, 0)
+    t = ArfStruct()
     t.exp  = x.internal.mid_exp
     t.size = x.internal.mid_size
     t.d1   = x.internal.mid_d1
@@ -29,7 +29,7 @@ end
 
 
 function convert(::Type{ArbSpan}, x::Float64)
-    t = Arf_struct(0, 0, 0, 0)
+    t = ArfSstruct()
     #                          (the rounding mode number 4 rounds to nearest)
     return ccall((:arf_set_d, :libarb), Float64, (Ptr{Arf_struct}, Int), &t, 4)
 
