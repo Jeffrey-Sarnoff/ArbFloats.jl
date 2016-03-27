@@ -65,7 +65,7 @@ type ArbStruct                           #  arf_struct (arb/master/arf.h)
   mid_size::UInt # mp_size_t             #
   mid_d1  ::Int  # mantissa_struct       #   
   mid_d2  ::Int                          #
-  rad_exp ::Int  # fmpz                  #  mag_struct (arb/master/mag.h)
+  rad_exp ::Int  # fmpz?                 #  mag_struct (arb/master/mag.h)
   rad_man ::UInt                         #  mag_struct
 end
 
@@ -77,7 +77,7 @@ type ArbValue # <: FieldElem
   mid_size::UInt # mp_size_t
   mid_d1   ::Int # mantissa_struct
   mid_d2   ::Int
-  rad_exp  ::Int # fmpz
+  rad_exp  ::Int # fmpz?
   rad_man  ::UInt
   parent   ::ArbPrecision
 end
