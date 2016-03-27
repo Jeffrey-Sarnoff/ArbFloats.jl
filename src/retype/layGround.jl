@@ -20,20 +20,32 @@ immutable Arb_sigbits    # precision is the number of bits in the significand
   precision::Int32       # Int32 allows > 600,000,000 digits
 end
 
-type Arf_struct
-  exp ::Int  # fmpz
-  size::UInt # mp_size_t
-  d1  ::Int  # mantissa_struct
-  d2  ::Int
+immutable Mag_struct                     #  mag_struct (arb/master/mag.h)
+  rad_exp ::Int  # fmpz                  #  exponent    of 'radius' magnitude
+  rad_man ::UInt # 30 significand bits   #  significand of 'radius' magnitude
 end
 
-type Arb_struct
-  mid_exp ::Int  # fmpz
-  mid_size::UInt # mp_size_t
-  mid_d1  ::Int  # mantissa_struct
-  mid_d2  ::Int
-  rad_exp ::Int  # fmpz
-  rad_man ::UInt
+immutable Mantissa_struct                # mantissa_struct (arb/master/arf.h)
+  d1  ::Int      # mantissa_struct   imm mantissa value high or mantissa alloc size
+  d2  ::Int      #                   imm mantissa value low     ptr2 mantissa value
+end
+
+
+type Arf_struct                          #  arf_struct (arb/master/arf.h) 
+  exp ::Int      # fmpz
+  size::UInt     # mp_size_t
+  d1  ::Int      # mantissa_struct
+  d2  ::Int      #
+end
+
+
+type Arb_struct                          #  arf_struct (arb/master/arf.h)
+  mid_exp ::Int  # fmpz                  #
+  mid_size::UInt # mp_size_t             #
+  mid_d1  ::Int  # mantissa_struct       #   
+  mid_d2  ::Int                          #
+  rad_exp ::Int  # fmpz                  #  mag_struct (arb/master/mag.h)
+  rad_man ::UInt                         #  mag_struct
 end
 
 type ArbValue # <: FieldElem
