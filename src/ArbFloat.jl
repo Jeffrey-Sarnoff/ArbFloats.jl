@@ -1,4 +1,4 @@
-module ArbFloat
+module ArbFloats
 
 import Base: hash, convert, promote_rule, isa,
     string, show, showcompact, showall, parse,
@@ -9,8 +9,9 @@ import Base: hash, convert, promote_rule, isa,
     signbit, sign, flipsign, copysign, abs,
     (+),(-),(*),(/),(\),(%),(^),sqrt,
     trunc, round, ceil, floor,
-    fld, cld, div, mod, rem, divrem, fldmod,
-    
+    fld, cld, div, mod, rem, divrem, fldmod
+
+export     
 
 include("api/ArbLib.jl")
 include("api/AcbLib.jl")
@@ -21,4 +22,4 @@ include("type/Acb.jl")
 
 
 
-end # ArbFloat
+end # ArbFloats
