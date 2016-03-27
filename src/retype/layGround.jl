@@ -10,6 +10,9 @@ typealias SmallNumbers   Union{Float16,Int16,UInt16,Int8,UInt8}
 
 typealias SmallerNumbers Union{Float32,Int32,UInt32,Float16,Int16,UInt16,Int8,UInt8}
 
+const uint0  = zero(UInt)
+const sint0  = zero(Int)
+const float0 = zero(Float64)
 
 
 # arf_struct, arb_struct
