@@ -82,4 +82,5 @@ type ArbValue # <: FieldElem
   parent   ::ArbPrecision
 end
 
-ArbValue() = ArbValue(zero(Int),zero(UInt),zero(Int),zero(Int),zero(Int),zero(UInt),)
+ArbValue() = ArbValue(zero(Int),zero(UInt),zero(Int),zero(Int),zero(Int),zero(UInt),FastArbPrecision)
+
