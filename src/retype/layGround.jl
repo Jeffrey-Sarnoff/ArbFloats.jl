@@ -35,14 +35,14 @@ ArbPrecisions = Dict(
 const FastArbPrecison = ArbPrecision( fld(480, (12-sizeof(Int))) )   
 
 
-immutable MagStruct                      #  mag_struct (arb/master/mag.h)
+type MagStruct                           #  mag_struct (arb/master/mag.h)
   rad_exp ::Int  #                       #  exponent    of 'radius' magnitude
   rad_man ::UInt # 30? significand bits  #  significand of 'radius' magnitude
 end
 
 MagStruct() = MagStruct(zero(Int), zero(UInt))
 
-immutable SignificandStruct              # mantissa_struct (arb/master/arf.h)
+type SignificandStruc     t              # mantissa_struct (arb/master/arf.h)
   d1  ::Int      # mantissa_struct   imm mantissa value high or mantissa alloc size
   d2  ::Int      #                   imm mantissa value low     ptr2 mantissa value
 end
