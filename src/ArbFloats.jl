@@ -14,7 +14,13 @@ import Base: hash, convert, promote_rule, isa,
 export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round(lo,n,10)
        ArbSpan,       # midpoint ± 'radius' ('radius' is an equiprobable span, a line segment)
        ArbBox,        # as Complex(real ArbSegment, imaginary ArbSegment)
-                      #    the real 'radius' and the imaginary 'radius' form a bounding box
+       ArbPoly,       # polynomials with Real Arb coeffs or Complex Arb [Acb] coeffs
+       ArbMatrix      # matricies with Real Arb or Complex Arb [Acb] constituents 
+
+       
+                      # Complex( ArbSpan(real), ArbSpan(imaginary) )
+                      #
+                      #    The real 'radius' and the imaginary 'radius' form a bounding box
                       #    in the complex plane centered on the place indicated as
                       #    Complex( midpoint(real), midpoint(imaginary) ) and oriented
                       #    by considering the 'radii' as conjugate diameters of an ellipse
@@ -27,12 +33,20 @@ export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round
                       #    with the imaginary 'radius' about the same center
                       #    oriented perpendicular to the real diameter 
                       #    atan2(-midpoint(imag), -midpoint(real) ).
+                      
 
 include("api/ArbLib.jl")
 include("api/AcbLib.jl")
+include("api/HypergeoLib.jl")
+include("api/EllipticLib.jl")
+include("api/CalculusLib.jl")
 
-include("type/Arb.jl")
-include("type/Acb.jl")
+include("retype/ArbSpan.jl")
+include("retype/ArbBox.jl")
+include("retype/ArbPoly.jl")
+include("retype/ArbMatrix.jl")
+
+include("type/ArbFloat.jl")
 
 
 
