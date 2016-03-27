@@ -74,10 +74,10 @@ convert(::Type{ArfStruct}, mpsz::UInt, xp::Int, x::SignificandStruct) =
 
 
 type ArbStruct                           #  arb_struct (arb/master/arb.h)
-  mid_expn ::Int  # fmpz                 #    arf_struct
-  mid_mpsz::UInt # mp_size_t             #
-  mid_d1   ::Int  # SignificandStruct    #       mantissa_strct
-  mid_d2   ::Int                         #
+  expn     ::Int  # fmpz                 #    arf_struct
+  mpsz     ::UInt # mp_size_t            #
+  d1       ::Int  # SignificandStruct    #       mantissa_strct
+  d2       ::Int                         #
   rad_expn ::Int  # fmpz?                #       mag_struct
   rad_sgnf ::UInt                        #   
 end
@@ -86,18 +86,18 @@ ArbStruct() = ArbStruct(sint0,uint0,sint0,sint0,sint0,uint0)
 
 convert(::Type{SignificandStruct}, x::ArbStruct) = SignificandStruct(x.d1, x.d2)
 
-convert(::Type{ArbStruct}, x::SignificandStruct, mid_expn::Int, mid_mpsz::UInt) =
-    ArbStruct(mid_expn, mid_mpsz, x.d1, x.d2, sint0, uint0)
-convert(::Type{ArbStruct}, mid_expn::Int, mid_mpsz::UInt, x::SignificandStruct) =
-    convert(ArbStruct, x, mid_expn, mid_mpsz)
-convert(::Type{ArbStruct}, mid_mpsz::UInt, mid_expn::Int, x::SignificandStruct) =
-    convert(ArbStruct, x, mid_expn, mid_mpsz)
+convert(::Type{ArbStruct}, x::SignificandStruct, expn::Int, mpsz::UInt) =
+    ArbStruct(expn, mpsz, x.d1, x.d2, sint0, uint0)
+convert(::Type{ArbStruct}, expn::Int, mpsz::UInt, x::SignificandStruct) =
+    convert(ArbStruct, x, expn, mpsz)
+convert(::Type{ArbStruct}, mpsz::UInt, expn::Int, x::SignificandStruct) =
+    convert(ArbStruct, x, expn, mpsz)
     
 
-convert(::Type{ArfStruct}, x::ArbStruct) = ArfStruct(x.mid_expn, x.mid_mpsa, x.mid_d1, x.mid_d2)
+convert(::Type{ArfStruct}, x::ArbStruct) = ArfStruct(x.expn, x.mpsa, x.d1, x.d2)
 
 convert(::Type{ArbStruct}, x::ArfStruct, rad_expn::Int, rad_sgnf::UInt) =
-    ArbStruct(mid_expn, mid_mpsz, x.d1, x.d2, sint0, uint0)
+    ArbStruct(expn, mpsz, x.d1, x.d2, sint0, uint0)
 convert(::Type{ArbStruct}, rad_expn::Int, rad_sgnf::UInt, x::ArfStruct) =
     convert(ArbStruct, x, rad_expn, rad_sgnf)
 convert(::Type{ArbStruct}, rad_sgnf::UInt, rad_expn::Int, x::ArfStruct) =
@@ -106,10 +106,10 @@ convert(::Type{ArbStruct}, rad_sgnf::UInt, rad_expn::Int, x::ArfStruct) =
 
 
 type ArbValue # <: FieldElem
-  mid_expn  ::Int # fmpz
-  mid_mpsz  ::UInt # mp_size_t
-  mid_d1    ::Int # mantissa_struct
-  mid_d2    ::Int
+  expn      ::Int # fmpz
+  mpsz      ::UInt # mp_size_t
+  d1        ::Int # mantissa_struct
+  d2        ::Int
   rad_expn  ::Int # fmpz?
   rad_sgnf  ::UInt
   parent    ::ArbPrecision
@@ -119,15 +119,15 @@ ArbValue() = ArbValue(sint0,uint0,sint0,sint0,sint0,uint0,FastArbPrecision)
 
 
 convert(::Type{ArbStruct}, x::ArbValue) =
-    ArbStruct(x.mid_exp, x.mid_mpsz, x.mid_d1, x.mid_d2, x.rad_expn, x.rad_sgnf)
+    ArbStruct(x.exp, x.mpsz, x.d1, x.d2, x.rad_expn, x.rad_sgnf)
 
 convert(::Type{ArfStruct}, x::ArbValue) = convert(ArfStruct, convert(ArbStruct, x))
 convert(::Type{ArbValue}, x::ArbStruct) =
-    ArbValue( x.mid_expn, x.mid_mpsz, x.mid_d1, x.mid_d2, x.rad_expn, x.rad_sgnf, FastArbPrecision)
+    ArbValue( x.expn, x.mpsz, x.d1, x.d2, x.rad_expn, x.rad_sgnf, FastArbPrecision)
     
 function convert(::Type{ArbValue}, x::ArbStruct, n::Int)
     arbprec = getkey(ArbPrecisions, n, (ArbPrecisions[n] = ArbPrecision(n))  )
-    ArbValue( x.mid_expn, x.mid_mpsz, x.mid_d1, x.mid_d2, x.rad_expn, x.rad_sgnf, arbprec )
+    ArbValue( x.expn, x.mpsz, x.d1, x.d2, x.rad_expn, x.rad_sgnf, arbprec )
 end
 
 
@@ -155,13 +155,13 @@ end
 ArfSpanStruct() = ArfSpanStruct(zero(Int),zero(UInt),zero(Int),zero(Int),zero(Int),zero(Int))
 
 type ArbSpan # <: FieldElem              #  JAS 2016-03-27
-  mid_expn  ::Int # fmpz
-  mid_mpsz  ::UInt # mp_size_t
-  mid_d1    ::Int # mantissa_struct
-  mid_d2    ::Int
-  mid_d3    ::Int
-  mid_d4    ::Int
-  rad_expn  ::Int # fmpz?
+  expn      ::Int  # fmpz?
+  mpsz      ::UInt # mp_size_t
+  d1        ::Int  # mantissa_struct
+  d2        ::Int
+  d3        ::Int
+  d4        ::Int
+  rad_expn  ::Int  # fmpz?
   rad_sgnf  ::UInt
   parent    ::ArbPrecision
 end
@@ -171,16 +171,16 @@ ArbSpan() = ArbSpan(sint0,uint0,sint0,sint0,sint0,sint0,sint0,uint0,FastArbPreci
 
 
 function convert(::Type{ArbSpan}, x::ArbValue)
-    if x.mid_mpsz < 3
-        ArbSpan(x.mid_expn,x.mid_mpsz, x.mid_d1,x.mid_d2,sint0,sint0,x.rad_expn,x.rad_sgnf,x.parent)
+    if x.mpsz < 3
+        ArbSpan(x.expn,x.mpsz, x.d1,x.d2,sint0,sint0,x.rad_expn,x.rad_sgnf,x.parent)
     else
         NotImplemented("conversion of indirect memory into quad limbs of struct")
     end
 end    
 
 function convert(::Type{ArbValue}, x::ArbSpan)
-    if x.mid_mpsz < 3
-        ArbValue(x.mid_expn,x.mid_mpsz, x.mid_d1,x.mid_d2,x.rad_expn,x.rad_sgnf,x.parent)
+    if x.mpsz < 3
+        ArbValue(x.expn,x.mpsz, x.d1,x.d2,x.rad_expn,x.rad_sgnf,x.parent)
     else
         NotImplemented("conversion of indirect memory into quad limbs of struct")
     end
@@ -192,19 +192,17 @@ convert(::Type{ArbValue} , x::ArbSpanStruct) =
 
 
 convert(::Type{ArbSpanStruct}, x::ArbSpan) =
-    ArbSpanStruct(x.mid_expn,x.mid_mpsz, x.mid_d1,x.mid_d2,x.mid_d3,x.mid_d4,x.rad_expn,x.rad_sgnf)
+    ArbSpanStruct(x.expn,x.mpsz, x.d1,x.d2,x.d3,x.d4,x.rad_expn,x.rad_sgnf)
 convert(::Type{ArbSpan} , x::ArbSpanStruct) = 
     ArbSpan(x.expn,x.mpsz, x.d1,x.d2,x.d3,x.d4,x.rad_expn,x.rad_sgnf, FastArbPrecision)
 convert(::Type{ArbSpanStruct}, x::ArbValue) =
-    ArbSpanStruct(x.mid_expn,x.mid_mpsz, x.mid_d1,x.mid_d2,sint0,sint0,x.rad_expn,x.rad_sgnf)
+    ArbSpanStruct(x.expn,x.mpsz, x.d1,x.d2,sint0,sint0,x.rad_expn,x.rad_sgnf)
 
 convert(ArfStruct, convert(ArbSpanStruct, x))
 convert(::Type{ArbValue}, x::ArbSpanStruct) =
-    ArbValue( x.mid_expn, x.mid_mpsz, x.mid_d1, x.mid_d2, x.rad_expn, x.rad_sgnf, FastArbPrecision)
+    ArbValue( x.expn, x.mpsz, x.d1, x.d2, x.rad_expn, x.rad_sgnf, FastArbPrecision)
     
 function convert(::Type{ArbValue}, x::ArbStruct, n::Int)
     arbprec = getkey(ArbPrecisions, n, (ArbPrecisions[n] = ArbPrecision(n))  )
-    ArbValue( x.mid_expn, x.mid_mpsz, x.mid_d1, x.mid_d2, x.rad_expn, x.rad_sgnf, arbprec )
+    ArbValue( x.expn, x.mpsz, x.d1, x.d2, x.rad_expn, x.rad_sgnf, arbprec )
 end
-
-
