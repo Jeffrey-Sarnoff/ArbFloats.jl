@@ -17,6 +17,8 @@ type ArbSpan <: Real
     
 end
 
+"""ArbSpan ↦  Float64 """
+
 function convert(::Type{Float64}, x::ArbSpan)
     t = ArfStruct()
     t.exp  = x.internal.mid_exp
