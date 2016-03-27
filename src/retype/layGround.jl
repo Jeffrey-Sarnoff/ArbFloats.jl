@@ -45,6 +45,7 @@ end
 
 MagStruct() = MagStruct(sint0, sint0)
 
+
 type SignificandStruct                   # mantissa_struct (arb/master/arf.h)
   d1  ::Int      #                   imm mantissa value high or mantissa alloc size
   d2  ::Int      #                   imm mantissa value low     ptr2 mantissa value
@@ -116,9 +117,11 @@ end
 
 ArbValue() = ArbValue(sint0,uint0,sint0,sint0,sint0,uint0,FastArbPrecision)
 
+
 convert(::Type{ArbStruct}, x::ArbValue) =
     ArbStruct(x.mid_exp, x.mid_size, x.mid_d1, x.mid_d2, x.rad_exp, x.rad_man)
 
+convert(::Type{ArfStruct}, x::ArbValue) = convert(ArfStruct, convert(ArbStruct, x))
 convert(::Type{ArbValue}, x::ArbStruct) =
     ArbValue( x.mid_xpn, x.mid_mpsz, x.mid_d1, x.mid_d2, x.rad_xpn, x.rad_sgf, FastArbPrecision)
     
@@ -126,3 +129,17 @@ function convert(::Type{ArbValue}, x::ArbStruct, n::Int)
     arbprec = getkey(ArbPrecisions, n, (ArbPrecisions[n] = ArbPrecision(n))  )
     ArbValue( x.mid_xpn, x.mid_mpsz, x.mid_d1, x.mid_d2, x.rad_xpn, x.rad_sgf, arbprec )
 end
+
+
+
+convert(::Type{SignificandStruct}, x::ArbValue) = convert(SignificandStruct, convert(ArfStruct, x))
+convert(::Type{ArbValue}, x::SignificandStruct) = convert(ArbValue, convert(ArfStruct, x))
+
+convert(::Type{MagStruct}, x::ArbStruct) = MagStruct(x.rad_xpn, x.rad_sgf)
+convert(::Type{ArbStruct}, x::MagStruct) = ArbStruct(sint0,uint0,sint0,sint0, x.rad_xpn, x.rad_sgf)
+
+convert(::Type{MagStruct}, x::ArbValue) = MagStruct(x.rad_xpn, x.rad_sgf)
+convert(::Type{ArbValue}, x::MagStruct) = convert(ArbValue, convert(ArbStruct,x))
+
+
+
