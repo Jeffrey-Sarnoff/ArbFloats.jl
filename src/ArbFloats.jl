@@ -12,10 +12,13 @@ import Base: hash, convert, promote_rule, isa,
     fld, cld, div, mod, rem, divrem, fldmod
 
 export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round(lo,n,10)
-       ArbSegment,    # midpoint ± 'radius' ('radius' is an equiprobable span, a line segment)
-       ArbEllipse,    # as Complex(real ArbSegment, imaginary ArbSegment)
-                      #    the real 'radius' and the imaginary 'radius' 
-                      #    are as the conjugate diameters of an ellipse
+       ArbSpan,       # midpoint ± 'radius' ('radius' is an equiprobable span, a line segment)
+       ArbBox,        # as Complex(real ArbSegment, imaginary ArbSegment)
+                      #    the real 'radius' and the imaginary 'radius' form a bounding box
+                      #    in the complex plane centered on the place indicated as
+                      #    Complex( midpoint(real), midpoint(imaginary) ) and oriented
+                      #    by considering the 'radii' as conjugate diameters of an ellipse
+                      #    < this ellipse gives the box as that in which it is inscribed >
                       #    positioned about the cartesian (or polar) location
                       #    given as Complex(real midpoint, imaginary midpoint)
                       #    and oriented with the real 'radius' centered along
@@ -24,10 +27,6 @@ export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round
                       #    with the imaginary 'radius' about the same center
                       #    oriented perpendicular to the real diameter 
                       #    atan2(-midpoint(imag), -midpoint(real) ).
-                      #    The two perpendicular centered segments escribe a box
-                      #    that bounds an ellipse -- the box necessarily bounds
-                      #    the intended value, the ellipse may or may not carry
-                      #    information that admits additional locative refinement.
 
 include("api/ArbLib.jl")
 include("api/AcbLib.jl")
