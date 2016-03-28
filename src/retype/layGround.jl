@@ -188,19 +188,19 @@ function convert(::Type{ArbValue}, x::ArbSpan)
 end    
 
 
-convert(::Type{ArbValue} , x::ArbSpanStruct) = 
+convert(::Type{ArbValue} , x::ArfSpanStruct) = 
     ArbSpan(x.expn,x.mpsz, x.d1,x.d2,x.d3,x.d4,x.rad_expn,x.rad_sgnf, FastArbPrecision)
 
 
-convert(::Type{ArbSpanStruct}, x::ArbSpan) =
+convert(::Type{ArfSpanStruct}, x::ArbSpan) =
     ArbSpanStruct(x.expn,x.mpsz, x.d1,x.d2,x.d3,x.d4,x.rad_expn,x.rad_sgnf)
-convert(::Type{ArbSpan} , x::ArbSpanStruct) = 
+convert(::Type{ArbSpan} , x::ArfSpanStruct) = 
     ArbSpan(x.expn,x.mpsz, x.d1,x.d2,x.d3,x.d4,x.rad_expn,x.rad_sgnf, FastArbPrecision)
-convert(::Type{ArbSpanStruct}, x::ArbValue) =
+convert(::Type{ArfSpanStruct}, x::ArbValue) =
     ArbSpanStruct(x.expn,x.mpsz, x.d1,x.d2,sint0,sint0,x.rad_expn,x.rad_sgnf)
 
-convert(ArfStruct, convert(ArbSpanStruct, x))
-convert(::Type{ArbValue}, x::ArbSpanStruct) =
+convert(ArfStruct, convert(ArfSpanStruct, x))
+convert(::Type{ArbValue}, x::ArfSpanStruct) =
     ArbValue( x.expn, x.mpsz, x.d1, x.d2, x.rad_expn, x.rad_sgnf, FastArbPrecision)
     
 function convert(::Type{ArbValue}, x::ArbStruct, n::Int)
