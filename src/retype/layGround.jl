@@ -232,7 +232,6 @@ convert(::Type{ArbSpan} , x::ArfSpanStruct) =
 convert(::Type{ArfSpanStruct}, x::ArbValue) =
     ArbSpanStruct(x.expn,x.mpsz, x.d1,x.d2,sint0,sint0,x.rad_expn,x.rad_sgnf)
 
-convert(ArfStruct, convert(ArfSpanStruct, x))
 convert(::Type{ArbValue}, x::ArfSpanStruct) =
     ArbValue( x.expn, x.mpsz, x.d1, x.d2, x.rad_expn, x.rad_sgnf, FastArbPrecision)
     
