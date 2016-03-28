@@ -55,8 +55,8 @@ SignificandStruct() = SignificandStruct(sint0, sint0)
 SignificandStruct(d1::Int) = SignificandStruct(d1, sint0)
 
 type ArfStruct                           #  arf_struct (arb/master/arf.h) 
-  expn ::Int     # fmpz?
-  mpsz::UInt     # mp_size_t
+  expn ::Int     # MagStruct    
+  mpsz::UInt     #                                  mp_size_t
   d1   ::Int     # SignificandStruct     # mantissa_struct
   d2   ::Int     #
 end
@@ -74,12 +74,13 @@ convert(::Type{ArfStruct}, mpsz::UInt, xp::Int, x::SignificandStruct) =
 
 
 type ArbStruct                           #  arb_struct (arb/master/arb.h)
-  expn     ::Int  # fmpz                 #    arf_struct
-  mpsz     ::UInt # mp_size_t            #
-  d1       ::Int  # SignificandStruct    #       mantissa_strct
-  d2       ::Int                         #
-  rad_expn ::Int  # fmpz?                #       mag_struct
-  rad_sgnf ::UInt                        #   
+                                         #    arf_struct
+  expn     ::Int  # MagStruct            #       mag_struct
+  mpsz     ::UInt #                      #          "
+  d1       ::Int  # SignificandStruct    #       mantissa_struct
+  d2       ::Int                         #               "  
+  rad_expn ::Int  # fmpz?                #    mag_struct
+  rad_sgnf ::UInt                        #       "
 end
 
 ArbStruct() = ArbStruct(sint0,uint0,sint0,sint0,sint0,uint0)
@@ -106,12 +107,12 @@ convert(::Type{ArbStruct}, rad_sgnf::UInt, rad_expn::Int, x::ArfStruct) =
 
 
 type ArbValue # <: FieldElem
-  expn      ::Int # fmpz
-  mpsz      ::UInt # mp_size_t
-  d1        ::Int # mantissa_struct
-  d2        ::Int
-  rad_expn  ::Int # fmpz?
-  rad_sgnf  ::UInt
+  expn      ::Int  # ArbStruct
+  mpsz      ::UInt # 
+  d1        ::Int  #       SignificandStruct
+  d2        ::Int  #
+  rad_expn  ::Int  # MagStruct
+  rad_sgnf  ::UInt #
   parent    ::ArbPrecision
 end
 
@@ -155,13 +156,13 @@ end
 ArfSpanStruct() = ArfSpanStruct(zero(Int),zero(UInt),zero(Int),zero(Int),zero(Int),zero(Int))
 
 type ArbSpan # <: FieldElem              #  JAS 2016-03-27
-  expn      ::Int  # fmpz?
-  mpsz      ::UInt # mp_size_t
-  d1        ::Int  # mantissa_struct
+  expn      ::Int  # ArfSpanStruct 
+  mpsz      ::UInt # 
+  d1        ::Int  #                mantissa_struct
   d2        ::Int
   d3        ::Int
   d4        ::Int
-  rad_expn  ::Int  # fmpz?
+  rad_expn  ::Int  # MagStruct
   rad_sgnf  ::UInt
   parent    ::ArbPrecision
 end
