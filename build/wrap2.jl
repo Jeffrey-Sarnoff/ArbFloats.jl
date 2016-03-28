@@ -3,7 +3,7 @@ using Clang.wrap_c
                              header_library=x->"libarb",
                              header_wrapped=(x,y)->contains(y, "arb.h"),
                              common_file="libarb_h.jl", clang_diagnostics=true,
-                             clang_args=["-v"], clang_includes=["/cmn/julia/usr/bin/", "/home/jas/Arb/arb-master"])
+                             clang_args=["-v"], clang_includes=["/cmn/julia/usr/bin/"])
        context.options.wrap_structs = true
        wrap_c.wrap_c_headers(context, ["arb.h","arf.h",acb.h"])
        
