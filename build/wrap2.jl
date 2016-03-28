@@ -5,6 +5,6 @@ using Clang.wrap_c
                              common_file="libarb_h.jl", clang_diagnostics=true,
                              clang_args=["-v"], clang_includes=["/cmn/julia/usr/bin/", "/home/jas/Arb/arb-master"])
        context.options.wrap_structs = true
-       wrap_c.wrap_c_headers(context, ["arb.h","arf.h",acb.h"]))
+       wrap_c.wrap_c_headers(context, ["arb.h","arf.h",acb.h"])
        
        
