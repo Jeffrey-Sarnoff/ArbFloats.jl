@@ -1,4 +1,4 @@
-
+import Base:convert, promote_rule
 
 # Julia standard number types grouped by relative size
 
