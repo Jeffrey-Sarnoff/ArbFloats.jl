@@ -223,10 +223,6 @@ end
 
 convert(::Type{ArbValue} , x::ArfSpanStruct) = 
     ArbSpan(x.expn,x.mpsz, x.d1,x.d2,x.d3,x.d4,x.rad_expn,x.rad_sgnf, FastArbPrecision)
-function convert(::Type{ArbValue}, x::ArbStruct, n::Int)
-    arbprec = lookupArbPrecision(n)
-    ArbValue( x.expn, x.mpsz, x.d1, x.d2, x.rad_expn, x.rad_sgnf, arbprec )
-end
 
 
 convert(::Type{ArfSpanStruct}, x::ArbSpan) =
