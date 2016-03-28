@@ -237,6 +237,6 @@ convert(::Type{ArbValue}, x::ArfSpanStruct) =
     ArbValue( x.expn, x.mpsz, x.d1, x.d2, x.rad_expn, x.rad_sgnf, FastArbPrecision)
     
 function convert(::Type{ArbValue}, x::ArbStruct, n::Int)
-    arbprec = getkey(ArbPrecisions, n, (ArbPrecisions[n] = ArbPrecision(n))  )
+    arbprec = lookupArbPrecision(n)
     ArbValue( x.expn, x.mpsz, x.d1, x.d2, x.rad_expn, x.rad_sgnf, arbprec )
 end
