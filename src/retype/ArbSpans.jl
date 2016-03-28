@@ -10,10 +10,6 @@
 
 function convert(::Type{Float64}, x::ArbValue)
     t = ArfStruct()
-    t.exp  = x.internal.mid_exp
-    t.size = x.internal.mid_size
-    t.d1   = x.internal.mid_d1
-    t.d2   = x.internal.mid_d2
     #                          (the rounding mode number 4 rounds to nearest)
     return ccall((:arf_get_d, :libarb), Float64, (Ptr{ArfStruct}, Int), &t, 4)
 end
@@ -23,12 +19,6 @@ function convert(::Type{ArbValue}, x::Float64)
     t = ArfStruct()
     #                          (the rounding mode number 4 rounds to nearest)
     return ccall((:arf_set_d, :libarb), Float64, (Ptr{ArfStruct}, Int), &t, 4)
-
-    t.exp  = x.internal.mid_exp
-    t.size = x.internal.mid_size
-    t.d1   = x.internal.mid_d1
-    t.d2   = x.internal.mid_d2
-
 end
 
 
