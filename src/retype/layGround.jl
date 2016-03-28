@@ -22,13 +22,14 @@ const float0 = zero(Float64)
 immutable ArbPrecision  # precision is the number of bits in the significand
   precision::Int        # Int32 allows > 600,000,000 digits, Arb does not use more than 16,000
 
-  ArbPrecision(x::Integer) = new( convert(Int,x) )
+  ArbPrecision(x) = new( convert(Int,x) )
 end
 precision(x::ArbPrecision) = x.precision
 
 
 # does not require indirect memory allocations
 const FastArbPrecision = ArbPrecision( fld(480, (12-sizeof(Int))) )
+
 LastArbPrecisionSetting = FastArbPrecision::ArbPrecision 
 
 ArbPrecisions = ObjectIdDict(   
