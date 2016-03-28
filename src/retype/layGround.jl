@@ -26,13 +26,27 @@ immutable ArbPrecision  # precision is the number of bits in the significand
 end
 precision(x::ArbPrecision) = x.precision
 
-ArbPrecisions = Dict(   
+ArbPrecisions = ObjectIdDict(   
     53   => ArbPrecision(  53),   60 => ArbPrecision(  60),  
     72   => ArbPrecision(  72),   75 => ArbPrecision(  75),
     120  => ArbPrecision( 120),  240 => ArbPrecision( 240), 
     250  => ArbPrecision( 250),  504 => ArbPrecision( 504), 
     1000 => ArbPrecision(1000), 3584 => ArbPrecision(3584),
 )
+
+function setArbPrecision(n::Integer)
+    global ArbPrecisions
+    n = min(16384, max(10, abs(n)))
+    ArbPrecisions[n] = ArbPrecision(n)
+end 
+
+function getArbPrecision(n::Integer)
+    global ArbPrecisions
+    n = min(16384, max(10, abs(n)))
+    get(ArbPrecisions, n,  setArbPrecision(n))
+end
+
+
 
 # does not require indirect memory allocations
 const FastArbPrecison = ArbPrecision( fld(480, (12-sizeof(Int))) )   
@@ -63,6 +77,10 @@ end
 
 ArfStruct() = ArfStruct(zero(Int),zero(UInt),zero(Int),zero(Int))
 
+ArfStruct(halfwidth::MagStruct, significand::SignficandStruct)  =
+   ArfStruct(halfwidth.expn, halfwidth.mpsz, significand.d1, significand.d2)
+
+
 convert(::Type{SignificandStruct}, x::ArfStruct) = SignificandStruct(x.d1, x.d2)
 
 convert(::Type{ArfStruct}, x::SignificandStruct, xp::Int, mpsz::UInt) = 
@@ -84,6 +102,9 @@ type ArbStruct                           #  arb_struct (arb/master/arb.h)
 end
 
 ArbStruct() = ArbStruct(sint0,uint0,sint0,sint0,sint0,uint0)
+
+ArbStruct(significand::ArfStruct, halfwidth::MagStruct)  =
+   ArbStruct(significand.expn, significand.mpsz, significand.d1, significand.d2, halfwidth.rad_expn, halfwidth.rad_mpsz)
 
 convert(::Type{SignificandStruct}, x::ArbStruct) = SignificandStruct(x.d1, x.d2)
 
@@ -117,6 +138,15 @@ type ArbValue # <: FieldElem
 end
 
 ArbValue() = ArbValue(sint0,uint0,sint0,sint0,sint0,uint0,FastArbPrecision)
+
+ArbValue(significand::ArfStruct, halfwidth::MagStruct)  =
+   ArbValue(significand.expn,significand.mpsz,significand.d1,significand.d2, halfwidth.rad_expn,halfwidth.rad_mpsz, FastArbPrecision)
+ArbValue(significand::ArfStruct, halfwidth::MagStruct, precision::ArbPrecision)  =
+   ArbValue(significand.expn,significand.mpsz,significand.d1,significand.d2, halfwidth.rad_expn,halfwidth.rad_mpsz, precision)
+ArbValue(significand::ArfStruct, halfwidth::MagStruct, precision::Integer)  =
+   ArbValue(significand.expn,significand.mpsz,significand.d1,significand.d2, halfwidth.rad_expn,halfwidth.rad_mpsz, arbprec(precision))
+
+
 
 
 convert(::Type{ArbStruct}, x::ArbValue) =
