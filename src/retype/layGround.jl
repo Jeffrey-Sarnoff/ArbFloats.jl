@@ -119,7 +119,7 @@ convert(::Type{ArbStruct}, mpsz::UInt, expn::Int, x::SignificandStruct) =
     convert(ArbStruct, x, expn, mpsz)
     
 
-convert(::Type{ArfStruct}, x::ArbStruct) = ArfStruct(x.expn, x.mpsa, x.d1, x.d2)
+convert(::Type{ArfStruct}, x::ArbStruct) = ArfStruct(x.expn, x.mpsz, x.d1, x.d2)
 
 convert(::Type{ArbStruct}, x::ArfStruct, rad_expn::Int, rad_sgnf::UInt) =
     ArbStruct(expn, mpsz, x.d1, x.d2, sint0, uint0)
