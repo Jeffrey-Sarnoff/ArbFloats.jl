@@ -26,6 +26,11 @@ immutable ArbPrecision  # precision is the number of bits in the significand
 end
 precision(x::ArbPrecision) = x.precision
 
+
+# does not require indirect memory allocations
+const FastArbPrecision = ArbPrecision( fld(480, (12-sizeof(Int))) )
+LastArbPrecisionSetting::ArbPrecision = FastArbPrecision
+
 ArbPrecisions = ObjectIdDict(   
     53   => ArbPrecision(  53),   60 => ArbPrecision(  60),  
     72   => ArbPrecision(  72),   75 => ArbPrecision(  75),
@@ -35,21 +40,19 @@ ArbPrecisions = ObjectIdDict(
 )
 
 function setArbPrecision(n::Integer)
-    global ArbPrecisions
+    global ArbPrecisions, LastArbPrecisionSetting
     n = min(16384, max(10, abs(n)))
-    ArbPrecisions[n] = ArbPrecision(n)
+    ArbPrecisions[n] = LastArbPrecisionSetting = ArbPrecision(n)
 end 
 
-function getArbPrecision(n::Integer)
-    global ArbPrecisions
+function lookupArbPrecision(n::Integer)
+    global ArbPrecisions, LastArbPrecisionSetting
     n = min(16384, max(10, abs(n)))
-    get(ArbPrecisions, n,  setArbPrecision(n))
+    LastArbPrecisionSetting = get(ArbPrecisions, n,  setArbPrecision(n))
 end
 
 
 
-# does not require indirect memory allocations
-const FastArbPrecison = ArbPrecision( fld(480, (12-sizeof(Int))) )   
 
 
 type MagStruct                            #  mag_struct (arb/master/mag.h)
