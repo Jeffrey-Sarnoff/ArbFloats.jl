@@ -7,12 +7,12 @@ import Clang.wrap_c: repr_jl, rep_type, rep_args, name_safe
 context=wrap_c.init(output_file="gen_libarb.jl",
                     common_file="gen_libarb_h.jl",
                     header_library=x->"libarb",
-                    clang_includes=["/usr/include","/home/jas/Arb/arb-master"],
+                    clang_includes=["/usr/include"],
                     header_wrapped=(x,y)->(contains(x,"arb")))
 
-# context.options = wrap_c.InternalOptions(true)  # wrap structs, too
+context.options = wrap_c.InternalOptions(true)  # wrap structs, too
 path = "/home/jas/Arb/arb-master"
-headers = [joinpath(path,"arb.h")]
+headers = [joinpath(path,"arb.h"),joinpath(path,"arf.h",joinpath(path,"mag.h"))]
 
 # Customize the wrap function for functions. This was copied
 # from Clang/src/wrap_c.jl, with the following customizations:
