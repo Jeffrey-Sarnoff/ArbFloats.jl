@@ -153,7 +153,7 @@ ArbValue(significand::ArfStruct, halfwidth::MagStruct, precision::Integer)  =
 
 
 convert(::Type{ArbStruct}, x::ArbValue) =
-    ArbStruct(x.exp, x.mpsz, x.d1, x.d2, x.rad_expn, x.rad_sgnf)
+    ArbStruct(x.expn, x.mpsz, x.d1, x.d2, x.rad_expn, x.rad_sgnf)
 
 convert(::Type{ArfStruct}, x::ArbValue) = convert(ArfStruct, convert(ArbStruct, x))
 convert(::Type{ArbValue}, x::ArbStruct) =
