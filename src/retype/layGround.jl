@@ -80,7 +80,7 @@ end
 
 ArfStruct() = ArfStruct(zero(Int),zero(UInt),zero(Int),zero(Int))
 
-ArfStruct(halfwidth::MagStruct, significand::SignficandStruct)  =
+ArfStruct(halfwidth::MagStruct, significand::SignificandStruct)  =
    ArfStruct(halfwidth.expn, halfwidth.mpsz, significand.d1, significand.d2)
 
 
