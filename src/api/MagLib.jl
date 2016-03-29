@@ -40,8 +40,7 @@ end
 
 function Base.convert(::Type{Mag}, x::Float64)
     m = Mag()
-    ccall( (:mag_set_d, :libarb), Void, (Ptr{Mag}, Ptr{Float64}), 
-                  pointer_from_objref(m), pointer_from_objref(x) )
+    ccall( (:mag_set_d, :libarb), Void, (Ptr{Mag}, Ptr{Float64}), &m, &x)
     m
 end
 
