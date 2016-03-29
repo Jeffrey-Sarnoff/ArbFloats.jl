@@ -20,13 +20,26 @@
 type Mag <: AbstractFloat
     exponent::Int           # fmpz
     mantissa::UInt          # mp_limb_t
+    
+    # provide an inner constructor to avoid AbstractFloat ambiguity
+    Mag(exponent::Int, mantissa::UInt) = new(exponent, mantissa)
 end
 
 Mag() = Mag(zero(Int), zero(UInt))
 Mag(mantissa::UInt) = Mag(zero(Int), mantissa)
-Mag(mantissa::Int)  = Mag(reinterpret(UInt, mantissa))
+Mag(mantissa::Int)  = Mag(reinterpret(UInt, mantissa), zero(Int))
+
+Mag(mantissa::UInt, exponent::Int) = Mag(exponent, mantissa)
+Mag{T<:Int}(mantissa::T, exponent::T)  = Mag(exponent, reinterpret(UInt, mantissa))
+Mag{T<:Integer}(mantissa::T, exponent::T) = Mag(convert(Int, mantissa), convert(Int, exponent))
+
+function Base.show(io::IO, x::Mag) 
+   s = string("Mag( ", mantissa, "* 2^", exponent, " )")
+   print(io, s)
+end
 
 function convert(::Type{Mag}, x::Float64)
     m = Mag()
     ccall( (:mag_set_d, :libarb), Void, (Ptr{Mag}, Ptr{Float64}), m, x )
 end
+
