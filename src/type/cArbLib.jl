@@ -25,12 +25,12 @@ end
 
 precision(x::ArbValue) = x.parentprecision # ::Int
 
-ArbValue(significand:SignificandStruct, plusorminus::PlusOrMinusStruct, parentprecision::Int) =
+ArbValue(significand:SignificandStruct, halfwidth::HalfwidtStruct, parentprecision::Int) =
    ArbValue( significand.significandPow2, significand.signifiandSize,
              significand.significandHead, significand.significandTail,
              halfwidthPow2, halfwidthSignif, parentprecision )
 
-ArbValue(significand::SignificandStruc, plusorminus::PlusOrMinusStruct) =
+ArbValue(significand::SignificandStruct, halfwidth::HalfwidthStruct) =
    ArbValue( significand.significandPow2, significand.signifiandSize,
              significand.significandHead, significand.significandTail,
              halfwidthPow2, halfwidthSignif, precision()  )
@@ -57,7 +57,7 @@ type ArfValue <: Real
             halfwidthPow2, halfwidthSignif     )
 end
 
-ArfValue(significand::SignificandStruc, halfwidth::HalfwidthStruct) =
+ArfValue(significand::SignificandStruct, halfwidth::HalfwidthStruct) =
    ArfValue( significand.significandPow2, significand.signifiandSize,
              significand.significandHead, significand.significandTail,
              halfwidth.halfwidthPow2, halfwidth.halfwidthSignif )
