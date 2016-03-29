@@ -44,3 +44,5 @@ function Base.convert(::Type{Mag}, x::Float64)
     m
 end
 
+Base.convert{T<:AbstractFloat}(::Type{Mag}, x::T) = 
+    convert(Mag, convert(Float64, x))
