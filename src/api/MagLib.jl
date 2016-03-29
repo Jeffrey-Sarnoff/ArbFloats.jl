@@ -17,7 +17,7 @@
   -- exerpted from http://fredrikj.net/arb/mag.html
 =#
 
-import Base: convert, promote_rule, show
+import Base: convert, promote_rule, show, showcompact
 
 type Mag <: AbstractFloat
     exponent::Int           # fmpz
@@ -37,6 +37,11 @@ Mag{T<:Integer}(mantissa::T, exponent::T) = Mag(convert(Int, mantissa), convert(
 
 function show(io::IO, x::Mag) 
    s = string("Mag( ", x.mantissa, "* 2^", x.exponent, " )")
+   print(io, s)
+end
+
+function showcompact(io::IO, x::Mag) 
+   s = string("Mag(", Float64(x.mantissa) * ldexp(1.0, x.exponent),  )")
    print(io, s)
 end
 
