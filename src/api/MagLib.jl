@@ -14,5 +14,5 @@ values zero and positive infinity  are supported (but not NaN).
 Applications requiring more flexibility (such as correct rounding, 
 or higher precision) should use the arf_t type instead.
 
-[http://fredrikj.net/arb/mag.html]
+-- from http://fredrikj.net/arb/mag.html
 =#
