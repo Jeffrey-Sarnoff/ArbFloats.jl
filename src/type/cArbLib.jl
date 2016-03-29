@@ -7,8 +7,8 @@ type ArbValue <: Real
    # midpoint of interval value
    significandPow2 ::Int
    significandSize ::UInt
-   significandHead ::Int
-   significandTail ::Int
+   significandHigh ::Int
+   significandLow ::Int
    # halfwidth of interval value, symmetric about the midpoint 
    halfwidthPow2   ::Int
    halfwidthSignif ::UInt
@@ -16,10 +16,10 @@ type ArbValue <: Real
    parentprecision ::Int
    
    ArbValue(significandPow2::Int, signifiandSize::UInt,
-            significandHead::Int, significandTail::Int,
+            significandHigh::Int, significandLow::Int,
             halfwidthPow2::Int, halfwidthSignif::UInt, parentprecision::Int ) =
        new( significandPow2, significandSize,
-            significandHead, significandTail,
+            significandHigh, significandLow,
             halfwidthPow2, halfwidthSignif, parentprecision )
 end
 
@@ -27,12 +27,12 @@ precision(x::ArbValue) = x.parentprecision # ::Int
 
 ArbValue(significand:SignificandStruct, halfwidth::HalfwidtStruct, parentprecision::Int) =
    ArbValue( significand.significandPow2, significand.signifiandSize,
-             significand.significandHead, significand.significandTail,
+             significand.significandHigh, significand.significandLow,
              halfwidthPow2, halfwidthSignif, parentprecision )
 
 ArbValue(significand::SignificandStruct, halfwidth::HalfwidthStruct) =
    ArbValue( significand.significandPow2, significand.signifiandSize,
-             significand.significandHead, significand.significandTail,
+             significand.significandHigh, significand.significandLow,
              halfwidthPow2, halfwidthSignif, precision()  )
 
 #
@@ -43,23 +43,23 @@ type ArfValue <: Real
    # midpoint of interval value
    significandPow2 ::Int
    significandSize ::UInt
-   significandHead ::Int
-   significandTail ::Int
+   significandHigh ::Int
+   significandLow  ::Int
    # halfwidth of interval value, symmetric about the midpoint 
    halfwidthPow2   ::Int
    halfwidthSignif ::UInt
 
    ArfValue(significandPow2::Int, signifiandSize::UInt,
-            significandHead::Int , significandTail::Int,
+            significandHigh::Int , significandLow::Int,
             halfwidthPow2::Int, halfwidthSignif::UInt   ) =
        new( significandPow2, significandSize,
-            significandHead, significandTail,
+            significandHigh, significandLow,
             halfwidthPow2, halfwidthSignif     )
 end
 
 ArfValue(significand::SignificandStruct, halfwidth::HalfwidthStruct) =
    ArfValue( significand.significandPow2, significand.signifiandSize,
-             significand.significandHead, significand.significandTail,
+             significand.significandHigh, significand.significandLow,
              halfwidth.halfwidthPow2, halfwidth.halfwidthSignif )
 
 convert(::Type{ArfValue}, x::ArbValue) = 
@@ -69,11 +69,43 @@ convert(::Type{ArfValue}, x::ArbValue) =
 
 convert(::Type{ArbValue}, x::ArfValue) = 
     ArbValue( x.significandPow2, x.significandSize,
-              x.significandHead, x.significandTail,
+              x.significandHigh, x.significandLow,
               x.halfwidthPow2, x.halfwidthSignif  ,
               parentprecision() )
 
 promote_rule(::Type{ArbValue}, ::Type{ArfValue}) = ArbValue
+
+
+
+type SignificandStruct <: Real
+   # midpoint of interval value
+   significandPow2 ::Int
+   significandSize ::UInt
+   significandHead ::Int
+   significandTail ::Int
+   # halfwidth of interval value, symmetric about the midpoint 
+   halfwidthPow2   ::Int
+   halfwidthSignif ::UInt
+
+   SignificandStruct(significandPow2::Int, signifiandSize::UInt,
+            significandHead::Int, significandTail::Int,
+            halfwidthPow2::Int, halfwidthSignif::UInt ) =
+       new( significandPow2, significandSize,
+            significandHead, significandTail,
+            halfwidthPow2, halfwidthSignif )
+end
+
+
+type HalfwidthStruct <: Real
+   # halfwidth of interval value, symmetric about the midpoint 
+   halfwidthPow2   ::Int
+   halfwidthSignif ::UInt
+
+   HalfwidthStruct(significandPow2::Int, significandSignif::UInt) =
+       new( significandPow2, significandSignif )
+end
+
+
 
 
 function Cdouble(a::ArfValue, roundingMode::Cint = 4)
