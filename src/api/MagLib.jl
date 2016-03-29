@@ -17,6 +17,8 @@
   -- exerpted from http://fredrikj.net/arb/mag.html
 =#
 
+import Base: convert, promote_rule, show
+
 type Mag <: AbstractFloat
     exponent::Int           # fmpz
     mantissa::UInt          # mp_limb_t
@@ -33,16 +35,29 @@ Mag(mantissa::UInt, exponent::Int) = Mag(exponent, mantissa)
 Mag{T<:Int}(mantissa::T, exponent::T)  = Mag(exponent, reinterpret(UInt, mantissa))
 Mag{T<:Integer}(mantissa::T, exponent::T) = Mag(convert(Int, mantissa), convert(Int, exponent))
 
-function Base.show(io::IO, x::Mag) 
+function show(io::IO, x::Mag) 
    s = string("Mag( ", x.mantissa, "* 2^", x.exponent, " )")
    print(io, s)
 end
 
-function Base.convert(::Type{Mag}, x::Float64)
+function convert(::Type{Mag}, x::Float64)
     m = Mag()
     ccall( (:mag_set_d, :libarb), Void, (Ptr{Mag}, Ptr{Float64}), &m, &x)
     m
 end
 
-Base.convert{T<:AbstractFloat}(::Type{Mag}, x::T) = 
-    convert(Mag, convert(Float64, x))
+convert{T<:AbstractFloat}(::Type{Mag}, x::T) = convert(Mag, convert(Float64, x))
+convert{T<:Integer}(::Type{Mag}, x::T) = convert(Mag, convert(Float64, x))
+
+promote_rule(::Type{Mag}, ::Type{Float64}) = Mag
+promote_rule{I<:Integer(::Type{Mag}, ::Type{I}) = Mag
+
+for op in (:+,:-,:*,:/)
+  @eval begin
+     ($op)(a::Mag, b::Float64) = ($op)(promote(a,b)...)
+     ($op)(a::Float64, b::Mag) = ($op)(promote(a,b)...)
+     ($op){T<:Integer}(a::Mag, b::T) = ($op)(promote(a,b)...)
+     ($op){T<:Integer}(a::T, b::Mag) = ($op)(promote(a,b)...)
+    end
+end  
+
