@@ -8,7 +8,7 @@ type ArbValue <: Real
    significandPow2 ::Int
    significandSize ::UInt
    significandHigh ::Int
-   significandLow ::Int
+   significandLow  ::Int
    # halfwidth of interval value, symmetric about the midpoint 
    halfwidthPow2   ::Int
    halfwidthSignif ::UInt
