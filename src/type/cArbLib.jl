@@ -16,14 +16,14 @@ type ArbValue <: Real
    parentprecision ::Int
    
    ArbValue(significandPow2::Int, signifiandSize::UInt,
-            significandHead::Int , significandTail::Int,
+            significandHead::Int, significandTail::Int,
             halfwidthPow2::Int, halfwidthSignif::UInt, parentprecision::Int ) =
        new( significandPow2, significandSize,
             significandHead, significandTail,
-            halfwidthPow2 halfwidthSignif, parentprecision )
+            halfwidthPow2, halfwidthSignif, parentprecision )
 end
 
-parentprecision() = precision(ArbValue) # ::Int
+precision(x::ArbValue) = x.parentprecision # ::Int
 
 ArbValue(significand:SignificandStruct, plusorminus::PlusOrMinusStruct, parentprecision::Int) =
    ArbValue( significand.significandPow2, significand.signifiandSize,
@@ -33,8 +33,7 @@ ArbValue(significand:SignificandStruct, plusorminus::PlusOrMinusStruct, parentpr
 ArbValue(significand::SignificandStruc, plusorminus::PlusOrMinusStruct) =
    ArbValue( significand.significandPow2, significand.signifiandSize,
              significand.significandHead, significand.significandTail,
-             halfwidthPow2, halfwidthSignif, parentprecision,
-             parentprecision() )
+             halfwidthPow2, halfwidthSignif, precision()  )
 
 #
 #   ArfValue (an ArbValue without trailing precision field)
@@ -77,17 +76,17 @@ convert(::Type{ArbValue}, x::ArfValue) =
 promote_rule(::Type{ArbValue}, ::Type{ArfValue}) = ArbValue
 
 
-function Cdouble(a::arf, rnd::Cint = 4)
-  z = ccall((:arf_get_d, :libarb), Cdouble, (Ptr{arf}, Cint), a.data, rnd)
+function Cdouble(a::ArfValue, roundingMode::Cint = 4)
+  z = ccall((:arf_get_d, :libarb), Cdouble, (Ptr{arf}, Cint), a.data, roundingMode)
   return z
 end
 
-function BigFloat(x::arf)
-  old_prec = get_bigfloat_precision()
-  set_bigfloat_precision(parent(x).prec)
+function BigFloat(x::ArfValue)
+  old_prec = precision()
+  setprecision(precision(x))
   z = BigFloat(0)
   r = ccall((:arf_get_mpfr, :libarb), Cint,
                 (Ptr{BigFloat}, Ptr{arf}, Cint), &z, &x, Cint(0))
-  set_bigfloat_precision(old_prec)
+  setprecision(old_prec)
   return z
 end
