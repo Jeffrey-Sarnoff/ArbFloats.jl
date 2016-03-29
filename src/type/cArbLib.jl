@@ -54,7 +54,7 @@ type ArfValue <: Real
             halfwidthPow2::Int, halfwidthSignif::UInt   ) =
        new( significandPow2, significandSize,
             significandHead, significandTail,
-            halfwidthPow2 halfwidthSignif     )
+            halfwidthPow2, halfwidthSignif     )
 end
 
 ArfValue(significand::SignificandStruc, halfwidth::HalfwidthStruct) =
