@@ -16,3 +16,17 @@
   
   -- exerpted from http://fredrikj.net/arb/mag.html
 =#
+
+type Mag <: AbstractFloat
+    exponent::Int           # fmpz
+    mantissa::UInt          # mp_limb_t
+end
+
+Mag() = Mag(zero(Int), zero(UInt))
+Mag(mantissa::UInt) = Mag(zero(Int), mantissa)
+Mag(mantissa::Int)  = Mag(reinterpret(UInt, mantissa))
+
+function convert(::Type{Mag}, x::Float64)
+    m = Mag()
+    ccall( (:mag_set_d, :libarb), Void, (Ptr{Mag}, Ptr{Float64}), m, x )
+end
