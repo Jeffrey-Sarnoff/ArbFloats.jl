@@ -94,7 +94,7 @@ immutable mantissa_noptr_struct
 end
 
 type mantissa_struct        /* UNION */
-    mantissa_noprt_struct   noptr
+#   mantissa_noprt_struct   noptr
     mantissa_ptr_struct     ptr
 end
 
