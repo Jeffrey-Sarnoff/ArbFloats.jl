@@ -75,6 +75,12 @@ typealias mp_limb_signed_t      Int64       # Clonglong
 
 
 
-immutable fmprStruct
-    fmpz
+immutable fmpr_struct
+    fmpz                        mantissa
+    fmpz                        exponent
 end
+
+
+
+
+
