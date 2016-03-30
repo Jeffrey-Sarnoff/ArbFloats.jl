@@ -10,20 +10,20 @@ typealias mp_ptr                Ref{UInt64}
 typealias mp_noptr              (UInt64,UInt64)
 
 immutable fmpr_struct
-    fmpz::                      man # mantissa
-    fmpz::                      exp # exponent
+    man::fmpz                   #   man # mantissa
+    exp::fmpz                   #   exp # exponent
 end
 typealias fmpr_struct_ptr       Ref{fmpr_struct}
 
 immutable mag_struct
-    fmpz::                      exp # exponent
-    mp_limb_t::                 man # mantissa
+    exp:;fmpz                   #   exp # exponent
+    man::mp_limb_t              #   man # mantissa
 end
 typealias mag_struct_ptr        Ref{mag_struct}
 
 immutable mantissa_ptr_struct
-    mp_size_t::                 alloc
-    mp_ptr::                    d
+    alloc::mp_size_t            @ alloc
+    d::mp_ptr
 end
 typealias mantissa_ptr_struct_ptr     Ref{mantissa_ptr_struct}
 
@@ -32,12 +32,24 @@ immutable mantissa_noptr_struct
 end
 typealias mantissa_noptr_struct_ptr   Ref{mantissa_noptr_struct}
 
-type mantissa_struct                         # in C, a Union type
+immutable mantissa_struct                    # in C, a Union type
   # mantissa_noprt_struct   noptr            # drop any smaller members
     mantissa_ptr_struct     ptr              # specify one member, the largest
 end
 typealias mantissa_struct_ptr         Ref{mantissa_struct}
 
+immutable arf_struct
+    fmpz                    exp
+    mp_size_t               size
+    mantissa_struct         d
+end
+typealias arf_struct_ptr              Ref{arf_struct}
+
+immutable arb_struct
+    arf_struct              mid
+    mag_struct              rad
+end    
+typealias arb_struct_ptr              Ref{arb_struct}
 
 
 
