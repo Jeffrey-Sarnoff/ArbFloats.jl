@@ -83,31 +83,35 @@ typealias mp_limb_t             UInt64       # Culonglong
 typealias mp_limb_signed_t      Int64        # Clonglong
 typealias mp_ptr                Ref{UInt64}   
 
+typealias mp_noptr              (UInt64,UInt64)
+
 immutable fmpr_struct
-    fmpz                        man # mantissa
-    fmpz                        exp # exponent
+    fmpz::                      man # mantissa
+    fmpz::                      exp # exponent
 end
 typealias fmpr_struct_ptr       Ref{fmpr_struct}
 
+
+
 immutable mag_struct
-    fmpz                        exp # exponent
-    mp_limb_t                   man # mantissa
+    fmpz::                      exp # exponent
+    mp_limb_t::                 man # mantissa
 end
 typealias mag_struct_ptr        Ref{mag_struct}
 
 immutable mantissa_ptr_struct
-    mp_size_t                   alloc
-    mp_ptr                      d
+    mp_size_t::                 alloc
+    mp_ptr::                    d
 end
 typealias mantissa_ptr_struct_ptr     Ref{mantissa_ptr_struct}
 
 immutable mantissa_noptr_struct
-    mp_limb_t                   d[ARF_NOPTR_LIMBS]
+    mp_limb_t::                 d[ARF_NOPTR_LIMBS]
 end
 typealias mantissa_noptr_struct_ptr   Ref{mantissa_noptr_struct}
 
 type mantissa_struct                         # in C, a Union type
-#   mantissa_noprt_struct   noptr            # drop any smaller members
+  # mantissa_noprt_struct   noptr            # drop any smaller members
     mantissa_ptr_struct     ptr              # specify one member, the largest
 end
 typealias mantissa_struct_ptr         Ref{mantissa_struct}
