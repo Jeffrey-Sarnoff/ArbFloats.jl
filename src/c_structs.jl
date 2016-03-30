@@ -59,9 +59,22 @@
 
    
    
-   typedef signed long          fmpz;
-   
+   typedef   signed long        fmpz;
    typedef unsigned long        mp_limb_t;
-   typedef signed long          mp_limb_signed_t;
+   typedef   signed long        mp_limb_signed_t;
    
 =#
+
+
+typealias fmpz                  Int64       # Clonglong
+typealias mp_limb_t             UInt64      # Culonglong
+typealias mp_limb_signed_t      Int64       # Clonglong
+
+
+
+
+
+
+immutable fmprStruct
+    fmpz
+end
