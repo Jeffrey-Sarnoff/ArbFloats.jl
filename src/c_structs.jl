@@ -93,6 +93,9 @@ immutable mantissa_noptr_struct
     mp_ptr                      d[ARF_NOPTR_LIMBS]
 end
 
-
+type mantissa_struct        /* UNION */
+    mantissa_noprt_struct   noptr
+    mantissa_ptr_struct     ptr
+end
 
 
