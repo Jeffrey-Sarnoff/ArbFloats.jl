@@ -72,14 +72,26 @@ typealias mp_limb_signed_t      Int64       # Clonglong
 
 
 
-
-
-
 immutable fmpr_struct
-    fmpz                        mantissa
-    fmpz                        exponent
+    fmpz                        man # mantissa
+    fmpz                        exp # exponent
 end
 
+immutable mag_struct
+    fmpz                        exp # exponent
+    mp_limb_t                   man # mantissa
+end
+
+
+immutable mantissa_ptr_struct
+    mp_size_t                   alloc
+    mp_ptr                      d
+end
+
+immutable mantissa_noptr_struct
+    mp_limb_t                   alloc
+    mp_ptr                      d[ARF_NOPTR_LIMBS]
+end
 
 
 
