@@ -40,6 +40,7 @@ export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round
                       #    atan2(-midpoint(imag), -midpoint(real) ).
                       
 
+include("c_structs.jl")
 
 include("api/ArbLib.jl")
 include("api/AcbLib.jl")
