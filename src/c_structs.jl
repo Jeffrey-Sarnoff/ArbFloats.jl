@@ -7,7 +7,7 @@ typealias mp_limb_t             UInt64       # Culonglong
 typealias mp_limb_signed_t      Int64        # Clonglong
 typealias mp_ptr                Ref{UInt64}   
 
-typealias mp_noptr              (UInt64,UInt64)
+typealias mp_noptr              Tuple(UInt64,UInt64)
 
 immutable fmpr_struct
     man::fmpz                   #   man # mantissa
@@ -16,7 +16,7 @@ end
 typealias fmpr_struct_ptr       Ref{fmpr_struct}
 
 immutable mag_struct
-    exp:;fmpz                   #   exp # exponent
+    exp::fmpz                   #   exp # exponent
     man::mp_limb_t              #   man # mantissa
 end
 typealias mag_struct_ptr        Ref{mag_struct}
