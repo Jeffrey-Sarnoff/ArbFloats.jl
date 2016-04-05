@@ -44,15 +44,15 @@ end
 typealias mantissa_struct_ptr         Ref{mantissa_struct}
 
 immutable arf_struct
-    fmpz                    # exp
-    mp_size_t               # size
-    mantissa_struct         # d
+    exp::fmpz                # exp
+    size::mp_size_t          # size
+    d::mantissa_struct       # d
 end
 typealias arf_struct_ptr              Ref{arf_struct}
 
 immutable arb_struct
-    arf_struct              # mid
-    mag_struct              # rad
+    mid::arf_struct          # mid
+    rad::mag_struct          # rad
 end    
 typealias arb_struct_ptr              Ref{arb_struct}
 
