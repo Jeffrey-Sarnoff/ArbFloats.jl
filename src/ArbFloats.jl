@@ -10,7 +10,9 @@ import Base: hash, convert, promote_rule, isa,
     (+),(-),(*),(/),(\),(%),(^),sqrt,
     trunc, round, ceil, floor,
     fld, cld, div, mod, rem, divrem, fldmod,
-    CDouble, CInt, CPtr, BigInt, BigFloat
+    BigInt, BigFloat,
+    Ptr, Ref, Csize_t, Cssize_t,
+    Cdouble, Culonglong, Clonglong, Cuint, Cint, Cushort, Cshort
 
 
 NotImplemented(info::AbstractString="") = error(string("this is not implemented\n\t",info,"\n"))
