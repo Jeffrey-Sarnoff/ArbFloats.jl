@@ -41,7 +41,7 @@ function show(io::IO, x::Mag)
 end
 
 function showcompact(io::IO, x::Mag) 
-   s = string("Mag(", Float64(x.mantissa) * ldexp(1.0, x.exponent),  )")
+   s = string("Mag(", Float64(x.mantissa) * ldexp(1.0, x.exponent), ")")
    print(io, s)
 end
 
