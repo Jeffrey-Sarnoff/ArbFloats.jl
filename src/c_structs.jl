@@ -28,6 +28,12 @@ typealias mag_struct_ptr        Ref{mag_struct}
 expo(x::mag_struct) = x.expo ; exp(x::mag_struct) = x.expo
 mant(x::mag_struct) = x.mant ; man(x::mag_struct) = x.mant
 
+expo(x::mag_struct, e::fmpz) = mag_struct(e, x.mant)
+mant(x::mag_struct, m::mp_limb_t) = mag_struct(x.expo, m)
+mag_struct(x::mag_struct, e::fmpz) = mag_struct(e, x.mant)
+mag_struct(x::mag_struct, m::mp_limb_t) = mag_struct(x.expo, m)
+
+
 immutable mantissa_ptr_struct
     alloc::mp_size_t            # count of multiprecision limbs allocated
     d::mp_ptr                   #   when alloc <= 2, uses mantissa_noptr_struct
@@ -71,6 +77,10 @@ expo(x::arf_struct) = x.expo ; exp(x::arf_struct) = x.expo
 size(x::arf_struct) = x.size
 mant(x::arf_struct) = x.mant ; d(x::arf_struct) = x.mant
 
+expo(x::arf_struct, e::fmpz) = arf_struct(e, x.size, x.mant)
+size(x::arf_struct, s::mp_size_t) = arf_struct(x.expo, s, x.mant)
+mant(x::arf_struct, m::mantissa_struct) = arf_struct(x.expo, x.size, m)
+
 
 immutable arb_struct
     mid::arf_struct          # mid
@@ -86,7 +96,8 @@ midmant(x::arb_struct) = x.mid.mant ; d(x::arb_struct) = x.mid.mant
 radexpo(x::arb_struct) = x.rad.expo
 radmant(x::arb_struct) = x.rad.mant
 
-
+mid(x::arb_struct, m::arf_struct) = arb_struct(m, x.rad)
+rad(x::arb_struct, r::mag_struct) = arb_struct(x.mid, r)
 
 #=
 
