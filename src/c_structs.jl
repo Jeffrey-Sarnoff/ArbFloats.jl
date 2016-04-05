@@ -7,7 +7,7 @@ typealias mp_limb_t             UInt64       # Culonglong
 typealias mp_limb_signed_t      Int64        # Clonglong
 typealias mp_ptr                Ref{UInt64}   
 
-typealias mp_noptr              NTuple(2, UInt64)
+typealias mp_noptr              NTuple{2,UInt64}
 
 immutable fmpr_struct
     man::fmpz                   #   man # mantissa
