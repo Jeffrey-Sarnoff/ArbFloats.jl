@@ -32,26 +32,27 @@ end
 typealias mantissa_ptr_struct_ptr     Ref{mantissa_ptr_struct}
 
 immutable mantissa_noptr_struct
-    mp_limb_t::                 UInt64[ARF_NOPTR_LIMBS] # d[2]
+    d0::mp_limb_t # UInt64[ARF_NOPTR_LIMBS] # d[2]
+    d1::mp_limb_t
 end
 typealias mantissa_noptr_struct_ptr   Ref{mantissa_noptr_struct}
 
 immutable mantissa_struct                    # in C, a Union type
   # mantissa_noprt_struct   noptr            # drop any smaller members
-    mantissa_ptr_struct     ptr              # specify one member, the largest
+    mantissa_ptr_struct::   ptr              # specify one member, the largest
 end
 typealias mantissa_struct_ptr         Ref{mantissa_struct}
 
 immutable arf_struct
-    fmpz                    exp
-    mp_size_t               size
-    mantissa_struct         d
+    fmpz                    # exp
+    mp_size_t               # size
+    mantissa_struct         # d
 end
 typealias arf_struct_ptr              Ref{arf_struct}
 
 immutable arb_struct
-    arf_struct              mid
-    mag_struct              rad
+    arf_struct              # mid
+    mag_struct              # rad
 end    
 typealias arb_struct_ptr              Ref{arb_struct}
 
