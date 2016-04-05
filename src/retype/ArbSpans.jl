@@ -70,8 +70,8 @@ for (typeofx, passtoc) in ((arb, Ref{arb}), (Ptr{arb}, Ptr{arb}))
     function _arb_set(x::($typeofx), y::fmpz)
       ccall((:arb_set_fmpz, :libarb), Void, (($passtoc), Ptr{fmpz}), x, &y)
     end
-
-
+  end
+end
 
 
 
