@@ -20,10 +20,13 @@ end
 typealias fmpr_struct_ptr       Ref{fmpr_struct}
 
 immutable mag_struct
-    exp::fmpz                   #   exp # exponent
-    man::mp_limb_t              #   man # mantissa
+    expo::fmpz                   #   exp # exponent
+    mant::mp_limb_t              #   man # mantissa
 end
 typealias mag_struct_ptr        Ref{mag_struct}
+
+expo(x::mag_struct) = x.expo ; exp(x::mag_struct) = x.expo
+mant(x::mag_struct) = x.mant ; man(x::mag_struct) = x.mant
 
 immutable mantissa_ptr_struct
     alloc::mp_size_t            # count of multiprecision limbs allocated
@@ -31,11 +34,17 @@ immutable mantissa_ptr_struct
 end
 typealias mantissa_ptr_struct_ptr     Ref{mantissa_ptr_struct}
 
+alloc(x::mantissa_ptr_struct) = x.alloc
+d(x::mantissa_ptr_struct) = x.d
+
 immutable mantissa_noptr_struct
     d0::mp_limb_t # UInt64[ARF_NOPTR_LIMBS] # d[2]
     d1::mp_limb_t
 end
 typealias mantissa_noptr_struct_ptr   Ref{mantissa_noptr_struct}
+
+d0(x::mantissa_noptr_struct) = x.d0
+d1(x::mantissa_noptr_struct) = x.d1
 
 immutable mantissa_struct                    # in C, a Union type
   # noptr::mantissa_noprt_struct             # drop any smaller members
@@ -43,18 +52,39 @@ immutable mantissa_struct                    # in C, a Union type
 end
 typealias mantissa_struct_ptr         Ref{mantissa_struct}
 
+ptr(x::mantissa_struct) = x.ptr
+noptr(x::mantissa_struct) = x.noptr
+alloc(x::mantissa_struct) = x.ptr.alloc
+d(x::mantissa_struct) = x.ptr.d
+d0(x::mantissa_struct) = x.noptr.d0
+d1(x::mantissa_struct) = x.noptr.d1
+
+
 immutable arf_struct
-    exp::fmpz                # exp
-    size::mp_size_t          # size
-    d::mantissa_struct       # d
+    expo::fmpz                # exp
+    size::mp_size_t           # size
+    mant::mantissa_struct     # d
 end
 typealias arf_struct_ptr              Ref{arf_struct}
+
+expo(x::arf_struct) = x.expo ; exp(x::arf_struct) = x.expo
+size(x::arf_struct) = x.size
+mant(x::arf_struct) = x.mant ; d(x::arf_struct) = x.mant
+
 
 immutable arb_struct
     mid::arf_struct          # mid
     rad::mag_struct          # rad
 end    
 typealias arb_struct_ptr              Ref{arb_struct}
+
+mid(x::arb_struct) = x.mid
+rad(x::arb_struct) = x.rad
+midexpo(x::arb_struct) = x.mid.expo ; exp(x::arb_struct) = x.mid.expo 
+midsize(x::arb_struct) = x.mid.size
+midmant(x::arb_struct) = x.mid.mant ; d(x::arb_struct) = x.mid.mant
+radexpo(x::arb_struct) = x.rad.expo
+radmant(x::arb_struct) = x.rad.mant
 
 
 
