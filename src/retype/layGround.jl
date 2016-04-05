@@ -24,7 +24,7 @@ immutable ArbPrecision  # precision is the number of bits in the significand
 
   ArbPrecision(x) = new( convert(Int,x) )
 end
-precision(x::ArbPrecision) = x.precision
+
 
 
 # does not require indirect memory allocations
@@ -53,6 +53,9 @@ function lookupArbPrecision(n::Integer)
 end
 
 
+setprecision(::Type{ArbFloat}, n::Int) = setArbPrecision(n)
+precision(::Type{ArbFloat}) = LastArbPrecisionSetting.precision
+precision(x::ArbFloat) = x.parent.precision
 
 
 
