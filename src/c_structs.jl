@@ -38,8 +38,8 @@ end
 typealias mantissa_noptr_struct_ptr   Ref{mantissa_noptr_struct}
 
 immutable mantissa_struct                    # in C, a Union type
-  # mantissa_noprt_struct   noptr            # drop any smaller members
-    mantissa_ptr_struct::   ptr              # specify one member, the largest
+  # noptr::mantissa_noprt_struct             # drop any smaller members
+    ptr::mantissa_ptr_struct                 # specify one member, the largest
 end
 typealias mantissa_struct_ptr         Ref{mantissa_struct}
 
