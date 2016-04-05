@@ -32,7 +32,7 @@ end
 typealias mantissa_ptr_struct_ptr     Ref{mantissa_ptr_struct}
 
 immutable mantissa_noptr_struct
-    mp_limb_t::                 mp_ptr[ARF_NOPTR_LIMBS] # d[2]
+    mp_limb_t::                 UInt64[ARF_NOPTR_LIMBS] # d[2]
 end
 typealias mantissa_noptr_struct_ptr   Ref{mantissa_noptr_struct}
 
