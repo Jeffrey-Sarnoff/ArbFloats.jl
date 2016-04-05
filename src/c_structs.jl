@@ -22,8 +22,8 @@ end
 typealias mag_struct_ptr        Ref{mag_struct}
 
 immutable mantissa_ptr_struct
-    alloc::mp_size_t            @ alloc
-    d::mp_ptr
+    alloc::mp_size_t            # count of multiprecision limbs allocated
+    d::mp_ptr                   #   when alloc <= 2, uses mantissa_noptr_struct
 end
 typealias mantissa_ptr_struct_ptr     Ref{mantissa_ptr_struct}
 
