@@ -3,9 +3,13 @@ const ARF_NOPTR_LIMBS = 2
 
 typealias fmpz                  Int64        # Clonglong
 
-typealias mp_limb_t             UInt64       # Culonglong
-typealias mp_limb_signed_t      Int64        # Clonglong
-typealias mp_ptr                Ref{UInt64}   
+# multiprecision typealiases, most are used in Arb's c interface
+typealias mp_size_t             Int32        # a limb count, always nonnegative
+typealias mp_exp_t              Int32        # gmp type
+typealias mp_limb_t             UInt64       # a single limb (Culonglong)
+typealias mp_limb_signed_t      Int64        # (Clonglong)
+typealias mp_ptr                Ref{UInt64}  # pointer to mp_limb_t 
+typealias mp_srcptr             Ref{UInt64}  # pointer to const mp_limb_t
 
 typealias mp_noptr              NTuple{2,UInt64}
 
