@@ -2,11 +2,13 @@
     ref: https://github.com/wbhart/Nemo.jl/blob/master/src/arb/arb.jl
 =#
 
+#=
 @doc"""
     ArbSpan
 """
 
 """ArbSpan ↦  Float64 """
+=#
 
 function convert(::Type{Float64}, x::ArbValue)
     t = ArfStruct(x)
