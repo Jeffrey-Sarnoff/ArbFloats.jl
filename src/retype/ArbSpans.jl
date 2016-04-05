@@ -16,7 +16,7 @@ function convert(::Type{Float64}, x::ArbValue)
     return ccall((:arf_get_d, :libarb), Float64, (Ptr{ArfStruct}, Int), &t, 4)
 end
 
-
+#=
 julia> function af_arb_set(x::ArfStruct, y::Float64) 
           ccall((:arf_set_d, :libarb), Void, (Ref{ArfStruct},Float64), x,y)
        end
@@ -29,7 +29,7 @@ julia> af_arb_set(t,7.0)
 
 julia> t
 ArfStruct(3,0x0000000000000002,-2305843009213693952,0)
-
+=#
 
 function convert(::ArfStruct, y::Float64) 
     x = ArfStruct()
@@ -94,6 +94,7 @@ function convert{T<:SmallerNumbers}(::Type{T}, x::ArbSpan)
     convert(T, convert(Float64, x))
 end
 
+#=
 function convert{T<:AbstractString}(::Type{ArbSpan}, x::T)
 end
 
@@ -105,3 +106,4 @@ end
 
 function convert(::Type{BigFloat}, x::ArbSpan)
 end
+=#
