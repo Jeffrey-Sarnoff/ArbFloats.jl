@@ -3,6 +3,7 @@ module ArbFloats
 import Base: hash, convert, promote_rule, isa,
     string, show, showcompact, showall, parse,
     zero, one, ldexp, frexp, eps,
+    precision, setprecision,
     isequal, isless, (==),(!=),(<),(<=),(>=),(>)
     min, max, minmax,
     isnan, isinf, isfinite, issubnormal,
