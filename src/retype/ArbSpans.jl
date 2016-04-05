@@ -49,10 +49,6 @@ end
 
 
 
-function _arb_set(x::($typeofx), y::($t))
-        ccall(($f, :libarb), Void, (($passtoc), ($t)), x, y)
-      end
-
 
 for (typeofx, passtoc) in ((arb, Ref{arb}), (Ptr{arb}, Ptr{arb}))
   for (f,t) in (("arb_set_si", Int), ("arb_set_ui", UInt),
