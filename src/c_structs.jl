@@ -30,8 +30,8 @@ mant(x::mag_struct) = x.mant ; man(x::mag_struct) = x.mant
 
 expo(x::mag_struct, e::fmpz) = mag_struct(e, x.mant)
 mant(x::mag_struct, m::mp_limb_t) = mag_struct(x.expo, m)
-mag_struct(x::mag_struct, e::fmpz) = mag_struct(e, x.mant)
-mag_struct(x::mag_struct, m::mp_limb_t) = mag_struct(x.expo, m)
+(x::mag_struct)(e::fmpz) = mag_struct(e, x.mant)
+(x::mag_struct)(m::mp_limb_t) = mag_struct(x.expo, m)
 
 
 immutable mantissa_ptr_struct
