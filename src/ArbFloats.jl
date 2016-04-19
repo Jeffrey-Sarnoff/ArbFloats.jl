@@ -44,6 +44,7 @@ export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round
                       
 
 include("c_structs.jl")
+include("type/cArbLib.jl")
 
 include("api/ArbLib.jl")
 include("api/AcbLib.jl")
