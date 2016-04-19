@@ -13,5 +13,8 @@ approxFloat = ArbFloat(0.125)
 0.125±0.1388e-17
 showall(approxFloat)
 0.125±0.138877788f-17
-
+midpoint(approxFloat)
+0.125
+radius(approxFloat)
+0.138877788f-17
 ```
