@@ -20,7 +20,7 @@ const float0 = zero(Float64)
 #      "these may be used for shallow operations"
 
 immutable ArbPrecision  # precision is the number of bits in the significand
-  precision::Int        # Int32 allows > 600,000,000 digits, Arb does not use more than 16,000
+  precision::Int        # Int32 allows > 600,000,000 digits, Arb should not use 16,000+
 
   ArbPrecision(x) = new( convert(Int,x) )
 end
