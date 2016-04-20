@@ -1,7 +1,7 @@
 
 const ARF_NOPTR_LIMBS = 2
 
-typealias fmpzish               Int64        # Clonglong
+typealias fmpz                  Int64        # Clonglong
 
 # multiprecision typealiases, most are used in Arb's c interface
 typealias mp_size_t             Int32        # a limb count, always nonnegative
@@ -14,13 +14,13 @@ typealias mp_srcptr             Ref{UInt64}  # pointer to const mp_limb_t
 typealias mp_noptr              NTuple{2,UInt64}
 
 immutable fmpr_struct
-    man::fmpzish                #   man # mantissa
-    exp::fmpzish                #   exp # exponent
+    man::fmpz                   #   man # mantissa
+    exp::fmpz                   #   exp # exponent
 end
 typealias fmpr_struct_ptr       Ref{fmpr_struct}
 
 immutable mag_struct
-    expo::fmpzish                #   exp # exponent
+    expo::fmpz                   #   exp # exponent
     mant::mp_limb_t              #   man # mantissa
 end
 typealias mag_struct_ptr        Ref{mag_struct}
