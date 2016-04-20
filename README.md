@@ -7,7 +7,7 @@
 ####About
 Arb is software by Fredrik Johansson with contributions from others.
 (Others include William Hart, Tommy Hofmann, Sebastian Pancratz `get other names`)  
-He allows Julia to use Arb under the MIT License.  
+Dr. Johansson has allowed Julia to use Arb under the MIT License.  
   
 An Arb value is an interval given by its midpoint and a radius of _inclusion_ about the midpoint.  
 An ArbFloat is a floating point value that is represented internally as an Arb (interval) value.  
