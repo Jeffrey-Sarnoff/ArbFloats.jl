@@ -38,8 +38,9 @@ ArbPrecisions = ObjectIdDict(
     53   => ArbPrecision(  53),   60 => ArbPrecision(  60),  
     72   => ArbPrecision(  72),   75 => ArbPrecision(  75),
     120  => ArbPrecision( 120),  240 => ArbPrecision( 240), 
-    250  => ArbPrecision( 250),  504 => ArbPrecision( 504), 
-    1000 => ArbPrecision(1000), 3584 => ArbPrecision(3584),
+    250  => ArbPrecision( 250),  500 => ArbPrecision( 500),
+    504  => ArbPrecision( 504), 1000 => ArbPrecision(1000), 
+    3000 => ArbPrecision(3000), 3584 => ArbPrecision(3584),
 )
 
 function setArbPrecision(n::Integer)
