@@ -53,10 +53,6 @@ function lookupArbPrecision(n::Integer)
 end
 
 
-setprecision(::Type{ArbFloat}, n::Int) = setArbPrecision(n)
-precision(::Type{ArbFloat}) = LastArbPrecisionSetting.precision
-precision(x::ArbFloat) = x.parent.precision
-
 
 
 type MagStruct                            #  mag_struct (arb/master/mag.h)
@@ -179,6 +175,11 @@ convert(::Type{ArbStruct}, x::MagStruct) = ArbStruct(sint0,uint0,sint0,sint0, x.
 convert(::Type{MagStruct}, x::ArbValue) = MagStruct(x.rad_expn, x.rad_sgnf)
 convert(::Type{ArbValue}, x::MagStruct) = convert(ArbValue, convert(ArbStruct,x))
 
+
+
+setprecision(::Type{ArbValue}, n::Int) = setArbPrecision(n)
+precision(::Type{ArbValue}) = LastArbPrecisionSetting.precision
+precision(x::ArbValue) = x.parent.precision
 
 
 type ArfSpanStruct                       #  JAS 2016-03-27
