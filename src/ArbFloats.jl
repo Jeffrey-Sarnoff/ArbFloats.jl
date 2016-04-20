@@ -18,6 +18,7 @@ import Base: hash, convert, promote_rule, isa,
 
 NotImplemented(info::AbstractString="") = error(string("this is not implemented\n\t",info,"\n"))
 
+using Nemo
 
 export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round(lo,n,10)
        ArbSpan,       # midpoint ± 'radius' ('radius' is an equiprobable span, a line segment)
@@ -43,7 +44,7 @@ export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round
                       #    atan2(-midpoint(imag), -midpoint(real) ).
                       
 
-include("c_structs.jl")
+#include("c_structs.jl")
 include("retype/layGround.jl")
 
 include("api/ArbLib.jl")
