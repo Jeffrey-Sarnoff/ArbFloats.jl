@@ -44,7 +44,7 @@ export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round
                       
 
 include("c_structs.jl")
-include("type/cArbLib.jl")
+include("retype/layGround.jl")
 
 include("api/ArbLib.jl")
 include("api/AcbLib.jl")
@@ -52,12 +52,13 @@ include("api/HypergeoLib.jl")
 include("api/EllipticLib.jl")
 include("api/CalculusLib.jl")
 
-include("retype/layGround.jl")
+#include("retype/layGround.jl")
 include("retype/ArbSpans.jl")
 include("retype/ArbBoxes.jl")
 include("retype/ArbPolys.jl")
 include("retype/ArbMatricies.jl")
 
+#include("type/cArbLib.jl")
 include("type/ArbFloat.jl")
 
 
