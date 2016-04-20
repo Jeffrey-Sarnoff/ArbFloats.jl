@@ -1,7 +1,7 @@
 
 const ARF_NOPTR_LIMBS = 2
 
-typealias fmpz                  Int64        # Clonglong
+typealias fmpzish               Int64        # Clonglong
 
 # multiprecision typealiases, most are used in Arb's c interface
 typealias mp_size_t             Int32        # a limb count, always nonnegative
@@ -14,13 +14,13 @@ typealias mp_srcptr             Ref{UInt64}  # pointer to const mp_limb_t
 typealias mp_noptr              NTuple{2,UInt64}
 
 immutable fmpr_struct
-    man::fmpz                   #   man # mantissa
-    exp::fmpz                   #   exp # exponent
+    man::fmpzish                #   man # mantissa
+    exp::fmpzish                #   exp # exponent
 end
 typealias fmpr_struct_ptr       Ref{fmpr_struct}
 
 immutable mag_struct
-    expo::fmpz                   #   exp # exponent
+    expo::fmpzish                #   exp # exponent
     mant::mp_limb_t              #   man # mantissa
 end
 typealias mag_struct_ptr        Ref{mag_struct}
@@ -67,7 +67,7 @@ d1(x::mantissa_struct) = x.noptr.d1
 
 
 immutable arf_struct
-    expo::fmpz                # exp
+    expo::fmpzish             # exp
     size::mp_size_t           # size
     mant::mantissa_struct     # d
 end
@@ -77,7 +77,7 @@ expo(x::arf_struct) = x.expo ; exp(x::arf_struct) = x.expo
 size(x::arf_struct) = x.size
 mant(x::arf_struct) = x.mant ; d(x::arf_struct) = x.mant
 
-expo(x::arf_struct, e::fmpz) = arf_struct(e, x.size, x.mant)
+expo(x::arf_struct, e::fmpzish) = arf_struct(e, x.size, x.mant)
 size(x::arf_struct, s::mp_size_t) = arf_struct(x.expo, s, x.mant)
 mant(x::arf_struct, m::mantissa_struct) = arf_struct(x.expo, x.size, m)
 
