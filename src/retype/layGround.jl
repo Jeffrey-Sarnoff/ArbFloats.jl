@@ -28,6 +28,8 @@ end
 
 
 # does not require indirect memory allocations
+# where Int==Int64, 120 significand bits (~36 digits)
+# where Int==Int32,  60 significand bits (~18 digits)
 const FastArbPrecision = ArbPrecision( fld(480, (12-sizeof(Int))) )
 
 LastArbPrecisionSetting = FastArbPrecision::ArbPrecision 
