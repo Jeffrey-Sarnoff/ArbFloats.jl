@@ -79,7 +79,7 @@ ArbFloat{T<:Real}(x::T) = ArbFloat(convert(BigFloat,x))
 
 function String{P}(x::ArbFloat{P})
    n = floor(Int, P*0.3010299956639811952137)
-   cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFlaot}, Int, UInt), &x, d, UInt(4))
+   cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, d, UInt(4))
    s = bytestring(cstr)
    ccall(@libflint(flint_free), Void, (Ptr{UInt8},), cstr)
    s
