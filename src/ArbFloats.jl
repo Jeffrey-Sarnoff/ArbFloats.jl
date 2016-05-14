@@ -51,8 +51,9 @@ libDir=Pkg.dir("Nemo/local/lib");
 libFiles = readdir(libDir);
 libarb   = joinpath(libDir,libFiles[findfirst([startswith(x,"libarb") for x in libFiles])])
 libflint = joinpath(libDir,libFiles[findfirst([startswith(x,"libflint") for x in libFiles])])
-isfile(libarb)   || throw(ErrorException("libarb not found"));
-isfile(libflint) || throw(ErrorException("libflint not found"));
+isfile(libarb)   || throw(ErrorException("libarb not found"))
+isfile(libflint) || throw(ErrorException("libflint not found"))
+
 @linux_only begin
     libarb = String(split(libarb,".so")[1])
     libflint = String(split(libflint,".so")[1])
