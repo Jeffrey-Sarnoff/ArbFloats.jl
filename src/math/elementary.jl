@@ -39,20 +39,17 @@ log2{P}(x::ArbFloat{P}) = logbase(x, 2)
 log10{P}(x::ArbFloat{P}) = logbase(x, 10)
 
 
-
-function sincos{P}(x::ArbFloat{P})
-    sz = initializer(ArbFloat{P})
-    cz = initializer(ArbFloat{P})
-    ccall(@libarb(arb_sin_cos), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &sz, &cz, &x, P)
-    sz, cz
+for (op,cfunc) in ((:sincos, :arb_sin_cos), (:sincospi, :arb_sin_cos_pi)) 
+  @eval begin
+    function ($op){P}(x::ArbFloat{P})
+        sz = initializer(ArbFloat{P})
+        cz = initializer(ArbFloat{P})
+        ccall(@libarb($cfunc), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &sz, &cz, &x, P)
+        sz, cz
+    end
+  end    
 end
 
-function sincospi{P}(x::ArbFloat{P})
-    sz = initializer(ArbFloat{P})
-    cz = initializer(ArbFloat{P})
-    ccall(@libarb(arb_sin_cos_pi), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &sz, &czm &x, P)
-    sz, cz
-end
 
 function atan2{P}(a::ArbFloat{P}, b::ArbFloat{P})
     z = initializer(ArbFloat{P})
