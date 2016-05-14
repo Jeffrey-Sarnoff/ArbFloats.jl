@@ -55,18 +55,5 @@ for (op,cfunc) in ((:addmul,:arb_addmul), (:submul, :arb_submul))
 end
 
 muladd{P}(a::ArbFloat{P}, b::ArbFloat{P}, c::ArbFloat{P}) = addmul(c,a,b)
+mulsub{P}(a::ArbFloat{P}, b::ArbFloat{P}, c::ArbFloat{P}) = addmul(-c,a,b)
 
-function (fma){P}(w::ArbFloat{P}, x::ArbFloat{P}, y::ArbFloat{P})
-   P3=floor(Int,P*3.25)
-   z = ArbFloat{P}(0,0,0,0,0,0)
-   zz = ArbFloat{P3}(0,0,0,0,0,0)
-   ww = ArbFloat{P3}(w)
-   xx = ArbFloat{P3}(x)
-   yy = ArbFloat{P3}(y)
-   ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
-   ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &zz)
-   ccall(@libarb(arb_addmul), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &zz, &ww, &xx, &yy, P)
-   ccall(@libarb(arb_set_round), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &zz, &z, P)
-   finalizer(z)      
-   z
-end
