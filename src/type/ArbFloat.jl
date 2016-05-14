@@ -83,16 +83,22 @@ end
 BigInt(x::String) = parse(BigInt,x)
 BigFloat(x::String) = parse(BigFloat,x)
 
-convert{P}(::Type{ArbFloat{P}}, x::Int32) = ArbFloat(x)
-convert{P}(::Type{ArbFloat{P}}, x::Int64) = ArbFloat(x)
-convert{P}(::Type{ArbFloat{P}}, x::Float32) = ArbFloat(x)
-convert{P}(::Type{ArbFloat{P}}, x::Float64) = ArbFloat(x)
-convert{P}(::Type{ArbFloat{P}}, x::BigFloat) = ArbFloat(string(x))
-convert{P}(::Type{ArbFloat{P}}, x::BigInt) = ArbFloat(string(x))
-convert{P,I<:Integer}(::Type{ArbFloat{P}}, x::Rational{I}) = ArbFloat(convert(BigFloat,x))
-convert{P,I<:Integer}(::Type{ArbFloat{P}}, x::I) = ArbFloat(convert(BigInt,x))
-convert{P,F<:AbstractFloat}(::Type{ArbFloat{P}}, x::F) = ArbFloat(convert(BigFloat,x))
-convert{P,R<:Real}(::Type{ArbFloat{P}}, x::R) = ArbFloat(convert(BigFloat,x))
+for T in (:Int8,:Int16,:Int32,:Int64,:Float16,:Float32,:Float64)
+    @eval convert{P}(::Type{ArbFloat{P}}, x::($T)) = ArbFloat(x)
+end
+for T in (:BigInt, :BigFloat, :Int128, :(Rational{Int32}), :(Rational{Int64}), :(Rational{Int128}), :(Rational{BigInt}))
+    @eval convert{P}(::Type{ArbFloat{P}}, x::($T)) = ArbFloat( convert(BigFloat, string(x)) )
+end
+
+#convert{P}(::Type{ArbFloat{P}}, x::Int64) = ArbFloat(x)
+#convert{P}(::Type{ArbFloat{P}}, x::Float32) = ArbFloat(x)
+#convert{P}(::Type{ArbFloat{P}}, x::Float64) = ArbFloat(x)
+#convert{P}(::Type{ArbFloat{P}}, x::BigFloat) = ArbFloat(string(x))
+#convert{P}(::Type{ArbFloat{P}}, x::BigInt) = ArbFloat(string(x))
+##convert{P,I<:Integer}(::Type{ArbFloat{P}}, x::Rational{I}) = ArbFloat(convert(BigFloat,x))
+#convert{P,I<:Integer}(::Type{ArbFloat{P}}, x::I) = ArbFloat(convert(BigInt,x))
+#convert{P,F<:AbstractFloat}(::Type{ArbFloat{P}}, x::F) = ArbFloat(convert(BigFloat,x))
+#convert{P,R<:Real}(::Type{ArbFloat{P}}, x::R) = ArbFloat(convert(BigFloat,x))
 
 #ArbFloat{T<:Real}(x::T) = ArbFloat(convert(BigFloat,x))
 
