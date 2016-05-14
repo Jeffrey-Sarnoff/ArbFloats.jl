@@ -31,7 +31,7 @@ end
 function logbase{P}(x::ArbFloat{P}, base::Int)
     b = UInt(abs(base))
     z = initializer(ArbFloat{P})
-    ccall(@libarb(arb_log_base_ui), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Ptr{ArbFloat}, UInt, Int), &z, &x, b, P)
+    ccall(@libarb(arb_log_base_ui), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, UInt, Int), &z, &x, b, P)
     z
 end
 
