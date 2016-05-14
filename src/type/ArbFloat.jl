@@ -58,6 +58,10 @@ function ArbFloat(x::Float64)
     z
 end
 
+ArbFloat{P}(x::Int,P::Int) = ArbFloat(x)
+ArbFloat{P}(x::Float64,P::Int) = ArbFloat(x)
+
+
 function ArbFloat(x::BigFloat)
     p = precision(ArbFloat)
     z = ArbFloat{p}(0,0,0,0,0,0)
