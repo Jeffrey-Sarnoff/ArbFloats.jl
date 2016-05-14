@@ -7,7 +7,7 @@ type ArbFloat{P}  <: Real
   rad_exp::Int # fmpz
   rad_man::UInt
   
-  ArbFloat{Q}(x) = convert(ArbFloat{Q}, x)
+  ArbFloat(x) = convert(ArbFloat{P}, x)
   ArbFloat(mid_exp::Int,mid_size::UInt,mid_d1::Int,mid_di2::Int,rad_exp::Int,rad_man::UInt) = new(mid_exp,mid_size,mid_d1,mid_di2,rad_exp_rad_man)
   ArbFloat(mid_exp::Int,mid_size::Int,mid_d1::Int,mid_di2::Int,rad_exp::Int,rad_man::Int) = new(mid_exp,UInt(mid_size),mid_d1,mid_di2,rad_exp,UInt(rad_man))
 end
