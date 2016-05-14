@@ -21,11 +21,9 @@ import Base: hash, convert, promote_rule, isa,
 
 
 export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round(lo,n,10)
-       midpoint, radius, maxpoint, minpoint,
-       tanpi, cotpi,
-       log2, log10, log2o10, log10o2, exp1,
-       fourpi, twopi, onepi, halfpi, qrtrpi,
-       golden
+       midpoint, radius, upperbound, lowerbound,
+       invsqrt, pow, root, tanpi, cotpi,
+       log2o10, log10o2, exp1, fourpi, twopi, onepi, halfpi, qrtrpi, golden # constants
 
                       # Complex( ArbSpan(real), ArbSpan(imaginary) )
                       #
