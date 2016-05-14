@@ -7,16 +7,6 @@ or
 https://gmplib.org/download/gmp/gmp-6.1.0.tar.lz
 http://www.mpfr.org/mpfr-current/mpfr-3.1.4.tar.bz2
 
-libarb = realpath(normpath(Pkg.dir("Nemo/local/lib/libarb.so")))
-libflint = realpath(normpath(Pkg.dir("Nemo/local/lib/libflint.so")))
-libgmp = realpath(normpath(Pkg.dir("Nemo/local/lib/libgmp.so")))
-libmpir = realpath(normpath(Pkg.dir("Nemo/local/lib/libmpir.so")))
-libmpfr = realpath(normpath(Pkg.dir("Nemo/local/lib/libmpfr.so")))
-
-libdir = Pkg.dir("Nemo/local/lib")
-libs = readdir(libdir)
-ext  = split(libs[1],".")[end]
-
 =#
 
 isdir(Pkg.dir("Nemo")) || throw(ErrorException("Nemo not found")
