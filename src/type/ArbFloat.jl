@@ -1,10 +1,13 @@
-type ArbFloat{Precision}  <: Real
+            # P is the precision used for this value
+type ArbFloat{P}  <: Real
   mid_exp::Int # fmpz
   mid_size::UInt # mp_size_t
   mid_d1::Int # mantissa_struct
   mid_d2::Int
   rad_exp::Int # fmpz
   rad_man::UInt
+  
+  ArbFloat(x) = convert(ArbFloat{P}, x)
 end
 
 ArbFloatPrecision = 120
@@ -13,6 +16,9 @@ function setprecision(::Type{ArbFloat}, x::Int)
 end
 precision(::Type{ArbFloat}) = ArbFloatPrecision
 precision{Precision}(x::ArbFloat{Precision}) = Precision
+
+
+convert{P}(::Type{ArbFloat{P}}, x::Integer) = ArbFloat{P}(ArbFloat(x))
 
 
 @inline function clearArbFloat(x::ArbFloat)
