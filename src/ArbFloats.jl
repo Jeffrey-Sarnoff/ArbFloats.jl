@@ -13,14 +13,15 @@ import Base: hash, convert, promote_rule, isa,
     trunc, round, ceil, floor,
     fld, cld, div, mod, rem, divrem, fldmod,
     exp, log, 
-    sin, cos, tan, csc, sec, cot, asin, acos, atan,
+    sin, cos, tan, csc, sec, cot, asin, acos, atan, atan2
     sinh, cosh, tanh, csch, sech, coth,
     sinc,
     BigInt, BigFloat
 
 
 export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round(lo,n,10)
-       midpoint, radius, maxpoint, minpoint
+       midpoint, radius, maxpoint, minpoint,
+       tanpi, cotpi
 
                       # Complex( ArbSpan(real), ArbSpan(imaginary) )
                       #
