@@ -13,7 +13,8 @@ end
 const hash_arbfloat_lo = (UInt === UInt64) ? 0xe7e642589da3416a : 0x8d46a6b4
 const hash_0_arbfloat_lo = hash(zero(UInt), hash_arbfloat_lo)
 hash{P}(z::ArbFloat{P}, h::UInt) = 
-    hash(z.mid_d1$z.rad_man, (h $ hash(z.mid_d2$(~P), hash_arbfloat_lo) $ hash_0_arbfloat_lo))
+    hash(reinterpret(UInt,z.mid_d1)$z.rad_man, 
+         (h $ hash(reinterpret(UInt,z.mid_d2)$(~P), hash_arbfloat_lo) $ hash_0_arbfloat_lo))
 
 
 ArbFloatPrecision = 123
