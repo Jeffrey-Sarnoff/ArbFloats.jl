@@ -89,6 +89,21 @@ function string(x::ArbFloat)
    String(x,UInt(2)) # midpoint only, RoundNearest
 end
 
+function copy{P}(x::ArbFloat{P})
+    z = ArbFloat{P}(0,0,0,0,0,0)
+    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+    ccall(@libarb(arb_set), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}), &z, &x)
+    finalizer(z, clearArbFloat)
+    z
+end
+
+function deepcopy{P}(x::ArbFloat{P})
+    z = ArbFloat{P}(0,0,0,0,0,0)
+    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+    ccall(@libarb(arb_set), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}), &z, &x)
+    finalizer(z, clearArbFloat)
+    z
+end
 
 function midpoint{P}(x::ArbFloat{P})
     z = ArbFloat{P}(0,0,0,0,0,0)
