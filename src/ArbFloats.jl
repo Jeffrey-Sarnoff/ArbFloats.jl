@@ -50,21 +50,29 @@ isdir(Pkg.dir("Nemo")) || throw(ErrorException("Nemo not found"))
 libDir=Pkg.dir("Nemo/local/lib");
 libFiles = readdir(libDir);
 libarb   = joinpath(libDir,libFiles[findfirst([startswith(x,"libarb") for x in libFiles])])
+libflint = joinpath(libDir,libFiles[findfirst([startswith(x,"libflint") for x in libFiles])])
 isfile(libarb)   || throw(ErrorException("libarb not found"));
+isfile(libflint) || throw(ErrorException("libflint not found"));
 @linux_only begin
     libarb = String(split(libarb,".so")[1])
+    libflint = String(split(libflint,".so")[1])
 end
 @osx_only begin
     libarb = String(split(libarb,".dynlib")[1])
+    libflint = String(split(libflint,".dynlib")[1])
 end
 @windows_only begin
     libarb = String(split(libarb,".dll")[1])
+    libflint = String(split(libflint,".dll")[1])
 end
 
 macro libarb(sym)
     (:($sym), libarb)
 end
 
+macro libflint(sym)
+    (:($sym), libflint)
+end
 
 NotImplemented(info::AbstractString="") = error(string("this is not implemented\n\t",info,"\n"))
 
