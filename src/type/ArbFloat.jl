@@ -90,6 +90,7 @@ convert(::Type{BigFloat}, x::String) = parse(BigFloat,x)
 convert{P}(::Type{ArbFloat{P}}, x::BigFloat) = convert(ArbFloat{P}, string(x))
 convert{P}(::Type{ArbFloat{P}}, x::BigInt)   = convert(ArbFloat{P}, convert(BigFloat,x))
 convert{P}(::Type{ArbFloat{P}}, x::Rational) = convert(ArbFloat{P}, convert(BigFloat,x))
+convert{P,S}(::Type{ArbFloat{P}}, x::Irrational{S}) = convert(ArbFloat{P}, convert(BigFloat,x))
 
 #= returns 256.0 for convert(big(1.5))
 function convert{P}(::Type{ArbFloat{P}}, x::BigFloat)
@@ -98,6 +99,7 @@ function convert{P}(::Type{ArbFloat{P}}, x::BigFloat)
     z
 end
 =#
+
 
 
 
