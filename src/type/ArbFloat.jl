@@ -8,15 +8,19 @@ type ArbFloat{P}  <: Real
   rad_man::UInt
 end
 
-ArbFloatPrecision = 120
+ArbFloatPrecision = 123
 function setprecision(::Type{ArbFloat}, x::Int)
     ArbFloatPrecision = abs(x)
 end
 precision(::Type{ArbFloat}) = ArbFloatPrecision
-precision{Precision}(x::ArbFloat{Precision}) = Precision
+precision{P}(x::ArbFloat{P}) = P
 
 
-convert{P}(::Type{ArbFloat{P}}, x::Integer) = ArbFloat{P}(ArbFloat(x))
+function convert{P}(::Type{ArbFloat{P}}, x::ArbFloat)
+    p = precision(ArbFloat)
+    ArbFloat{P}(x.mid_exp, x.mid_size, x.mid_d1, x.mid_d2, x.rad_exp, x.rad_man)
+end    
+
 
 
 @inline function clearArbFloat(x::ArbFloat)
