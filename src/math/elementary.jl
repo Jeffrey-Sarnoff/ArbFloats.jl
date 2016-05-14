@@ -5,6 +5,7 @@
     sin, sinpi, cos, cospi, tan, tanpi, cot, cotpi,
     sinh, cosh, tanh, coth,
     asin, acos, atan, asinh, acosh, atanh,
+    sincos, sincospi, sinhcosh,
     sinc,
     gamma, lgamma, zeta
 =#
@@ -39,7 +40,7 @@ log2{P}(x::ArbFloat{P}) = logbase(x, 2)
 log10{P}(x::ArbFloat{P}) = logbase(x, 10)
 
 
-for (op,cfunc) in ((:sincos, :arb_sin_cos), (:sincospi, :arb_sin_cos_pi)) 
+for (op,cfunc) in ((:sincos, :arb_sin_cos), (:sincospi, :arb_sin_cos_pi), (:sinhcosh, :arb_sinh_cosh)) 
   @eval begin
     function ($op){P}(x::ArbFloat{P})
         sz = initializer(ArbFloat{P})
