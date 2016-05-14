@@ -39,7 +39,7 @@ for (op,cfunc) in ((:+,:arb_add), (:-, :arb_sub), (:*, :arb_mul), (:/, :arb_div)
       finalizer(z)      
       z
     end
-    ($op){T<:AbstractFloat,{}(x::ArbFloat{P}, y::T) = ($op)(x, ArbFloat{P}(y))
+    ($op){T<:AbstractFloat,P}(x::ArbFloat{P}, y::T) = ($op)(x, ArbFloat{P}(y))
     ($op){T<:Real,P}(x::T, y::ArbFloat{P}) = ($op)(ArbFloat{P}(x), y)
   end
 end
