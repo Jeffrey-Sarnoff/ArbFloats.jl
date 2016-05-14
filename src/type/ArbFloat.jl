@@ -105,14 +105,14 @@ end
 
 function convert{P}(::Type{Float64}, x::ArbFloat{P})
     z = 0.0
-    ccall(@libarb(arb_set_d), Void, (Ptr{ArbFloat{P}}, Ptr{Float64}), &x, &z)
+    ccall(@libarb(arb_set_d), Void, (Ptr{ArbFloat{P}}, Float64), &x, z)
     z
 end
 convert{P}(::Type{Float32}, x::ArbFloat{P}) = convert(Float32,convert(Float64,x))
 
 function convert{P}(::Type{Int}, x::ArbFloat{P})
     z = 0
-    ccall(@libarb(arb_set_si), Void, (Ptr{ArbFloat{P}}, Ptr{Int}), &x, &z)
+    ccall(@libarb(arb_set_si), Void, (Ptr{ArbFloat{P}}, Int), &x, z)
     z
 end
 if sizeof(Int)==sizeof(Int64)
