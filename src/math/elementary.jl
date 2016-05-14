@@ -52,7 +52,7 @@ for (op,cfunc) in ((:^,:arb_pow_ui), (:pow,:arb_pow_ui), (:root, :arb_root_ui))
 end
 
 
-for (op,cfunc) in ((:^,:arb_pow_ui), (:pow,:arb_pow))
+for (op,cfunc) in ((:^,:arb_pow), (:pow,:arb_pow))
   @eval begin
     function ($op){P}(x::ArbFloat{P}, y::ArbFloat{P})
       z = ArbFloat{P}(0,0,0,0,0,0)
@@ -63,3 +63,6 @@ for (op,cfunc) in ((:^,:arb_pow_ui), (:pow,:arb_pow))
     end
   end
 end
+
+root{P}(x::ArbFloat{P}, y::ArbFloat{P}) = pow(x, -y)
+   
