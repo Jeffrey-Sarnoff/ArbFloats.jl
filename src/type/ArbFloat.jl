@@ -115,7 +115,9 @@ function String{P}(x::ArbFloat{P}, flags::UInt)
 end
 
 function string(x::ArbFloat)
-   String(x,UInt(2)) # midpoint only, RoundNearest
+   # n=trunc(abs(log(upperbound(x)-lowerbound(x))/log(2))) just the good bits
+   s = String(x,UInt(2)) # midpoint only (within 1ulp), RoundNearest
+   if radius(x) 
 end
 
 function copy{P}(x::ArbFloat{P})
