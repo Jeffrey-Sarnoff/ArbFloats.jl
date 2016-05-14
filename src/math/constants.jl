@@ -1,6 +1,4 @@
 
-log2{P}(::Type{ArbFloat{P}})    = log(ArbFloat{P}(2))
-log10{P}(::Type{ArbFloat{P}})   = log(ArbFloat{P}(10))
 log2o10{P}(::Type{ArbFloat{P}}) = log(ArbFloat{P}(2))/log(ArbFloat{P}(10))
 log10o2{P}(::Type{ArbFloat{P}}) = log(ArbFloat{P}(10))/log(ArbFloat{P}(2))
 
