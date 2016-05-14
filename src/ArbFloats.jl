@@ -41,11 +41,9 @@ export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round
                       
 
 
-NotImplemented(info::AbstractString="") = error(string("this is not implemented\n\t",info,"\n"))
-
 # ensure the requisite libraries are available
 
-isdir(Pkg.dir("Nemo")) || throw(ErrorException("Nemo not found")
+isdir(Pkg.dir("Nemo")) || throw(ErrorException("Nemo not found"))
 
 @linux_only begin
   libarb  = Pkg.dir("Nemo/local/lib/libarb.so")
@@ -80,6 +78,8 @@ isfile(libflint) || throw(ErrorException("libflint not found"))
 isfile(libgmp)   || throw(ErrorException("libgmp not found"))
 isfile(libmpfr)  || throw(ErrorException("libmpfr not found"))
 
+
+NotImplemented(info::AbstractString="") = error(string("this is not implemented\n\t",info,"\n"))
 
 
 #include("c_structs.jl")
