@@ -2,6 +2,7 @@ module ArbFloats
 
 import Base: hash, convert, promote_rule, isa,
     string, show, showcompact, showall, parse,
+    precision, setprecision,
     zero, one, ldexp, frexp, eps,
     precision, setprecision,
     isequal, isless, (==),(!=),(<),(<=),(>=),(>)
@@ -52,7 +53,8 @@ isfile(libarb)   || throw(ErrorException("libarb not found"));
 
 NotImplemented(info::AbstractString="") = error(string("this is not implemented\n\t",info,"\n"))
 
-
+include("type/ArbFloat.jl")
+#=
 #include("c_structs.jl")
 include("retype/layGround.jl")
 
@@ -63,17 +65,10 @@ include("api/EllipticLib.jl")
 include("api/CalculusLib.jl")
 
 #include("retype/layGround.jl")
-#=
 include("retype/ArbSpans.jl")
 include("retype/ArbBoxes.jl")
 include("retype/ArbPolys.jl")
 include("retype/ArbMatricies.jl")
 =#
-
-#include("type/cArbLib.jl")
-#include("type/ArbFloat.jl")
-
-
-
 
 end # ArbFloats
