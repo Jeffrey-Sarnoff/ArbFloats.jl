@@ -141,21 +141,18 @@ end
 function relativeError{P}(x::ArbFloat{P})
     z = P
     ccall(@libarb(arb_rel_error_bits), Void, (Ptr{Int}, Ptr{ArbFloat}), &z, &x)
-    finalizer(z)
     z
 end
 
 function relativeAccuracy{P}(x::ArbFloat{P})
     z = P
     ccall(@libarb(arb_rel_accuracy_bits), Void, (Ptr{Int}, Ptr{ArbFloat}), &z, &x)
-    finalizer(z)
     z
 end
 
 function midpointPrecision{P}(x::ArbFloat{P})
     z = P
     ccall(@libarb(arb_bits), Void, (Ptr{Int}, Ptr{ArbFloat}), &z, &x)
-    finalizer(z)
     z
 end
 
