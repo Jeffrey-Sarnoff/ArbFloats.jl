@@ -104,9 +104,10 @@ end
 =#
 
 function convert{P}(::Type{Float64}, x::ArbFloat{P})
-    z = zeros(Float64,2)
-    ccall(@libarb(arb_set_d), Void, (Ptr{ArbFloat{P}}, Float64), &x, z[1])
-    z
+    s = string(x)
+    parse(Float64,s)
+    #ccall(@libarb(arb_set_d), Void, (Ptr{ArbFloat{P}}, Float64), &x, z)
+    #z
 end
 convert{P}(::Type{Float32}, x::ArbFloat{P}) = convert(Float32,convert(Float64,x))
 
