@@ -51,7 +51,15 @@ libDir=Pkg.dir("Nemo/local/lib");
 libFiles = readdir(libDir);
 libarb   = joinpath(libDir,libFiles[findfirst([startswith(x,"libarb") for x in libFiles])])
 isfile(libarb)   || throw(ErrorException("libarb not found"));
-libarb = String(split(libarb,".")[1])
+@linux_only begin
+    libarb = String(split(libarb,".so")[1])
+end
+@osx_only begin
+    libarb = String(split(libarb,".dynlib")[1])
+end
+@windows_only begin
+    libarb = String(split(libarb,".dll")[1])
+end
 
 NotImplemented(info::AbstractString="") = error(string("this is not implemented\n\t",info,"\n"))
 
