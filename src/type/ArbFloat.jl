@@ -1,4 +1,4 @@
-immutable ArbFloat{Precision}  <: Real
+type ArbFloat{Precision}  <: Real
   mid_exp::Int # fmpz
   mid_size::UInt # mp_size_t
   mid_d1::Int # mantissa_struct
