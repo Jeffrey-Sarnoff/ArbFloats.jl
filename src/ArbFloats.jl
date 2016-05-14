@@ -12,6 +12,7 @@ import Base: hash, convert, promote_rule, isa,
     (+),(-),(*),(/),(\),(%),(^), sqrt, hypot,
     trunc, round, ceil, floor,
     fld, cld, div, mod, rem, divrem, fldmod,
+    muladd, fma,
     exp, log, 
     sin, cos, tan, csc, sec, cot, asin, acos, atan, atan2
     sinh, cosh, tanh, csch, sech, coth, asinh, acosh, atanh,
