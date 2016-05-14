@@ -39,7 +39,11 @@ function ArbFloat(x::UInt)
     finalizer(z)
     z
 end
-ArbFloat(x::Unsigned) = ArbFloat(convert(UInt,x))
+if sizeof(Int)==sizeof(Int64)
+   ArbFloat(x::UInt32) = ArbFloat(convert(UInt64,x))
+else
+   ArbFloat(x::UInt64) = ArbFloat(convert(UInt32,x))
+end
 
 function ArbFloat(x::Int)
     p = precision(ArbFloat)
@@ -49,7 +53,11 @@ function ArbFloat(x::Int)
     finalizer(z)
     z
 end
-ArbFloat(x::Signed) = ArbFloat(convert(Int,x))
+if sizeof(Int)==sizeof(Int64)
+   ArbFloat(x::Int32) = ArbFloat(convert(Int64,x))
+else
+   ArbFloat(x::Int64) = ArbFloat(convert(Int32,x))
+end
 
 function ArbFloat(x::Float64)
     p = precision(ArbFloat)
@@ -94,7 +102,9 @@ for T in (:BigInt, :BigFloat, :Int128, :(Rational{Int32}), :(Rational{Int64}), :
     @eval convert{P}(::Type{ArbFloat{P}}, x::($T)) = ArbFloat( convert(BigFloat, string(x)) )
 end
 
-#convert{P}(::Type{ArbFloat{P}}, x::Int64) = ArbFloat(x)
+convert{P}(::Type{ArbFloat{P}}, x::Int64) = ArbFloat(x)
+convert{P}(::Type{ArbFloat{P}}, x::Int32) = ArbFloat(x)
+
 #convert{P}(::Type{ArbFloat{P}}, x::Float32) = ArbFloat(x)
 #convert{P}(::Type{ArbFloat{P}}, x::Float64) = ArbFloat(x)
 #convert{P}(::Type{ArbFloat{P}}, x::BigFloat) = ArbFloat(string(x))
