@@ -14,8 +14,9 @@ import Base: hash, convert, promote_rule, isa,
     fld, cld, div, mod, rem, divrem, fldmod,
     exp, log, 
     sin, cos, tan, csc, sec, cot, asin, acos, atan, atan2
-    sinh, cosh, tanh, csch, sech, coth,
+    sinh, cosh, tanh, csch, sech, coth, asinh, acosh, atanh,
     sinc,
+    pi, catalan, 
     BigInt, BigFloat
 
 
