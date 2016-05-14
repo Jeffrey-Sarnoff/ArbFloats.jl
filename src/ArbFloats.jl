@@ -9,11 +9,12 @@ import Base: hash, convert, promote_rule, isa,
     min, max, minmax,
     isnan, isinf, isfinite, issubnormal,
     signbit, sign, flipsign, copysign, abs, inv,
-    (+),(-),(*),(/),(\),(%),(^),sqrt,
+    (+),(-),(*),(/),(\),(%),(^), sqrt, hypot,
     trunc, round, ceil, floor,
     fld, cld, div, mod, rem, divrem, fldmod,
     exp, log, 
-    sin, cos, tan, asin, acos, atan,
+    sin, cos, tan, csc, sec, cot, asin, acos, atan,
+    sinh, cosh, tanh, csch, sech, coth,
     BigInt, BigFloat
 
 
