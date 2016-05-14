@@ -61,7 +61,7 @@ end
     libarb = String(split(libarb,".dll")[1])
 end
 
-macro arbcall(sym)
+macro libarb(sym)
     (:($sym), libarb)
 end
 
