@@ -40,7 +40,7 @@ for (op,cfunc) in ((:+,:arb_add), (:-, :arb_sub), (:*, :arb_mul), (:/, :arb_div)
       z
     end
     ($op){P,T<:Real}(x::ArbFloat{P}, y::T) = ($op){P}(x, ArbFloat{P}(y))
-    ($op){P,T<:Real}(x::T, y::ArbFloat{P}) = ($op){P}(ArbFloat{P}(x),y)
+    ($op){P,T<:Real}(x::T, y::ArbFloat{P}) = ($op){P}(ArbFloat{P}(x), y)
   end
 end
 
@@ -55,6 +55,12 @@ for (op,cfunc) in ((:+,:arb_add_si), (:-, :arb_sub_si), (:*, :arb_mul_si), (:/, 
     end
   end
 end
+
+(+){P}(x::Int, y::ArbFloat{P}) = (+)(y,x)
+(-){P}(x::Int, y::ArbFloat{P}) = -((-)(y,x))
+(*){P}(x::Int, y::ArbFloat{P}) = (*)(y,x)
+(/){P}(x::Int, y::ArbFloat{P}) = (/)(ArbFloat{P}(x),x)
+
 
 
 for (op,cfunc) in ((:addmul,:arb_addmul), (:submul, :arb_submul))
