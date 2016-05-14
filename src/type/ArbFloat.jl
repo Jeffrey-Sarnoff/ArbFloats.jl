@@ -79,7 +79,10 @@ end
 
 BigInt(x::String) = parse(BigInt,x)
 BigFloat(x::String) = parse(BigFloat,x)
-convert{P}(::Type{ArbFloat{P}}, x::Int) = ArbFloat(x)
+
+convert{P}(::Type{ArbFloat{P}}, x::Int32) = ArbFloat(x)
+convert{P}(::Type{ArbFloat{P}}, x::Int64) = ArbFloat(x)
+convert{P}(::Type{ArbFloat{P}}, x::Float32) = ArbFloat(x)
 convert{P}(::Type{ArbFloat{P}}, x::Float64) = ArbFloat(x)
 convert{P}(::Type{ArbFloat{P}}, x::BigFloat) = ArbFloat(string(x))
 convert{P}(::Type{ArbFloat{P}}, x::BigInt) = ArbFloat(string(x))
