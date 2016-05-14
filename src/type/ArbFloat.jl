@@ -16,7 +16,7 @@ precision{Precision}(x::ArbFloat{Precision}) = Precision
 
 
 function clearArbFloat(x::ArbFloat)
-     ccall((:arb_clear, libarb), Void, (Ptr(ArbFloat),), &x)
+     ccall(@libarb(arb_clear), Void, (Ptr(ArbFloat),), &x)
 end
 
 function ArbFloat()
