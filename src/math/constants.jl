@@ -13,3 +13,16 @@ qrtrpi{P}(::Type{ArbFloat{P}})  = atan(ArbFloat{P}(1))
 
 golden{P}(::Type{ArbFloat{P}})  = (1+sqrt(ArbFloat{P}(4)))/ArbFloat{P}(2)
 
+
+
+log2o10(::Type{ArbFloat}) = log2o10{precision(ArbFloat)}
+log10o2(::Type{ArbFloat}) = log10o2{precision(ArbFloat)}
+
+exp1(::Type{ArbFloat}) = exp1{precision(ArbFloat)}
+
+fourpi(::Type{ArbFloat}) = fourpi{precision(ArbFloat)}
+twopi(::Type{ArbFloat}) = twopi{precision(ArbFloat)}
+onepi(::Type{ArbFloat}) = onepi{precision(ArbFloat)}
+halfpi(::Type{ArbFloat}) = halfpi{precision(ArbFloat)}
+qrtrpi(::Type{ArbFloat}) = qrtrpi{precision(ArbFloat)}
+
