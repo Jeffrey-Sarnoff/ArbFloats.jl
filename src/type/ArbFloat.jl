@@ -93,8 +93,6 @@ end
 
 convert(::Type{BigInt}, x::String) = parse(BigInt,x)
 convert(::Type{BigFloat}, x::String) = parse(BigFloat,x)
-#convert{I<:Integer}(::Type{BigFloat}, x::Rational{I}) = 
-#    parse(BigFloat,string(x.num)) / parse(BigFloat,string(x.den))
 
 convert{P}(::Type{ArbFloat{P}}, x::BigFloat) = convert(ArbFloat{P}, string(x))
 convert{P}(::Type{ArbFloat{P}}, x::BigInt)   = convert(ArbFloat{P}, convert(BigFloat,x))
