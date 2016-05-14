@@ -22,7 +22,7 @@ end
 function ArbFloat()
     p = precision(ArbFloat)
     z = ArbFloat{p}(0,0,0,0,0,0)
-    ccall(@arbcall(arb_init), Void, (Ptr{ArbFloat},), &z)
+    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
     finalizer(z, clearArbFloat)
     z
 end
@@ -30,8 +30,8 @@ end
 function ArbFloat(x::UInt)
     p = precision(ArbFloat)
     z = ArbFloat{p}(0,0,0,0,0,0)
-    ccall(@arbcall(arb_init), Void, (Ptr{ArbFloat},), &z)
-    ccall(@arbcall(arb_set_ui), Void, (Ptr{ArbFloat}, UInt), &z, x)
+    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+    ccall(@libarb(arb_set_ui), Void, (Ptr{ArbFloat}, UInt), &z, x)
     finalizer(z, clearArbFloat)
     z
 end
@@ -39,8 +39,8 @@ end
 function ArbFloat(x::Int)
     p = precision(ArbFloat)
     z = ArbFloat{p}(0,0,0,0,0,0)
-    ccall(@arbcall(arb_init), Void, (Ptr{ArbFloat},), &z)
-    ccall(@arbcall(arb_set_si), Void, (Ptr{ArbFloat}, Int), &z, x)
+    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+    ccall(@libarb(arb_set_si), Void, (Ptr{ArbFloat}, Int), &z, x)
     finalizer(z, clearArbFloat)
     z
 end
@@ -48,8 +48,8 @@ end
 function ArbFloat(x::Float64)
     p = precision(ArbFloat)
     z = ArbFloat{p}(0,0,0,0,0,0)
-    ccall(@arbcall(arb_init), Void, (Ptr{ArbFloat},), &z)
-    ccall(@arbcall(arb_set_d), Void, (Ptr{ArbFloat}, Float64), &z, x)
+    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+    ccall(@libarb(arb_set_d), Void, (Ptr{ArbFloat}, Float64), &z, x)
     finalizer(z, clearArbFloat)
     z
 end
@@ -57,8 +57,8 @@ end
 function ArbFloat(x::BigFloat)
     p = precision(ArbFloat)
     z = ArbFloat{p}(0,0,0,0,0,0)
-    ccall(@arbcall(arb_init), Void, (Ptr{ArbFloat},), &z)
-    ccall(@arbcall(arb_set_round_fmpz), Void, (Ptr{ArbFloat}, BigFloat, Int), &z, x, p)
+    ccall(@;obarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+    ccall(@libarb(arb_set_round_fmpz), Void, (Ptr{ArbFloat}, BigFloat, Int), &z, x, p)
     finalizer(z, clearArbFloat)
     z
 end
@@ -68,8 +68,8 @@ function ArbFloat(x::String)
     p = precision(ArbFloat)
     b = bytestring(x)
     z = ArbFloat{p}(0,0,0,0,0,0)
-    ccall(@arbcall(arb_init), Void, (Ptr{ArbFloat},), &z)
-    ccall(@arbcall(arb_set_str), Void, (Ptr{ArbFloat}, Ptr{UInt8}, Int), &z, b, p)
+    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+    ccall(@libarb(arb_set_str), Void, (Ptr{ArbFloat}, Ptr{UInt8}, Int), &z, b, p)
     finalizer(z, clearArbFloat)
     z
 end
