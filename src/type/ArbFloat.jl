@@ -28,6 +28,14 @@ function ArbFloat(x::UInt)
     z
 end
 
+function ArbFloat(x::Int)
+    z = ArbFloat{precision{ArbFloat}}(0,0,0,0,0,0)
+    ccall((:arb_init, :libarb), Void, (Ptr{ArbFloat},), &z)
+    ccall((:arb_set_si, :libarb), Void, (Ptr{ArbFloat}, Int), &z, x)
+    finalizer(z, clearArbFloat)
+    z
+end
+
 function ArbFloat(x::Float64)
     z = ArbFloat{precision(ArbFloat)}(0,0,0,0,0,0)
     ccall((:arb_init, :libarb), Void, (Ptr{ArbFloat},), &z)
@@ -44,14 +52,29 @@ function ArbFloat(x::BigFloat)
     z
 end
 
-
-
-function ArbFloat(x::Int, sigbits::Int)
-    z = ArbFloat{sigbits}(0,0,0,0,0,0)
+function ArbFloat(x::BigInt)
+    y = convert(BigFloat,x)
+    z = ArbFloat{precision(ArbFloat)}(0,0,0,0,0,0)
     ccall((:arb_init, :libarb), Void, (Ptr{ArbFloat},), &z)
-    ccall((:arb_set_si, :libarb), Void, (Ptr{ArbFloat}, Int), &z, x)
+    ccall((:arb_set_fmpz, :libarb), Void, (Ptr{ArbFloat}, BigFloat), &z, y)
     finalizer(z, clearArbFloat)
     z
 end
 
+function ArbFloat(x::Rational{Int})
+    y = convert(BigFloat,x)
+    z = ArbFloat{precision(ArbFloat)}(0,0,0,0,0,0)
+    ccall((:arb_init, :libarb), Void, (Ptr{ArbFloat},), &z)
+    ccall((:arb_set_fmpz, :libarb), Void, (Ptr{ArbFloat}, BigFloat), &z, y)
+    finalizer(z, clearArbFloat)
+    z
+end
 
+function ArbFloat(x::Rational{BigInt})
+    y = convert(BigFloat,x)
+    z = ArbFloat{precision(ArbFloat)}(0,0,0,0,0,0)
+    ccall((:arb_init, :libarb), Void, (Ptr{ArbFloat},), &z)
+    ccall((:arb_set_fmpz, :libarb), Void, (Ptr{ArbFloat}, BigFloat), &z, y)
+    finalizer(z, clearArbFloat)
+    z
+end
