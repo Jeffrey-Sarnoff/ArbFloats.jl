@@ -58,8 +58,8 @@ function ArbFloat(x::Float64)
     z
 end
 
-ArbFloat{P}(x::Int,::Type{typeof(P)}) = ArbFloat(x)
-#ArbFloat{P}(x::Float64,P::Int) = ArbFloat(x)
+convert{P}(ArbFloat{P}, x::Int) = ArbFloat(x)
+convert{P}(ArbFloat{P}, x::Float64) = ArbFloat{P}(x)
 
 
 function ArbFloat(x::BigFloat)
