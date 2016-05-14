@@ -61,6 +61,11 @@ end
     libarb = String(split(libarb,".dll")[1])
 end
 
+macro arbcall(sym)
+    (:($sym), libarb)
+end
+
+
 NotImplemented(info::AbstractString="") = error(string("this is not implemented\n\t",info,"\n"))
 
 include("type/ArbFloat.jl")
