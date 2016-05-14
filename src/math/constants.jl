@@ -12,7 +12,7 @@ PI(::Type{ArbFloat}) = PI(ArbFloat{precision(ArbFloat)})
 function SQRTPI{P}(::Type{ArbFloat{P}})
     z = ArbFloat{P}(0,0,0,0,0,0)
     ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
-    ccall(@libarb(arb_const_sqrtpi), Void, (Ptr{ArbFloat}, Int), &z, P)
+    ccall(@libarb(arb_const_sqrt_pi), Void, (Ptr{ArbFloat}, Int), &z, P)
     finalizer(z)
     z
 end
