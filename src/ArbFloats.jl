@@ -22,7 +22,10 @@ import Base: hash, convert, promote_rule, isa,
 
 export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round(lo,n,10)
        midpoint, radius, maxpoint, minpoint,
-       tanpi, cotpi
+       tanpi, cotpi,
+       log2, log10, log2o10, log10o2, exp1,
+       fourpi, twopi, onepi, halfpi, qrtrpi,
+       golden
 
                       # Complex( ArbSpan(real), ArbSpan(imaginary) )
                       #
@@ -77,6 +80,9 @@ end
 NotImplemented(info::AbstractString="") = error(string("this is not implemented\n\t",info,"\n"))
 
 include("type/ArbFloat.jl")
+
 include("math/arith.jl")
+include("math/elementary.jl")
+include("math/constants.jl")
 
 end # ArbFloats
