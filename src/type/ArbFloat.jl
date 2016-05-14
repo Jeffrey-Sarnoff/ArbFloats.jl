@@ -16,12 +16,6 @@ precision(::Type{ArbFloat}) = ArbFloatPrecision
 precision{P}(x::ArbFloat{P}) = P
 
 
-function convert{P}(::Type{ArbFloat{P}}, x::ArbFloat)
-    p = precision(ArbFloat)
-    ArbFloat{P}(x.mid_exp, x.mid_size, x.mid_d1, x.mid_d2, x.rad_exp, x.rad_man)
-end    
-
-
 
 @inline function clearArbFloat(x::ArbFloat)
      ccall(@libarb(arb_clear), Void, (Ptr{ArbFloat},), &x)
@@ -31,6 +25,14 @@ function finalizer(x::ArbFloat)
     finalizer(x, clearArbFloat)
 end    
 
+#=
+function convert{P}(::Type{ArbFloat{P}}, x::ArbFloat)
+    p = precision(ArbFloat)
+    ArbFloat{P}(x.mid_exp, x.mid_size, x.mid_d1, x.mid_d2, x.rad_exp, x.rad_man)
+end    
+=#
+
+
 function ArbFloat()
     p = precision(ArbFloat)
     z = ArbFloat{p}(0,0,0,0,0,0)
@@ -39,60 +41,59 @@ function ArbFloat()
     z
 end
 
-function ArbFloat(x::UInt)
-    p = precision(ArbFloat)
-    z = ArbFloat{p}(0,0,0,0,0,0)
-    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
-    ccall(@libarb(arb_set_ui), Void, (Ptr{ArbFloat}, UInt), &z, x)
+function convert{P}(::Type{ArbFloat{P}}, x::UInt)
+    z = ArbFloat{P}(0,0,0,0,0,0)
+    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat{P}},), &z)
+    ccall(@libarb(arb_set_ui), Void, (Ptr{ArbFloat{P}}, UInt), &z, x)
     finalizer(z)
     z
 end
 if sizeof(Int)==sizeof(Int64)
-   ArbFloat(x::UInt32) = ArbFloat(convert(UInt64,x))
+   convert{P}(::Type{ArbFloat{P}}, x::UInt32) = convert(ArbFloat{P}, convert(UInt64,x))
 else
-   ArbFloat(x::UInt64) = ArbFloat(convert(UInt32,x))
+   convert{P}(::Type{ArbFloat{P}}, x::UInt64) = convert(ArbFloat{P}, convert(UInt32,x))
 end
+convert{P}(::Type{ArbFloat{P}}, x::UInt16) = convert(ArbFloat{P}, convert(UInt,x))
 
-function ArbFloat(x::Int)
-    p = precision(ArbFloat)
-    z = ArbFloat{p}(0,0,0,0,0,0)
-    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
-    ccall(@libarb(arb_set_si), Void, (Ptr{ArbFloat}, Int), &z, x)
+function convert{P}(::Type{ArbFloat{P}}, x::Int)
+    z = ArbFloat{P}(0,0,0,0,0,0)
+    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat{P}},), &z)
+    ccall(@libarb(arb_set_si), Void, (Ptr{ArbFloat{P}}, Int), &z, x)
     finalizer(z)
     z
 end
 if sizeof(Int)==sizeof(Int64)
-   ArbFloat(x::Int32) = ArbFloat(convert(Int64,x))
+   convert{P}(::Type{ArbFloat{P}}, x::Int32) = convert(ArbFloat{P}, convert(Int64,x))
 else
-   ArbFloat(x::Int64) = ArbFloat(convert(Int32,x))
+   convert{P}(::Type{ArbFloat{P}}, x::Int64) = convert(ArbFloat{P}, convert(Int32,x))
 end
+convert{P}(::Type{ArbFloat{P}}, x::Int16) = convert(ArbFloat{P}, convert(Int,x))
 
-function ArbFloat(x::Float64)
-    p = precision(ArbFloat)
-    z = ArbFloat{p}(0,0,0,0,0,0)
-    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
-    ccall(@libarb(arb_set_d), Void, (Ptr{ArbFloat}, Float64), &z, x)
+
+function convert{P}(::Type{ArbFloat{P}}, x::Float64)
+    z = ArbFloat{P}(0,0,0,0,0,0)
+    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat{P}},), &z)
+    ccall(@libarb(arb_set_d), Void, (Ptr{ArbFloat{P}}, Float64), &z, x)
     finalizer(z)
     z
 end
-ArbFloat(x::Float32) = ArbFloat(convert(Float64,x))
+convert{P}(::Type{ArbFloat{P}}, x::Float32) = convert(ArbFloat{P}, convert(Float64,x))
+convert{P}(::Type{ArbFloat{P}}, x::Float16) = convert(ArbFloat{P}, convert(Float64,x))
 
-function ArbFloat(x::BigFloat)
-    p = precision(ArbFloat)
-    z = ArbFloat{p}(0,0,0,0,0,0)
+function convert{P}(::Type{ArbFloat{P}}, x::BigFloat)
+    z = ArbFloat{P}(0,0,0,0,0,0)
     ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
-    ccall(@libarb(arb_set_round_fmpz), Void, (Ptr{ArbFloat}, BigFloat, Int), &z, x, p)
+    ccall(@libarb(arb_set_round_fmpz), Void, (Ptr{ArbFloat}, BigFloat, Int), &z, x, P)
     finalizer(z)
     z
 end
-ArbFloat(x::BigInt) = ArbFloat(convert(BigFloat,x))
+convert{P}(::Type{ArbFloat{P}}, x::BigInt) = convert(ArbFloat{P}, convert(BigFloat,x))
 
-function ArbFloat(x::String)
-    p = precision(ArbFloat)
+function convert{P}(::Type{ArbFloat{P}}, x::String)
     b = bytestring(x)
-    z = ArbFloat{p}(0,0,0,0,0,0)
+    z = ArbFloat{P}(0,0,0,0,0,0)
     ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
-    ccall(@libarb(arb_set_str), Void, (Ptr{ArbFloat}, Ptr{UInt8}, Int), &z, b, p)
+    ccall(@libarb(arb_set_str), Void, (Ptr{ArbFloat}, Ptr{UInt8}, Int), &z, b, P)
     finalizer(z)
     z
 end
@@ -102,6 +103,7 @@ convert(::Type{BigInt}, x::String) = parse(BigInt,x)
 convert(::Type{BigFloat}, x::String) = parse(BigFloat,x)
 convert(::Type{BigFloat}, x::Rational) = parse(BigFloat,string(x))
 
+#=
 for T in (:Int8,:Int16,:Int32,:Int64)
     @eval convert{P}(::Type{ArbFloat{P}}, x::($T)) = ArbFloat(convert(Int,x))
 end
@@ -111,6 +113,7 @@ end
 for T in (:BigInt, :BigFloat, :Int128, :(Rational{Int32}), :(Rational{Int64}), :(Rational{Int128}), :(Rational{BigInt}))
     @eval convert{P}(::Type{ArbFloat{P}}, x::($T)) = ArbFloat( convert(BigFloat, string(x)) )
 end
+=#
 
 #convert{P}(::Type{ArbFloat{P}}, x::Int64) = ArbFloat(x)
 #convert{P}(::Type{ArbFloat{P}}, x::Int32) = ArbFloat(x)
