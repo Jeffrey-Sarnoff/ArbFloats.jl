@@ -1,7 +1,7 @@
 #=
     ^, pow, root
     
-    exp, expm1, log, log1p, log2, log10, logBase,
+    exp, expm1, log, log1p, log2, log10, logbase,
     sin, sinpi, cos, cospi, tan, tanpi, cot, cotpi,
     sinh, cosh, tanh, coth,
     asin, acos, atan, asinh, acosh, atanh,
@@ -27,26 +27,17 @@ for (op,cfunc) in ((:exp,:arb_exp), (:expm1, :arb_expm1), (:log,:arb_log), (:log
   end
 end
 
-function log2{P}(x::ArbFloat{P})
-    b = UInt(2)
-    z = initializer(ArbFloat{P})
-    ccall(@libarb(arb_log_base_ui), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Ptr{ArbFloat}, UInt, Int), &z, &x, b, P)
-    z
-end
 
-function log10{P}(x::ArbFloat{P})
-    b = UInt(10)
-    z = initializer(ArbFloat{P})
-    ccall(@libarb(arb_log_base_ui), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Ptr{ArbFloat}, UInt, Int), &z, &x, b, P)
-    z
-end
-
-function logBase{P}(x::ArbFloat{P}, base::Int)
+function logbase{P}(x::ArbFloat{P}, base::Int)
     b = UInt(abs(base))
     z = initializer(ArbFloat{P})
     ccall(@libarb(arb_log_base_ui), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Ptr{ArbFloat}, UInt, Int), &z, &x, b, P)
     z
 end
+
+log2{P}(x::ArbFloat{P}) = logbase(x, 2)
+log10{P}(x::ArbFloat{P}) = logbase(x, 10)
+
 
 
 
