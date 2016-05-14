@@ -7,7 +7,13 @@ type ArbFloat{Precision}  <: Real
   rad_man::UInt
 end
 
-Base.setprecision(ArbFloat,120)
+ArbFloatPrecision = 120
+function setprecision(::Type{ArbFloat}, x::Int)
+    ArbFloatPrecision = abs(x)
+end
+precision(::Type{ArbFloat}) = ArbFloatPrecsion
+precision{Precision}(x::ArbFloat{Precision}) = Precision
+
 
 function clearArbFloat(x::ArbFloat)
      ccall((:arb_clear, :libarb), Void, (Ptr(ArbFloat),), &x)
