@@ -18,6 +18,7 @@ import Base: hash, convert, promote_rule, isa,
 
 
 export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round(lo,n,10)
+       libarb,
        ArbSpan,       # midpoint ± 'radius' ('radius' is an equiprobable span, a line segment)
        ArbBox,        # as Complex(real ArbSegment, imaginary ArbSegment)
        ArbPoly,       # polynomials with Real Arb coeffs or Complex Arb [Acb] coeffs
@@ -50,8 +51,6 @@ libDir=Pkg.dir("Nemo/local/lib");
 libFiles = readdir(libDir);
 libarb    = joinpath(libDir,libFiles[findfirst([startswith(x,"libarb") for x in libFiles])])
 isfile(libarb)   || throw(ErrorException("libarb not found"));
-
-Main.libarb = libarb
 
 NotImplemented(info::AbstractString="") = error(string("this is not implemented\n\t",info,"\n"))
 
