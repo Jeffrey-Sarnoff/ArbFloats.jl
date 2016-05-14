@@ -58,10 +58,6 @@ function ArbFloat(x::Float64)
     z
 end
 
-convert{P}(::Type{ArbFloat{P}}, x::Int) = ArbFloat(x)
-convert{P}(::Type{ArbFloat{P}}, x::Float64) = ArbFloat{P}(x)
-
-
 function ArbFloat(x::BigFloat)
     p = precision(ArbFloat)
     z = ArbFloat{p}(0,0,0,0,0,0)
@@ -70,7 +66,6 @@ function ArbFloat(x::BigFloat)
     finalizer(z)
     z
 end
-
 
 function ArbFloat(x::String)
     p = precision(ArbFloat)
@@ -82,7 +77,18 @@ function ArbFloat(x::String)
     z
 end
 
-ArbFloat{T<:Real}(x::T) = ArbFloat(convert(BigFloat,x))
+BigInt(x::String) = parse(BigInt,x)
+BigFloat(x::String) = parse(BigFloat,x)
+convert{P}(::Type{ArbFloat{P}}, x::Int) = ArbFloat(x)
+convert{P}(::Type{ArbFloat{P}}, x::Float64) = ArbFloat(x)
+convert{P}(::Type{ArbFloat{P}}, x::BigFloat) = ArbFloat(string(x))
+convert{P}(::Type{ArbFloat{P}}, x::BigInt) = ArbFloat(string(x))
+convert{P,I<:Integer}(::Type{ArbFloat{P}}, x::Rational{I}) = ArbFloat(convert(BigFloat,x))
+convert{P,I<:Integer}(::Type{ArbFloat{P}}, x::I) = ArbFloat(convert(BigInt,x))
+convert{P,F<:AbstractFloat}(::Type{ArbFloat{P}}, x::F) = ArbFloat(convert(BigFloat,x))
+convert{P,R<:Real}(::Type{ArbFloat{P}}, x::R) = ArbFloat(convert(BigFloat,x))
+
+#ArbFloat{T<:Real}(x::T) = ArbFloat(convert(BigFloat,x))
 
 
 function String{P}(x::ArbFloat{P}, flags::UInt)
