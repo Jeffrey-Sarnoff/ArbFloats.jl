@@ -80,14 +80,6 @@ end
 convert{P}(::Type{ArbFloat{P}}, x::Float32) = convert(ArbFloat{P}, convert(Float64,x))
 convert{P}(::Type{ArbFloat{P}}, x::Float16) = convert(ArbFloat{P}, convert(Float64,x))
 
-function convert{P}(::Type{ArbFloat{P}}, x::BigFloat)
-    z = ArbFloat{P}(0,0,0,0,0,0)
-    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
-    ccall(@libarb(arb_set_round_fmpz), Void, (Ptr{ArbFloat}, BigFloat, Int), &z, x, P)
-    finalizer(z)
-    z
-end
-convert{P}(::Type{ArbFloat{P}}, x::BigInt) = convert(ArbFloat{P}, convert(BigFloat,x))
 
 function convert{P}(::Type{ArbFloat{P}}, x::String)
     b = bytestring(x)
@@ -102,6 +94,16 @@ end
 convert(::Type{BigInt}, x::String) = parse(BigInt,x)
 convert(::Type{BigFloat}, x::String) = parse(BigFloat,x)
 convert(::Type{BigFloat}, x::Rational) = parse(BigFloat,string(x))
+
+function convert{P}(::Type{ArbFloat{P}}, x::BigFloat)
+    z = ArbFloat{P}(0,0,0,0,0,0)
+    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+    ccall(@libarb(arb_set_round_fmpz), Void, (Ptr{ArbFloat}, Ptr{BigFloat}, Int), &z, &x, P)
+    finalizer(z)
+    z
+end
+convert{P}(::Type{ArbFloat{P}}, x::BigInt) = convert(ArbFloat{P}, convert(BigFloat,x))
+
 
 #=
 for T in (:Int8,:Int16,:Int32,:Int64)
