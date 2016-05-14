@@ -86,5 +86,5 @@ function String{P}(x::ArbFloat{P}, flags::UInt)
 end
 
 function string(x::ArbFloat)
-   String(x,3)
+   String(x,2) # midpoint only, RoundNearest
 end
