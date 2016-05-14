@@ -8,10 +8,8 @@
 for (op,cfunc) in ((:-,:arb_neg), (:abs, :arb_abs))
   @eval begin
     function ($op){P}(x::ArbFloat{P})
-      z = ArbFloat{P}(0,0,0,0,0,0)
-      ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+      z = initializer(ArbFloat{P})
       ccall(@libarb($cfunc), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}), &z, &x)
-      finalizer(z)      
       z
     end
   end
@@ -21,10 +19,8 @@ for (op,cfunc) in ((:inv, :arb_inv), (:floor,:arb_floor), (:ceil, :arb_ceil),
     (:sqrt, :arb_sqrt), (:invsqrt, :arb_rsqrt))
   @eval begin
     function ($op){P}(x::ArbFloat{P})
-      z = ArbFloat{P}(0,0,0,0,0,0)
-      ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+      z = initializer(ArbFloat{P})
       ccall(@libarb($cfunc), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &x, P)
-      finalizer(z)      
       z
     end
   end
@@ -33,10 +29,8 @@ end
 for (op,cfunc) in ((:+,:arb_add), (:-, :arb_sub), (:*, :arb_mul), (:/, :arb_div), (:hypot, :arb_hypot))
   @eval begin
     function ($op){P}(x::ArbFloat{P}, y::ArbFloat{P})
-      z = ArbFloat{P}(0,0,0,0,0,0)
-      ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+      z = initializer(ArbFloat{P})
       ccall(@libarb($cfunc), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &x, &y, P)
-      finalizer(z)      
       z
     end
     ($op){T<:AbstractFloat,P}(x::ArbFloat{P}, y::T) = ($op)(x, convert(ArbFloat{P}, y))
@@ -47,10 +41,8 @@ end
 for (op,cfunc) in ((:+,:arb_add_si), (:-, :arb_sub_si), (:*, :arb_mul_si), (:/, :arb_div_si))
   @eval begin
     function ($op){P}(x::ArbFloat{P}, y::Int)
-      z = ArbFloat{P}(0,0,0,0,0,0)
-      ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+      z = initializer(ArbFloat{P})
       ccall(@libarb($cfunc), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Int, Int), &z, &x, y, P)
-      finalizer(z)      
       z
     end
   end
@@ -74,10 +66,8 @@ end
 for (op,cfunc) in ((:addmul,:arb_addmul), (:submul, :arb_submul))
   @eval begin
     function ($op){P}(w::ArbFloat{P}, x::ArbFloat{P}, y::ArbFloat{P})
-      z = ArbFloat{P}(0,0,0,0,0,0)
-      ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+      z = initializer(ArbFloat{P})
       ccall(@libarb($cfunc), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &w, &x, &y, P)
-      finalizer(z)      
       z
     end
   end
