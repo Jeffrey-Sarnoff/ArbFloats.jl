@@ -48,7 +48,7 @@ isdir(Pkg.dir("Nemo")) || throw(ErrorException("Nemo not found"))
 libDir=Pkg.dir("Nemo/local/lib");
 libFiles = readdir(libDir);
 libarb    = realpath(joinpath(libDir,libFiles[findfirst([startswith(x,"libarb") for x in libFiles])]))
-isfile(libarb)   || throw(ErrorException("libarb not found"))
+isfile(libarb)   || throw(ErrorException("libarb not found"));
 
 NotImplemented(info::AbstractString="") = error(string("this is not implemented\n\t",info,"\n"))
 
