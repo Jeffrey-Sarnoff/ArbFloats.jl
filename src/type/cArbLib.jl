@@ -68,19 +68,6 @@ ArfValue(significand::SignificandStruct, halfwidth::HalfwidthStruct) =
              significand.significandHigh, significand.significandLow,
              halfwidth.halfwidthPow2, halfwidth.halfwidthSignif )
 
-convert(::Type{ArfValue}, x::ArbValue) = 
-    ArfValue( x.significandPow2, x.significandSize,
-              x.significandHead, x.significandTail,
-              x.halfwidthPow2, x.halfwidthSignif )
-
-convert(::Type{ArbValue}, x::ArfValue) = 
-    ArbValue( x.significandPow2, x.significandSize,
-              x.significandHigh, x.significandLow,
-              x.halfwidthPow2, x.halfwidthSignif  ,
-              parentprecision() )
-
-promote_rule(::Type{ArbValue}, ::Type{ArfValue}) = ArbValue
-
 
 
 # ArbValue := (midpoint, halfwdith)
@@ -131,6 +118,19 @@ function deepcopy(a::ArbValue)
 end
 
 
+
+convert(::Type{ArfValue}, x::ArbValue) = 
+    ArfValue( x.significandPow2, x.significandSize,
+              x.significandHead, x.significandTail,
+              x.halfwidthPow2, x.halfwidthSignif )
+
+convert(::Type{ArbValue}, x::ArfValue) = 
+    ArbValue( x.significandPow2, x.significandSize,
+              x.significandHigh, x.significandLow,
+              x.halfwidthPow2, x.halfwidthSignif  ,
+              parentprecision() )
+
+promote_rule(::Type{ArbValue}, ::Type{ArfValue}) = ArbValue
 
 function Cdouble(a::ArfValue, roundingMode::Cint = 4)
   z = ccall((:arf_get_d, :libarb), Cdouble, (Ptr{arf}, Cint), a.data, roundingMode)
