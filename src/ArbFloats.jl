@@ -18,13 +18,8 @@ import Base: hash, convert, promote_rule, isa,
 
 
 export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round(lo,n,10)
-       libarb,
-       ArbSpan,       # midpoint ± 'radius' ('radius' is an equiprobable span, a line segment)
-       ArbBox,        # as Complex(real ArbSegment, imaginary ArbSegment)
-       ArbPoly,       # polynomials with Real Arb coeffs or Complex Arb [Acb] coeffs
-       ArbMatrix      # matricies with Real Arb or Complex Arb [Acb] constituents 
+       midpoint, radius
 
-       
                       # Complex( ArbSpan(real), ArbSpan(imaginary) )
                       #
                       #    The real 'radius' and the imaginary 'radius' form a bounding box
@@ -78,21 +73,5 @@ end
 NotImplemented(info::AbstractString="") = error(string("this is not implemented\n\t",info,"\n"))
 
 include("type/ArbFloat.jl")
-#=
-#include("c_structs.jl")
-include("retype/layGround.jl")
-
-include("api/ArbLib.jl")
-include("api/AcbLib.jl")
-include("api/HypergeoLib.jl")
-include("api/EllipticLib.jl")
-include("api/CalculusLib.jl")
-
-#include("retype/layGround.jl")
-include("retype/ArbSpans.jl")
-include("retype/ArbBoxes.jl")
-include("retype/ArbPolys.jl")
-include("retype/ArbMatricies.jl")
-=#
 
 end # ArbFloats
