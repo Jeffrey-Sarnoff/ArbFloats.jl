@@ -22,7 +22,7 @@ end
 function ArbFloat(x::Int)
     z = ArbFloat{precision(ArbFloat)}(0,0,0,0,0,0)
     ccall((:arb_init, :libarb), Void, (Ptr{ArbFloat},), &z)
-    ccall((:arb_set_si, :libarb), Void, (Ptr{ArbFloat}, Int), &z, &x)
+    ccall((:arb_set_si, :libarb), Void, (Ptr{ArbFloat}, Int), &z, x)
     finalizer(z, clearArbFloat)
     z
 end
