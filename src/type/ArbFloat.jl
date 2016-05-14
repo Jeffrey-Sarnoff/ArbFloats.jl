@@ -1,3 +1,6 @@
+const SInt0  = zero(Int)
+const UInt0 = zero(UInt)
+
             # P is the precision used for this value
 type ArbFloat{P}  <: Real
   mid_exp::Int # fmpz
@@ -16,21 +19,21 @@ precision(::Type{ArbFloat}) = ArbFloatPrecision
 precision{P}(x::ArbFloat{P}) = P
 
 
-
 @inline function clearArbFloat(x::ArbFloat)
      ccall(@libarb(arb_clear), Void, (Ptr{ArbFloat},), &x)
 end
-
 function finalizer(x::ArbFloat)
     finalizer(x, clearArbFloat)
 end    
 
-#=
-function convert{P}(::Type{ArbFloat{P}}, x::ArbFloat)
-    p = precision(ArbFloat)
-    ArbFloat{P}(x.mid_exp, x.mid_size, x.mid_d1, x.mid_d2, x.rad_exp, x.rad_man)
-end    
-=#
+function initializer{P}(::Type{ArbFloat{P}})
+    z = ArbFloat{P}(0,0,0,0,0,0)
+    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+    finalizer(z, clearArbFloat)
+    z
+end
+
+
 
 
 function ArbFloat()
