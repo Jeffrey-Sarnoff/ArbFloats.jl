@@ -64,7 +64,7 @@ end
 (+){P}(x::ArbFloat{P}, y::Integer) = (+)(x, ArbFloat(y))
 (-){P}(x::ArbFloat{P}, y::Integer) = (-)(x, ArbFloat(y))
 (*){P}(x::ArbFloat{P}, y::Integer) = (*)(x, ArbFloat(y))
-(.){P}(x::ArbFloat{P}, y::Integer) = (/)(x, ArbFloat(y))
+(/){P}(x::ArbFloat{P}, y::Integer) = (/)(x, ArbFloat(y))
 
 (+){P}(x::Integer, y::ArbFloat{P}) = (+)(ArbFloat(x),y)
 (-){P}(x::Integer, y::ArbFloat{P}) = -((-)(y,ArbFloat(x)))
