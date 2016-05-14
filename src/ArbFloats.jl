@@ -14,7 +14,7 @@ import Base: hash, convert, promote_rule, isa,
     trunc, round, ceil, floor,
     fld, cld, div, mod, rem, divrem, fldmod,
     muladd, fma,
-    exp, log, 
+    exp, expm1, log, log1p, log2, log10,
     sin, cos, tan, csc, sec, cot, asin, acos, atan, atan2,
     sinh, cosh, tanh, csch, sech, coth, asinh, acosh, atanh,
     sinc, gamma, lgamma, zeta,
@@ -23,7 +23,7 @@ import Base: hash, convert, promote_rule, isa,
 
 export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round(lo,n,10)
        midpoint, radius, upperbound, lowerbound,
-       invsqrt, pow, root, tanpi, cotpi,
+       invsqrt, pow, root, tanpi, cotpi, logbase
        relativeError, relativeAccuracy, midpointPrecision, trimmedAccuracy,
        PI,SQRTPI,LOG2,LOG10,EXP1,EULER,CATALAN,KHINCHIN,GLAISHER,APERY # constants
 
