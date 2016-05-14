@@ -20,10 +20,18 @@ for (op,cfunc) in ((:exp,:arb_exp), (:expm1, :arb_expm1), (:log,:arb_log), (:log
     function ($op){P}(x::ArbFloat{P})
       z = ArbFloat{P}(0,0,0,0,0,0)
       ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
-      ccall(@libarb($cfunc), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &x, P)
+      ccall(@libarb($cfunc), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &x, P)
       finalizer(z, clearArbFloat)      
       z
     end
   end
 end
 
+
+function atan2{P}(a::ArbFloat{P}, b::ArbFloat{P})
+    z = ArbFloat{P}(0,0,0,0,0,0)
+    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+    ccall(@libarb(arb_atan2), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &a, &b, P)
+    finalizer(z, clearArbFloat)      
+    z
+end
