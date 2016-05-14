@@ -6,17 +6,17 @@ type HalfwidthStruct <: Real
    halfwidthPow2   ::Int
    halfwidthSignif ::UInt
 
-   HalfwidthStruct(significandPow2::Int, significandSignif::UInt) =
-       new( significandPow2, significandSignif )
+   HalfwidthStruct(halfwidthPow2::Int, halfwidthSignif::UInt) =
+       new(halfwidthPow2, halfwidthSignif)
 end
 
 
 type MagStruct <: Real
    # like Float40 with much wider expoinent
-   halfwidthPow2   ::Int
-   halfwidthSignif ::UInt         # mp_limb_t
+   significandPow2   ::Int
+   significandSignif ::UInt         # mp_limb_t
 
-   HalfwidthStruct(significandPow2::Int, significandSignif::UInt) =
+   MagStruct(significandPow2::Int, significandSignif::UInt) =
        new( significandPow2, significandSignif )
 end
 
