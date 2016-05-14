@@ -11,7 +11,7 @@ ArbFloatPrecision = 120
 function setprecision(::Type{ArbFloat}, x::Int)
     ArbFloatPrecision = abs(x)
 end
-precision(::Type{ArbFloat}) = ArbFloatPrecsion
+precision(::Type{ArbFloat}) = ArbFloatPrecision
 precision{Precision}(x::ArbFloat{Precision}) = Precision
 
 
