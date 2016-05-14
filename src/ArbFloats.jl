@@ -16,10 +16,6 @@ import Base: hash, convert, promote_rule, isa,
     Cdouble, Culonglong, Clonglong, Cuint, Cint, Cushort, Cshort
 
 
-NotImplemented(info::AbstractString="") = error(string("this is not implemented\n\t",info,"\n"))
-
-using Nemo
-
 export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round(lo,n,10)
        ArbSpan,       # midpoint ± 'radius' ('radius' is an equiprobable span, a line segment)
        ArbBox,        # as Complex(real ArbSegment, imaginary ArbSegment)
@@ -43,6 +39,48 @@ export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round
                       #    oriented perpendicular to the real diameter 
                       #    atan2(-midpoint(imag), -midpoint(real) ).
                       
+
+
+NotImplemented(info::AbstractString="") = error(string("this is not implemented\n\t",info,"\n"))
+
+# ensure the requisite libraries are available
+
+isdir(Pkg.dir("Nemo")) || throw(ErrorException("Nemo not found")
+
+@linux_only begin
+  libarb  = Pkg.dir("Nemo/local/lib/libarb.so")
+  libflint = Pkg.dir("Nemo/local/lib/libflint.so")
+  libgmp  = Pkg.dir("Nemo/local/lib/libgmp.so")
+  libmpir = Pkg.dir("Nemo/local/lib/libmpir.so")
+  libmpfr = Pkg.dir("Nemo/local/lib/libmpfr.so")
+end
+
+@osx_only begin
+  libarb = Pkg.dir("Nemo/local/lib/libarb.dynlib")
+  libflint = Pkg.dir("Nemo/local/lib/libflint.dynlib")
+  libgmp  = Pkg.dir("Nemo/local/lib/libgmp.dynlib")
+  libmpir = Pkg.dir("Nemo/local/lib/libmpir.dynlib")
+  libmpfr = Pkg.dir("Nemo/local/lib/libmpfr.dynlib")
+end
+
+@windows_only begin
+  libarb = Pkg.dir("Nemo/local/lib/libarb.dll")
+  libflint = Pkg.dir("Nemo/local/lib/libflint.dll")
+  libgmp  = Pkg.dir("Nemo/local/lib/libgmp.dll")
+  libmpir = Pkg.dir("Nemo/local/lib/libmpir.dll")
+  libmpfr = Pkg.dir("Nemo/local/lib/libmpfr.dll")
+end
+
+if isfile(libmpir) && !isfile(libgmp)
+   libgmp = libmpir
+end
+
+isfile(libarb)   || throw(ErrorException("libarb not found"))
+isfile(libflint) || throw(ErrorException("libflint not found"))
+isfile(libgmp)   || throw(ErrorException("libgmp not found"))
+isfile(libmpfr)  || throw(ErrorException("libmpfr not found"))
+
+
 
 #include("c_structs.jl")
 include("retype/layGround.jl")
