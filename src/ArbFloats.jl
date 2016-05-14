@@ -56,7 +56,7 @@ end
     libflint = String(split(libflint,".dynlib")[1])
 end
 @windows_only begin
-    #libarb = String(split(libarb,".dll")[1])
+    libarb = String(split(libarb,".dll")[1])
     libflint = String(split(libflint,".dll")[1])
 end
 
