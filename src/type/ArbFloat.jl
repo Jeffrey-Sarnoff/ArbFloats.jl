@@ -101,33 +101,6 @@ end
 
 
 
-#=
-for T in (:Int8,:Int16,:Int32,:Int64)
-    @eval convert{P}(::Type{ArbFloat{P}}, x::($T)) = ArbFloat(convert(Int,x))
-end
-for T in (:Float16,:Float32,:Float64)
-    @eval convert{P}(::Type{ArbFloat{P}}, x::($T)) = ArbFloat(convert(Float64,x))
-end
-for T in (:BigInt, :BigFloat, :Int128, :(Rational{Int32}), :(Rational{Int64}), :(Rational{Int128}), :(Rational{BigInt}))
-    @eval convert{P}(::Type{ArbFloat{P}}, x::($T)) = ArbFloat( convert(BigFloat, string(x)) )
-end
-=#
-
-#convert{P}(::Type{ArbFloat{P}}, x::Int64) = ArbFloat(x)
-#convert{P}(::Type{ArbFloat{P}}, x::Int32) = ArbFloat(x)
-
-#convert{P}(::Type{ArbFloat{P}}, x::Float32) = ArbFloat(x)
-#convert{P}(::Type{ArbFloat{P}}, x::Float64) = ArbFloat(x)
-#convert{P}(::Type{ArbFloat{P}}, x::BigFloat) = ArbFloat(string(x))
-#convert{P}(::Type{ArbFloat{P}}, x::BigInt) = ArbFloat(string(x))
-##convert{P,I<:Integer}(::Type{ArbFloat{P}}, x::Rational{I}) = ArbFloat(convert(BigFloat,x))
-#convert{P,I<:Integer}(::Type{ArbFloat{P}}, x::I) = ArbFloat(convert(BigInt,x))
-#convert{P,F<:AbstractFloat}(::Type{ArbFloat{P}}, x::F) = ArbFloat(convert(BigFloat,x))
-#convert{P,R<:Real}(::Type{ArbFloat{P}}, x::R) = ArbFloat(convert(BigFloat,x))
-
-#ArbFloat{T<:Real}(x::T) = ArbFloat(convert(BigFloat,x))
-
-
 function String{P}(x::ArbFloat{P}, flags::UInt)
    n = floor(Int, P*0.3010299956639811952137)
    cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, n, flags)
