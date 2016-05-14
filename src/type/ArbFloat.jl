@@ -121,10 +121,10 @@ function radius{P}(x::ArbFloat{P})
     z
 end
 
-function maxpoint{P}(x::ArbFloat{P})
+function upperbound{P}(x::ArbFloat{P})
     midpoint(x) + radius(x)
 end
-function minpoint{P}(x::ArbFloat{P})
+function lowerbound{P}(x::ArbFloat{P})
     midpoint(x) - radius(x)
 end
 function minmax{P}(x::ArbFloat{P})
