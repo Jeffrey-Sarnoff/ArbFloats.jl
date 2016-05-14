@@ -20,7 +20,7 @@ end
 precision(::Type{ArbFloat}) = ArbFloatPrecision
 precision{P}(x::ArbFloat{P}) = P
 
-ArbFloat(x::Number) = ArbFloat{precision(ArbFloat}}(x)
+ArbFloat(x::Number) = ArbFloat{precision(ArbFloat)}(x)
 
 @inline function clearArbFloat(x::ArbFloat)
      ccall(@libarb(arb_clear), Void, (Ptr{ArbFloat},), &x)
