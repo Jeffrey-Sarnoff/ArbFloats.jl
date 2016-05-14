@@ -115,9 +115,7 @@ end
 function minmax{P}(x::ArbFloat{P})
    m = midpoint(x)
    r = radius(x)
-   mn = m-r
-   mx = m+r
-   mn,mx
+   m-r, m+r
 end
 
    
