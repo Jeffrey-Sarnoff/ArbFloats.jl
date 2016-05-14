@@ -15,14 +15,15 @@ golden{P}(::Type{ArbFloat{P}})  = (1+sqrt(ArbFloat{P}(4)))/ArbFloat{P}(2)
 
 
 
-log2o10(::Type{ArbFloat}) = log2o10{precision(ArbFloat)}
-log10o2(::Type{ArbFloat}) = log10o2{precision(ArbFloat)}
+log2o10(::Type{ArbFloat}) = log2o10(ArbFloat{precision(ArbFloat)})
+log10o2(::Type{ArbFloat}) = log10o2(ArbFloat{precision(ArbFloat)})
 
-exp1(::Type{ArbFloat}) = exp1{precision(ArbFloat)}
+exp1(::Type{ArbFloat}) = exp1(ArbFloat{precision(ArbFloat)})
 
-fourpi(::Type{ArbFloat}) = fourpi{precision(ArbFloat)}
-twopi(::Type{ArbFloat}) = twopi{precision(ArbFloat)}
-onepi(::Type{ArbFloat}) = onepi{precision(ArbFloat)}
-halfpi(::Type{ArbFloat}) = halfpi{precision(ArbFloat)}
-qrtrpi(::Type{ArbFloat}) = qrtrpi{precision(ArbFloat)}
+fourpi(::Type{ArbFloat}) = fourpi(ArbFloat{precision(ArbFloat)})
+twopi(::Type{ArbFloat}) = twopi(ArbFloat{precision(ArbFloat)})
+onepi(::Type{ArbFloat}) = onepi(ArbFloat{precision(ArbFloat)})
+halfpi(::Type{ArbFloat}) = halfpi(ArbFloat{precision(ArbFloat)})
+qrtrpi(::Type{ArbFloat}) = qrtrpi(ArbFloat{precision(ArbFloat)})
 
+golden(::Type{ArbFloat}) = golden(ArbFloat{precision(ArbFloat)})
