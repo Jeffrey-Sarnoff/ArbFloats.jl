@@ -16,13 +16,13 @@ precision{Precision}(x::ArbFloat{Precision}) = Precision
 
 
 function clearArbFloat(x::ArbFloat)
-     ccall(@libarb(arb_clear), Void, (Ptr(ArbFloat),), &x)
+     ccall(@libarb(arb_clear), Void, (Ptr{ArbFloat},), &x)
 end
 
-macro arbfinalizer(x)
-    finalizer(:($x), ccall(@libarb(arb_clear), Void, (Ptr{ArbFloat},), &(:($x))))
+function finalizer(x::ArbFloat)
+    finalizer(x, clearArbFloat)
 end    
-    
+
 function ArbFloat()
     p = precision(ArbFloat)
     z = ArbFloat{p}(0,0,0,0,0,0)
@@ -45,7 +45,7 @@ function ArbFloat(x::Int)
     z = ArbFloat{p}(0,0,0,0,0,0)
     ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
     ccall(@libarb(arb_set_si), Void, (Ptr{ArbFloat}, Int), &z, x)
-    @arbfinalizer(z)
+    finalizer(z)
     z
 end
 
@@ -54,7 +54,7 @@ function ArbFloat(x::Float64)
     z = ArbFloat{p}(0,0,0,0,0,0)
     ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
     ccall(@libarb(arb_set_d), Void, (Ptr{ArbFloat}, Float64), &z, x)
-    @arbfinalizer(z)
+    finalizer(z)
     z
 end
 
