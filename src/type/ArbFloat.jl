@@ -112,9 +112,9 @@ end
 convert{P}(::Type{Float32}, x::ArbFloat{P}) = convert(Float32,convert(Float64,x))
 
 function convert{P}(::Type{Int}, x::ArbFloat{P})
-    z = 0
-    ccall(@libarb(arb_set_si), Void, (Ptr{ArbFloat{P}}, Int), &x, z)
-    z
+    trunc(Int,convert(Float64,x))
+    #ccall(@libarb(arb_set_si), Void, (Ptr{ArbFloat{P}}, Int), &x, z)
+    #z
 end
 if sizeof(Int)==sizeof(Int64)
     convert{P}(::Type{Int32}, x::ArbFloat{P}) = convert(Int32,convert(Int64,x))
