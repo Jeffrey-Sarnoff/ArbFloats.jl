@@ -1,4 +1,88 @@
 
+
+
+type HalfwidthStruct <: Real
+   # halfwidth of interval value, symmetric about the midpoint 
+   halfwidthPow2   ::Int
+   halfwidthSignif ::UInt
+
+   HalfwidthStruct(significandPow2::Int, significandSignif::UInt) =
+       new( significandPow2, significandSignif )
+end
+
+
+type MagStruct <: Real
+   # like Float40 with much wider expoinent
+   halfwidthPow2   ::Int
+   halfwidthSignif ::UInt         # mp_limb_t
+
+   HalfwidthStruct(significandPow2::Int, significandSignif::UInt) =
+       new( significandPow2, significandSignif )
+end
+
+
+type SignificandStruct <: Real
+   # midpoint of interval value
+   significandPow2 ::Int
+   significandSize ::UInt
+   significandHead ::Int
+   significandTail ::Int
+   # halfwidth of interval value, symmetric about the midpoint 
+   halfwidthPow2   ::Int
+   halfwidthSignif ::UInt
+
+   SignificandStruct(significandPow2::Int, signifiandSize::UInt,
+            significandHead::Int, significandTail::Int,
+            halfwidthPow2::Int, halfwidthSignif::UInt ) =
+       new( significandPow2, significandSize,
+            significandHead, significandTail,
+            halfwidthPow2, halfwidthSignif )
+end
+
+
+
+#
+#   ArfValue (an ArbValue without trailing precision field)
+#
+
+type ArfValue <: Real
+   # midpoint of interval value
+   significandPow2 ::Int
+   significandSize ::UInt
+   significandHigh ::Int
+   significandLow  ::Int
+   # halfwidth of interval value, symmetric about the midpoint 
+   halfwidthPow2   ::Int
+   halfwidthSignif ::UInt
+
+   ArfValue(significandPow2::Int, signifiandSize::UInt,
+            significandHigh::Int , significandLow::Int,
+            halfwidthPow2::Int, halfwidthSignif::UInt   ) =
+       new( significandPow2, significandSize,
+            significandHigh, significandLow,
+            halfwidthPow2, halfwidthSignif     )
+end
+
+ArfValue(significand::SignificandStruct, halfwidth::HalfwidthStruct) =
+   ArfValue( significand.significandPow2, significand.signifiandSize,
+             significand.significandHigh, significand.significandLow,
+             halfwidth.halfwidthPow2, halfwidth.halfwidthSignif )
+
+convert(::Type{ArfValue}, x::ArbValue) = 
+    ArfValue( x.significandPow2, x.significandSize,
+              x.significandHead, x.significandTail,
+              x.halfwidthPow2, x.halfwidthSignif )
+
+convert(::Type{ArbValue}, x::ArfValue) = 
+    ArbValue( x.significandPow2, x.significandSize,
+              x.significandHigh, x.significandLow,
+              x.halfwidthPow2, x.halfwidthSignif  ,
+              parentprecision() )
+
+promote_rule(::Type{ArbValue}, ::Type{ArfValue}) = ArbValue
+
+
+
 # ArbValue := (midpoint, halfwdith)
 # lobound.halfwidth.midpoint.halfwidth.hibound
 #    fp      span      fp        spn     fp
@@ -44,87 +128,6 @@ function deepcopy(a::ArbValue)
   b = typeof(a)()
   ccall((:arb_set, :libarb), Void, (Ptr{ArbValue}, Ptr{ArbValue}), &b, &a)
   return b
-end
-
-#
-#   ArfValue (an ArbValue without trailing precision field)
-#
-
-type ArfValue <: Real
-   # midpoint of interval value
-   significandPow2 ::Int
-   significandSize ::UInt
-   significandHigh ::Int
-   significandLow  ::Int
-   # halfwidth of interval value, symmetric about the midpoint 
-   halfwidthPow2   ::Int
-   halfwidthSignif ::UInt
-
-   ArfValue(significandPow2::Int, signifiandSize::UInt,
-            significandHigh::Int , significandLow::Int,
-            halfwidthPow2::Int, halfwidthSignif::UInt   ) =
-       new( significandPow2, significandSize,
-            significandHigh, significandLow,
-            halfwidthPow2, halfwidthSignif     )
-end
-
-ArfValue(significand::SignificandStruct, halfwidth::HalfwidthStruct) =
-   ArfValue( significand.significandPow2, significand.signifiandSize,
-             significand.significandHigh, significand.significandLow,
-             halfwidth.halfwidthPow2, halfwidth.halfwidthSignif )
-
-convert(::Type{ArfValue}, x::ArbValue) = 
-    ArfValue( x.significandPow2, x.significandSize,
-              x.significandHead, x.significandTail,
-              x.halfwidthPow2, x.halfwidthSignif )
-
-convert(::Type{ArbValue}, x::ArfValue) = 
-    ArbValue( x.significandPow2, x.significandSize,
-              x.significandHigh, x.significandLow,
-              x.halfwidthPow2, x.halfwidthSignif  ,
-              parentprecision() )
-
-promote_rule(::Type{ArbValue}, ::Type{ArfValue}) = ArbValue
-
-
-
-type SignificandStruct <: Real
-   # midpoint of interval value
-   significandPow2 ::Int
-   significandSize ::UInt
-   significandHead ::Int
-   significandTail ::Int
-   # halfwidth of interval value, symmetric about the midpoint 
-   halfwidthPow2   ::Int
-   halfwidthSignif ::UInt
-
-   SignificandStruct(significandPow2::Int, signifiandSize::UInt,
-            significandHead::Int, significandTail::Int,
-            halfwidthPow2::Int, halfwidthSignif::UInt ) =
-       new( significandPow2, significandSize,
-            significandHead, significandTail,
-            halfwidthPow2, halfwidthSignif )
-end
-
-
-type HalfwidthStruct <: Real
-   # halfwidth of interval value, symmetric about the midpoint 
-   halfwidthPow2   ::Int
-   halfwidthSignif ::UInt
-
-   HalfwidthStruct(significandPow2::Int, significandSignif::UInt) =
-       new( significandPow2, significandSignif )
-end
-
-
-
-type MagStruct <: Real
-   # like Float40 with much wider expoinent
-   halfwidthPow2   ::Int
-   halfwidthSignif ::UInt         # mp_limb_t
-
-   HalfwidthStruct(significandPow2::Int, significandSignif::UInt) =
-       new( significandPow2, significandSignif )
 end
 
 
