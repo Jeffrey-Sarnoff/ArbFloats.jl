@@ -1,5 +1,3 @@
-const SInt0  = zero(Int)
-const UInt0 = zero(UInt)
 
             # P is the precision used for this value
 type ArbFloat{P}  <: Real
@@ -22,7 +20,7 @@ precision{P}(x::ArbFloat{P}) = P
 @inline function clearArbFloat(x::ArbFloat)
      ccall(@libarb(arb_clear), Void, (Ptr{ArbFloat},), &x)
 end
-function finalizer(x::ArbFloat)
+@inline function finalizer(x::ArbFloat)
     finalizer(x, clearArbFloat)
 end    
 
@@ -45,10 +43,8 @@ function ArbFloat()
 end
 
 function convert{P}(::Type{ArbFloat{P}}, x::UInt)
-    z = ArbFloat{P}(0,0,0,0,0,0)
-    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat{P}},), &z)
+    z = initializer(ArbFloat{P})
     ccall(@libarb(arb_set_ui), Void, (Ptr{ArbFloat{P}}, UInt), &z, x)
-    finalizer(z)
     z
 end
 if sizeof(Int)==sizeof(Int64)
@@ -59,10 +55,8 @@ end
 convert{P}(::Type{ArbFloat{P}}, x::UInt16) = convert(ArbFloat{P}, convert(UInt,x))
 
 function convert{P}(::Type{ArbFloat{P}}, x::Int)
-    z = ArbFloat{P}(0,0,0,0,0,0)
-    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat{P}},), &z)
+    z = initializer(ArbFloat{P})
     ccall(@libarb(arb_set_si), Void, (Ptr{ArbFloat{P}}, Int), &z, x)
-    finalizer(z)
     z
 end
 if sizeof(Int)==sizeof(Int64)
@@ -74,10 +68,8 @@ convert{P}(::Type{ArbFloat{P}}, x::Int16) = convert(ArbFloat{P}, convert(Int,x))
 
 
 function convert{P}(::Type{ArbFloat{P}}, x::Float64)
-    z = ArbFloat{P}(0,0,0,0,0,0)
-    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat{P}},), &z)
+    z = initializer(ArbFloat{P})
     ccall(@libarb(arb_set_d), Void, (Ptr{ArbFloat{P}}, Float64), &z, x)
-    finalizer(z)
     z
 end
 convert{P}(::Type{ArbFloat{P}}, x::Float32) = convert(ArbFloat{P}, convert(Float64,x))
@@ -86,10 +78,8 @@ convert{P}(::Type{ArbFloat{P}}, x::Float16) = convert(ArbFloat{P}, convert(Float
 
 function convert{P}(::Type{ArbFloat{P}}, x::String)
     b = bytestring(x)
-    z = ArbFloat{P}(0,0,0,0,0,0)
-    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+    z = initializer(ArbFloat{P})
     ccall(@libarb(arb_set_str), Void, (Ptr{ArbFloat}, Ptr{UInt8}, Int), &z, b, P)
-    finalizer(z)
     z
 end
 
@@ -103,10 +93,8 @@ convert{P}(::Type{ArbFloat{P}}, x::Rational) = convert(ArbFloat{P}, convert(BigF
 
 #= returns 256.0 for convert(big(1.5))
 function convert{P}(::Type{ArbFloat{P}}, x::BigFloat)
-    z = ArbFloat{P}(0,0,0,0,0,0)
-    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+    z = initializer(ArbFloat{P})
     ccall(@libarb(arb_set_round_fmpz), Void, (Ptr{ArbFloat}, Ptr{BigFloat}, Int), &z, &x, P)
-    finalizer(z)
     z
 end
 =#
@@ -153,34 +141,26 @@ function string(x::ArbFloat)
 end
 
 function copy{P}(x::ArbFloat{P})
-    z = ArbFloat{P}(0,0,0,0,0,0)
-    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+    z = initializer(ArbFloat{P})
     ccall(@libarb(arb_set), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}), &z, &x)
-    finalizer(z)
     z
 end
 
 function deepcopy{P}(x::ArbFloat{P})
-    z = ArbFloat{P}(0,0,0,0,0,0)
-    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+    z = initializer(ArbFloat{P})
     ccall(@libarb(arb_set), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}), &z, &x)
-    finalizer(z, clearArbFloat)
     z
 end
 
 function midpoint{P}(x::ArbFloat{P})
-    z = ArbFloat{P}(0,0,0,0,0,0)
-    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+    z = initializer(ArbFloat{P})
     ccall(@libarb(arb_get_mid_arb), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}), &z, &x)
-    finalizer(z)
     z
 end
 
 function radius{P}(x::ArbFloat{P})
-    z = ArbFloat{P}(0,0,0,0,0,0)
-    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+    z = initializer(ArbFloat{P})
     ccall(@libarb(arb_get_rad_arb), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}), &z, &x)
-    finalizer(z)
     z
 end
 
@@ -216,10 +196,8 @@ function midpointPrecision{P}(x::ArbFloat{P})
 end
 
 function trimmedAccuracy{P}(x::ArbFloat{P})
-    z = ArbFloat{P}(0,0,0,0,0,0)
-    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+    z = initializer(ArbFloat{P})
     ccall(@libarb(arb_trim), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}), &z, &x)
-    finalizer(z)
     z
 end
 
