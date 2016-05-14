@@ -1,4 +1,18 @@
 
+
+function PI{P}(::Type{ArbFloat{P}})
+    z = ArbFloat{P}(0,0,0,0,0,0)
+    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+    ccall(@libarb(arb_const_pi), Void, (Ptr{ArbFloat}, Int), &z, P)
+    finalizer(z)
+    z
+end
+function PI(::Type{ArbFloat})
+   p = precision(ArbFloat)
+   PI(ArbFloat{p})
+end
+
+
 log2o10{P}(::Type{ArbFloat{P}}) = log(ArbFloat{P}(2))/log(ArbFloat{P}(10))
 log10o2{P}(::Type{ArbFloat{P}}) = log(ArbFloat{P}(10))/log(ArbFloat{P}(2))
 
