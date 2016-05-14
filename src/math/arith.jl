@@ -9,7 +9,7 @@ for (op,cfunc) in ((:-,:arb_neg), (:abs, :arb_abs))
     function ($op){P}(x::ArbFloat{P})
       z = ArbFloat{P}(0,0,0,0,0,0)
       ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
-      ccall(@libarb($cfunc), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Ptr{ArbFloat}), &z, &x)
+      ccall(@libarb($cfunc), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}), &z, &x)
       finalizer(z, clearArbFloat)      
       z
     end
@@ -22,7 +22,7 @@ for (op,cfunc) in ((:inv, :arb_inv), (:floor,:arb_floor), (:ceil, :arb_ceil),
     function ($op){P}(x::ArbFloat{P})
       z = ArbFloat{P}(0,0,0,0,0,0)
       ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
-      ccall(@libarb($cfunc), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &x, P)
+      ccall(@libarb($cfunc), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &x, P)
       finalizer(z, clearArbFloat)      
       z
     end
