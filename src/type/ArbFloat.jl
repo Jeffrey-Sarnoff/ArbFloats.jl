@@ -93,8 +93,12 @@ end
 
 convert(::Type{BigInt}, x::String) = parse(BigInt,x)
 convert(::Type{BigFloat}, x::String) = parse(BigFloat,x)
-convert(::Type{BigFloat}, x::Rational) = parse(BigFloat,string(x))
+convert(::Type{BigFloat}, x::Rational) = parse(BigFloat,string(x.num)) / parse(BigFloat,string(x.den))
 
+convert{P}(::Type{ArbFloat{P}, x::BigFloat) = convert(ArbFloat{P}, string(x))
+convert{P}(::Type{ArbFloat{P}}, x::BigInt) = convert(ArbFloat{P}, convert(BigFloat,x))
+
+#= returns 256.0 for convert(big(1.5))
 function convert{P}(::Type{ArbFloat{P}}, x::BigFloat)
     z = ArbFloat{P}(0,0,0,0,0,0)
     ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
@@ -102,7 +106,8 @@ function convert{P}(::Type{ArbFloat{P}}, x::BigFloat)
     finalizer(z)
     z
 end
-convert{P}(::Type{ArbFloat{P}}, x::BigInt) = convert(ArbFloat{P}, convert(BigFloat,x))
+=#
+
 
 
 #=
