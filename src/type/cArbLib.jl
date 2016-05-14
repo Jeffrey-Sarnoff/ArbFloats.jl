@@ -97,7 +97,7 @@ end
 parent(x::ArbValue) = x.parent # ::Int
 precision(x::ArbValue) = x.parentprecison # ::Int
 
-ArbValue(significand::SignificandStruct, halfwidth::HalfwidtStruct, parentprecision::Int) =
+ArbValue(significand::SignificandStruct, halfwidth::HalfwidthStruct, parentprecision::Int) =
    ArbValue( significand.significandPow2, significand.signifiandSize,
              significand.significandHigh, significand.significandLow,
              halfwidthPow2, halfwidthSignif, parentprecision )
