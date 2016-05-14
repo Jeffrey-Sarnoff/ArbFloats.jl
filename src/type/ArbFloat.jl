@@ -39,6 +39,7 @@ function ArbFloat(x::UInt)
     finalizer(z)
     z
 end
+ArbFloat{T<:Unsigned}(x::T) = ArbFloat(UInt(x))
 
 function ArbFloat(x::Int)
     p = precision(ArbFloat)
@@ -48,6 +49,7 @@ function ArbFloat(x::Int)
     finalizer(z)
     z
 end
+ArbFloat{T<:Signed}(x::T) = ArbFloat(Int(x))
 
 function ArbFloat(x::Float64)
     p = precision(ArbFloat)
@@ -57,6 +59,7 @@ function ArbFloat(x::Float64)
     finalizer(z)
     z
 end
+ArbFloat{T<:Float32}(x::T) = ArbFloat(Float64(x))
 
 function ArbFloat(x::BigFloat)
     p = precision(ArbFloat)
