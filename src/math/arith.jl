@@ -1,3 +1,8 @@
+#=
+   -x, abs(x), inv(x)
+   x+y, x-y, x*y, x/y
+=#
+
 for (op,cfunc) in ((:-,:arb_neg), (:abs, :arb_abs))
   @eval begin
     function ($op){P}(x::ArbFloat{P})
