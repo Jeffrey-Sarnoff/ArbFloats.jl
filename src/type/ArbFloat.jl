@@ -9,13 +9,11 @@ type ArbFloat{P}  <: Real
   rad_man::UInt
 end
 
-
 # a type specific hash function helps the type to 'just work'
 const hash_arbfloat_lo = (UInt === UInt64) ? 0xe7e642589da3416a : 0x8d46a6b4
 const hash_0_arbfloat_lo = hash(zero(UInt), hash_arbfloat_lo)
 hash{P}(z::ArbFloat{P}, h::UInt) = 
-    hash( reinterpret(UInt,z.mid_d1), 
-          (h $ hash((reinterpret(UInt,z.mid_exp)$((z.mid_size<<5)-0x7)), hash_arbfloat_lo) $ hash_0_arbfloat_lo))
+    hash(z.mid_d1, (h $ hash(P$z.mid_exp, hash_arbfloat_lo) $ hash_0_arbfloat_lo))
 
 
 ArbFloatPrecision = 123
