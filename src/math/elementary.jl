@@ -1,4 +1,6 @@
 #=
+    ^, pow, root
+    
     exp, expm1, log, log1p,
     sin, sinpi, cos, cospi, tan, tanpi, cot, cotpi,
     sinh, cosh, tanh, coth,
@@ -34,4 +36,16 @@ function atan2{P}(a::ArbFloat{P}, b::ArbFloat{P})
     ccall(@libarb(arb_atan2), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &a, &b, P)
     finalizer(z, clearArbFloat)      
     z
+end
+
+for (op,cfunc) in ((:^,:arb_pow), (:pow,:arb_pow), (:root, :arb_root))
+  @eval begin
+    function ($op){P}(x::ArbFloat{P}, y::ArbFloat{P})
+      z = ArbFloat{P}(0,0,0,0,0,0)
+      ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+      ccall(@libarb($cfunc), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &x, &y, P)
+      finalizer(z, clearArbFloat)      
+      z
+    end
+  end
 end
