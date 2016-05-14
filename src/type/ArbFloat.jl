@@ -15,7 +15,7 @@ precision(::Type{ArbFloat}) = ArbFloatPrecision
 precision{Precision}(x::ArbFloat{Precision}) = Precision
 
 
-function clearArbFloat(x::ArbFloat)
+@inline function clearArbFloat(x::ArbFloat)
      ccall(@libarb(arb_clear), Void, (Ptr{ArbFloat},), &x)
 end
 
@@ -27,7 +27,7 @@ function ArbFloat()
     p = precision(ArbFloat)
     z = ArbFloat{p}(0,0,0,0,0,0)
     ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
-    finalizer(z, clearArbFloat)
+    finalizer(z)
     z
 end
 
@@ -36,7 +36,7 @@ function ArbFloat(x::UInt)
     z = ArbFloat{p}(0,0,0,0,0,0)
     ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
     ccall(@libarb(arb_set_ui), Void, (Ptr{ArbFloat}, UInt), &z, x)
-    finalizer(z, clearArbFloat)
+    finalizer(z)
     z
 end
 
@@ -63,7 +63,7 @@ function ArbFloat(x::BigFloat)
     z = ArbFloat{p}(0,0,0,0,0,0)
     ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
     ccall(@libarb(arb_set_round_fmpz), Void, (Ptr{ArbFloat}, BigFloat, Int), &z, x, p)
-    finalizer(z, clearArbFloat)
+    finalizer(z)
     z
 end
 
@@ -74,7 +74,7 @@ function ArbFloat(x::String)
     z = ArbFloat{p}(0,0,0,0,0,0)
     ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
     ccall(@libarb(arb_set_str), Void, (Ptr{ArbFloat}, Ptr{UInt8}, Int), &z, b, p)
-    finalizer(z, clearArbFloat)
+    finalizer(z)
     z
 end
 
@@ -97,7 +97,7 @@ function copy{P}(x::ArbFloat{P})
     z = ArbFloat{P}(0,0,0,0,0,0)
     ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
     ccall(@libarb(arb_set), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}), &z, &x)
-    finalizer(z, clearArbFloat)
+    finalizer(z)
     z
 end
 
@@ -113,7 +113,7 @@ function midpoint{P}(x::ArbFloat{P})
     z = ArbFloat{P}(0,0,0,0,0,0)
     ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
     ccall(@libarb(arb_get_mid_arb), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}), &z, &x)
-    finalizer(z, clearArbFloat)
+    finalizer(z)
     z
 end
 
@@ -121,7 +121,7 @@ function radius{P}(x::ArbFloat{P})
     z = ArbFloat{P}(0,0,0,0,0,0)
     ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
     ccall(@libarb(arb_get_rad_arb), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}), &z, &x)
-    finalizer(z, clearArbFloat)
+    finalizer(z)
     z
 end
 
