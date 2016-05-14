@@ -105,3 +105,19 @@ function radius{P}(x::ArbFloat{P})
     finalizer(z, clearArbFloat)
     z
 end
+
+function maxpoint{P}(x::ArbFloat{P})
+    midpoint(x) + radius(x)
+end
+function minpoint{P}(x::ArbFloat{P})
+    midpoint(x) - radius(x)
+end
+function minmax{P}(x::ArbFloat{P})
+   m = midpoint(x)
+   r = radius(x)
+   mn = m-r
+   mx = m+r
+   mn,mx
+end
+
+   
