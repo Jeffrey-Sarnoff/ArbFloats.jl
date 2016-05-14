@@ -2,7 +2,7 @@ module ArbFloats
 
 import Base: hash, convert, promote_rule, isa,
     string, show, showcompact, showall, parse,
-    precision, setprecision,
+    copy, deepcopy,
     zero, one, ldexp, frexp, eps,
     precision, setprecision,
     isequal, isless, (==),(!=),(<),(<=),(>=),(>),
