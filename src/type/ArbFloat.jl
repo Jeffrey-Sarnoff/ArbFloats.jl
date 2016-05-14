@@ -51,36 +51,12 @@ function ArbFloat(x::Float64)
 end
 
 function ArbFloat(x::BigFloat)
-    z = ArbFloat{precision(ArbFloat)}(0,0,0,0,0,0)
+    p = precision(ArbFloat)
+    z = ArbFloat{p}(0,0,0,0,0,0)
     ccall((:arb_init, :libarb), Void, (Ptr{ArbFloat},), &z)
-    ccall((:arb_set_fmpz, :libarb), Void, (Ptr{ArbFloat}, BigFloat), &z, x)
+    ccall((:arb_set_round_fmpz, :libarb), Void, (Ptr{ArbFloat}, BigFloat, Int), &z, x, p)
     finalizer(z, clearArbFloat)
     z
 end
 
-function ArbFloat(x::BigInt)
-    y = convert(BigFloat,x)
-    z = ArbFloat{precision(ArbFloat)}(0,0,0,0,0,0)
-    ccall((:arb_init, :libarb), Void, (Ptr{ArbFloat},), &z)
-    ccall((:arb_set_fmpz, :libarb), Void, (Ptr{ArbFloat}, BigFloat), &z, y)
-    finalizer(z, clearArbFloat)
-    z
-end
-
-function ArbFloat(x::Rational{Int})
-    y = convert(BigFloat,x)
-    z = ArbFloat{precision(ArbFloat)}(0,0,0,0,0,0)
-    ccall((:arb_init, :libarb), Void, (Ptr{ArbFloat},), &z)
-    ccall((:arb_set_fmpz, :libarb), Void, (Ptr{ArbFloat}, BigFloat), &z, y)
-    finalizer(z, clearArbFloat)
-    z
-end
-
-function ArbFloat(x::Rational{BigInt})
-    y = convert(BigFloat,x)
-    z = ArbFloat{precision(ArbFloat)}(0,0,0,0,0,0)
-    ccall((:arb_init, :libarb), Void, (Ptr{ArbFloat},), &z)
-    ccall((:arb_set_fmpz, :libarb), Void, (Ptr{ArbFloat}, BigFloat), &z, y)
-    finalizer(z, clearArbFloat)
-    z
-end
+ArbFloat{T<:Real}(x::T) = ArbFloat(convert(BigFloat,x))
