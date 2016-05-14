@@ -5,7 +5,7 @@ import Base: hash, convert, promote_rule, isa,
     precision, setprecision,
     zero, one, ldexp, frexp, eps,
     precision, setprecision,
-    isequal, isless, (==),(!=),(<),(<=),(>=),(>)
+    isequal, isless, (==),(!=),(<),(<=),(>=),(>),
     min, max, minmax,
     isnan, isinf, isfinite, issubnormal,
     signbit, sign, flipsign, copysign, abs,
