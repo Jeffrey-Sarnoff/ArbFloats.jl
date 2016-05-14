@@ -103,8 +103,16 @@ function convert{P}(::Type{ArbFloat{P}}, x::BigFloat)
 end
 =#
 
+function num2str{P}(x::ArbFloat{P}, n::Int)
+   flags = UInt(2)
+   cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, n, flags)
+   s = bytestring(cstr)
+   ccall(@libflint(flint_free), Void, (Ptr{UInt8},), cstr)
+   s
+end
+
 function convert{P}(::Type{Float64}, x::ArbFloat{P})
-    s = string(x)
+    s = num2str(x,22)
     parse(Float64,s)
     #ccall(@libarb(arb_set_d), Void, (Ptr{ArbFloat{P}}, Float64), &x, z)
     #z
@@ -112,7 +120,12 @@ end
 convert{P}(::Type{Float32}, x::ArbFloat{P}) = convert(Float32,convert(Float64,x))
 
 function convert{P}(::Type{Int}, x::ArbFloat{P})
-    trunc(Int,convert(Float64,x))
+    s = num2str(x,22)
+    try
+        parse(Int,s)
+    catch
+        trunc(Int,parse(Float64,s))
+    end    
     #ccall(@libarb(arb_set_si), Void, (Ptr{ArbFloat{P}}, Int), &x, z)
     #z
 end
