@@ -59,4 +59,15 @@ function ArbFloat(x::BigFloat)
     z
 end
 
+
+function ArbFloat(x::String)
+    p = precision(ArbFloat)
+    b = bytestring(x)
+    z = ArbFloat{p}(0,0,0,0,0,0)
+    ccall((:arb_init, :libarb), Void, (Ptr{ArbFloat},), &z)
+    ccall((:arb_set_str, :libarb), Void, (Ptr{ArbFloat}, Ptr{UInt8}, Int), &z, b, p)
+    finalizer(z, clearArbFloat)
+    z
+end
+
 ArbFloat{T<:Real}(x::T) = ArbFloat(convert(BigFloat,x))
