@@ -57,7 +57,7 @@ end
 function ArbFloat(x::BigFloat)
     p = precision(ArbFloat)
     z = ArbFloat{p}(0,0,0,0,0,0)
-    ccall(@;obarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
     ccall(@libarb(arb_set_round_fmpz), Void, (Ptr{ArbFloat}, BigFloat, Int), &z, x, p)
     finalizer(z, clearArbFloat)
     z
