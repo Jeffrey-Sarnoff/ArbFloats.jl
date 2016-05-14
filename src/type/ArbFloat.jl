@@ -20,7 +20,7 @@ function clearArbFloat(x::ArbFloat)
 end
 
 macro arbfinalizer(x)
-    finalizer(:($x), ccall(@libarb(arb_clear), Void, (Ptr(ArbFloat),), &(:($x))))
+    finalizer(:($x), ccall(@libarb(arb_clear), Void, (Ptr{ArbFloat},), &(:($x))))
 end    
     
 function ArbFloat()
