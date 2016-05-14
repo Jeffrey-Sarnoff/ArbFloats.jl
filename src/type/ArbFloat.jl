@@ -12,6 +12,10 @@ end
 ArbFloatPrecision = 123
 function setprecision(::Type{ArbFloat}, x::Int)
     ArbFloatPrecision = abs(x)
+    bigprecisionGTE = trunc(Int, 2.25*x)
+    if precision(BigFloat) < bigprecisionGTE
+        precision(BigFloat,bigprecisionGTE)
+    end
 end
 precision(::Type{ArbFloat}) = ArbFloatPrecision
 precision{P}(x::ArbFloat{P}) = P
@@ -36,9 +40,7 @@ end
 
 function ArbFloat()
     p = precision(ArbFloat)
-    z = ArbFloat{p}(0,0,0,0,0,0)
-    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
-    finalizer(z)
+    z = initializer(ArbFloat{p})
     z
 end
 
