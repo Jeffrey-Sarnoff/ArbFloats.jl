@@ -12,9 +12,7 @@ import Base: hash, convert, promote_rule, isa,
     (+),(-),(*),(/),(\),(%),(^),sqrt,
     trunc, round, ceil, floor,
     fld, cld, div, mod, rem, divrem, fldmod,
-    BigInt, BigFloat,
-    Ptr, Ref, Csize_t, Cssize_t,
-    Cdouble, Culonglong, Clonglong, Cuint, Cint, Cushort, Cshort
+    BigInt, BigFloat
 
 
 export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round(lo,n,10)
