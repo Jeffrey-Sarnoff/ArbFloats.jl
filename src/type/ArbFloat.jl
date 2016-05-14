@@ -138,3 +138,36 @@ function minmax{P}(x::ArbFloat{P})
 end
 
    
+function relativeError{P}(x::ArbFloat{P})
+    z = P
+    ccall(@libarb(arb_rel_error_bits), Void, (Ptr{Int}, Ptr{ArbFloat}), &z, &x)
+    finalizer(z)
+    z
+end
+
+function relativeAccuracy{P}(x::ArbFloat{P})
+    z = P
+    ccall(@libarb(arb_rel_accuracy_bits), Void, (Ptr{Int}, Ptr{ArbFloat}), &z, &x)
+    finalizer(z)
+    z
+end
+
+function midpointPrecision{P}(x::ArbFloat{P})
+    z = P
+    ccall(@libarb(arb_bits), Void, (Ptr{Int}, Ptr{ArbFloat}), &z, &x)
+    finalizer(z)
+    z
+end
+
+function trimmedAccuracy{P}(x::ArbFloat{P})
+    z = ArbFloat{P}(0,0,0,0,0,0)
+    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
+    ccall(@libarb(arb_trim), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}), &z, &x)
+    finalizer(z)
+    z
+end
+
+function show{P}(io::IO, x::ArbFloat{P})
+    s = string(x)
+    print(io, s)
+end
