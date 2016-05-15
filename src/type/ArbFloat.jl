@@ -233,13 +233,13 @@ ArbFloatHalf = Dict{Int,ArbFloat}(  120 => ArbFloat{120}(0.5),
                                     
 # fractionalPart(x), wholePart(x) = modf(x)
 #
-function safe{P}(x::ArbFloat{P})
+function informedvalue{P}(x::ArbFloat{P})
     ax = abs(x)
     md = midpoint(ax)
     rd = radius(ax)
     mdrd = md/rd      # the reliable part of x is shifted to the whole part of mdrd
     if !haskey(ArbFloatHalf, P)
-       ArbFloatHalf[P] = ArbFloat{P)(0.5)
+       ArbFloatHalf[P] = ArbFloat{P}(0.5)
     end
     wholepart  = floor(mdrd)
     fractional = mdrd - wholepart
