@@ -220,3 +220,36 @@ function show{P}(io::IO, x::ArbFloat{P})
     s = string(x)
     print(io, s)
 end
+
+ArbFloatHalf = Dict{Int,ArbFloat}(  120 => ArbFloat{120}(0.5),
+                                    122 => ArbFloat{123}(0.5),
+                                    125 => ArbFloat{125}(0.5),
+                                    128 => ArbFloat{128}(0.5),
+                                    160 => ArbFloat{160}(0.5),
+                                    185 => ArbFloat{185}(0.5),
+                                    192 => ArbFloat{192}(0.5),
+                                    250 => ArbFloat{250}(0.5),
+                                    );
+                                    
+# fractionalPart(x), wholePart(x) = modf(x)
+#
+function safe{P}(x::ArbFloat{P})
+    ax = abs(x)
+    md = midpoint(ax)
+    rd = radius(ax)
+    mdrd = md/rd      # the reliable part of x is shifted to the whole part of mdrd
+    if !haskey(ArbFloatHalf, P)
+       ArbFloatHalf[P] = ArbFloat{P)(0.5)
+    end
+    wholepart  = floor(mdrd)
+    fractional = mdrd - wholepart
+    nearestint = floor(mdrd + ArbFloatHalf[P])   # rounds to nearest whole
+    nearestint * rd
+end
+
+function decompose{P}(x::ArbFloat{P})
+    # decompose x as num * 2^pow / den
+    # num, pow, den = decompose(x)
+ 
+   num,powof2,den 
+end
