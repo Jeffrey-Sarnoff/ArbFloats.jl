@@ -244,7 +244,7 @@ function informedvalue{P}(x::ArbFloat{P})
     wholepart  = floor(mdrd)
     fractional = mdrd - wholepart
     nearestint = floor(mdrd + ArbFloatHalf[P])   # rounds to nearest whole
-    scaleby2pow = floor(-log2(rd))
+    scaleby2pow = floor(log2(rd))
     scaleby2pow = pow(ArbFloat{P}(2.0),scaleby2pow)
     nearestint * scaleby2pow
 end
