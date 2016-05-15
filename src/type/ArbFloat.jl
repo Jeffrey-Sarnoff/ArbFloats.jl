@@ -244,7 +244,8 @@ function informedvalue{P}(x::ArbFloat{P})
     wholepart  = floor(mdrd)
     fractional = mdrd - wholepart
     nearestint = floor(mdrd + ArbFloatHalf[P])   # rounds to nearest whole
-    nearestint * rd
+    scaleby2pow = floor(Int,-log2(rd))
+    nearestint * ArbFloat{P}(ldexp(1.0,scalebypow))
 end
 
 function decompose{P}(x::ArbFloat{P})
