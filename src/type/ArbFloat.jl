@@ -189,6 +189,6 @@ end
 function decompose{P}(x::ArbFloat{P})
     # decompose x as num * 2^pow / den
     # num, pow, den = decompose(x)
- 
-   num,powof2,den 
+    bf = convert(BigFloat, x)
+    decompose(bf)
 end
