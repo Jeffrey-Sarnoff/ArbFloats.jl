@@ -241,21 +241,30 @@ ArbFloatHalf = Dict{Int,ArbFloat}(  120 => ArbFloat{120}(0.5),
                                     
 # fractionalPart(x), wholePart(x) = modf(x)
 #
-function informedvalue{P}(x::ArbFloat{P})
-    ax = abs(x)
-    md = midpoint(ax)
-    rd = radius(ax)
-    mdrd = md/rd      # the reliable part of x is shifted to the whole part of mdrd
-    if !haskey(ArbFloatHalf, P)
-       ArbFloatHalf[P] = ArbFloat{P}(0.5)
+function stringInformed{P}(x::ArbFloat{P})
+    ub = upperbound(x)
+    lb = lowerbound(x)
+    ubstr = stringTrimmed(ub,0)
+    lbstr = stringTrimmed(lb,0)
+    ubstrlen = length(ubstr)
+    lbstrlen = length(lbstr)
+    ubdelta = lbdelta = 0
+    if ubstrlen > lbstrlen
+       ubdelta = lbstrlen-ubstrlen
+    else
+       lbdelta = lbstrlen-ubstrlen
     end
-    wholepart  = floor(mdrd)
-    fractional = mdrd - wholepart
-    nearestint = floor(mdrd + ArbFloatHalf[P])   # rounds to nearest whole
-    scaleby2pow = floor(log2(rd))
-    scaleby2pow = pow(ArbFloat{P}(2.0),scaleby2pow)
-    nearestint * scaleby2pow
-end
+    
+    for i in 0:(ubstrlen+ubdelta+lbdelta-4)
+        ubstr = stringTrimmed(ub,i-ubdelta)
+        lbstr = stringTrimmed(lb,i-lbdelta)
+        if ubstr==lbstr
+           break
+        end
+    end
+    
+    ubstr
+end    
 
 function decompose{P}(x::ArbFloat{P})
     # decompose x as num * 2^pow / den
