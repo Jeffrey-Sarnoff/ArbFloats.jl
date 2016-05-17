@@ -93,7 +93,7 @@ else
     convert{P}(::Type{Int64}, x::ArbFloat{P}) = convert(Int64,convert(Int32,x))
 end
 
-ArbFloatHalf = Dict{Int,ArbFloat}(  120 => convert(ArbFloat{120},0.5),
+ArbFloatHalf = Dict{Int,ArbFloat}(  123 => convert(ArbFloat{123},0.5),
                                     #122 => convert(ArbFloat{122},0.5),
                                     #125 => ArbFloat{125}(0.5),
                                     #128 => ArbFloat{128}(0.5),
