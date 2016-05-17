@@ -25,11 +25,11 @@ function (<=){P}(x::ArbFloat{P}, y::ArbFloat{P})
 end
 
 (==){R<:Real,P}(x::ArbFloat{P}, y::R) = x == ArbFloat{P}(y)
-(!=){R<:Real,P}(x::ArbFloat{P}, y::Int) = x != ArbFloat{P}(y)
-(<=){R<:Real,P}(x::ArbFloat{P}, y::Int) = x <= ArbFloat{P}(y)
-(>=){R<:Real,P}(x::ArbFloat{P}, y::Int) = x >= ArbFloat{P}(y)
-(<){R<:Real,P}(x::ArbFloat{P}, y::Int) = x < ArbFloat{P}(y)
-(>){R<:Real,P}(x::ArbFloat{P}, y::Int) = x > ArbFloat{P}(y)
+(!=){R<:Real,P}(x::ArbFloat{P}, y::R) = x != ArbFloat{P}(y)
+(<=){R<:Real,P}(x::ArbFloat{P}, y::R) = x <= ArbFloat{P}(y)
+(>=){R<:Real,P}(x::ArbFloat{P}, y::R) = x >= ArbFloat{P}(y)
+(<){R<:Real,P}(x::ArbFloat{P}, y::R) = x < ArbFloat{P}(y)
+(>){R<:Real,P}(x::ArbFloat{P}, y::R) = x > ArbFloat{P}(y)
 
 (==){R<:Real,P}(x::R, y::ArbFloat{P}) = ArbFloat{P}(x) == y
 (!=){R<:Real,P}(x::R, y::ArbFloat{P}) = ArbFloat{P}(x) != y
