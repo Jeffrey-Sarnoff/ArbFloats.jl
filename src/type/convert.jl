@@ -94,3 +94,13 @@ else
 end
 
 
+ArbFloatHalf = Dict{Int,ArbFloat}(  120 => ArbFloat{120}(0.5),
+                                    122 => ArbFloat{123}(0.5),
+                                    125 => ArbFloat{125}(0.5),
+                                    128 => ArbFloat{128}(0.5),
+                                    160 => ArbFloat{160}(0.5),
+                                    185 => ArbFloat{185}(0.5),
+                                    192 => ArbFloat{192}(0.5),
+                                    250 => ArbFloat{250}(0.5),
+                                    );
+                                    
