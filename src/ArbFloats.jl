@@ -18,7 +18,8 @@ import Base: hash, convert, promote_rule, isa,
     sin, cos, tan, csc, sec, cot, asin, acos, atan, atan2,
     sinh, cosh, tanh, csch, sech, coth, asinh, acosh, atanh,
     sinc, gamma, lgamma, zeta,
-    BigInt, BigFloat
+    BigInt, BigFloat,
+    Cint
 
 
 export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round(lo,n,10)
