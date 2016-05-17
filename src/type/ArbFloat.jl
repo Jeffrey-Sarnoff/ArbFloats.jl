@@ -263,7 +263,14 @@ function stringInformed{P}(x::ArbFloat{P})
         end
     end
     
-    ubstr
+    sval = ArbFloat{P}(ubstr)
+    if midpoint(sval) > midpoint(x)
+       string(ubstr,"-")
+    elseif midpoint(sval) < midpoint(x)
+       string(ubstr,"+")
+    else
+       string(ubstr,"±")
+    end
 end    
 
 function decompose{P}(x::ArbFloat{P})
