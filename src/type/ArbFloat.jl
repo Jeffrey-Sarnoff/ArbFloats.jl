@@ -156,7 +156,7 @@ function string{P}(x::ArbFloat{P})
 end
 
 function stringTrimmed{P}(x::ArbFloat{P}, ndigitsremoved::Int)
-   n = max(4,floor(Int, P*0.3010299956639811952137))-ndigitsremoved)
+   n = max(4,floor(Int, P*0.3010299956639811952137))-ndigitsremoved
    cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, n, UInt(2)) # round nearest
    s = bytestring(cstr)
    ccall(@libflint(flint_free), Void, (Ptr{UInt8},), cstr)
