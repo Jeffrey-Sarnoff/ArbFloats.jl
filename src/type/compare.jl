@@ -1,27 +1,27 @@
 # adapted from Nemo
 
 function (==){P}(x::ArbFloat{P}, y::ArbFloat{P})
-    return Bool(ccall((:arb_eq, :libarb), Cint, (Ptr{ArbFloat{P}}, Ptr{ArbFloat{P}}), &x, &y))
+    return Bool(ccall(@libarb(arb_eq), Cint, (Ptr{ArbFloat{P}}, Ptr{ArbFloat{P}}), &x, &y))
 end
 
 function (!=){P}(x::ArbFloat{P}, y::ArbFloat{P})
-    return Bool(ccall((:arb_ne, :libarb), Cint, (Ptr{ArbFloat{P}}, Ptr{ArbFloat{P}}), &x, &y))
+    return Bool(ccall(@libarb(arb_ne), Cint, (Ptr{ArbFloat{P}}, Ptr{ArbFloat{P}}), &x, &y))
 end
 
 function (>){P}(x::ArbFloat{P}, y::ArbFloat{P})
-    return Bool(ccall((:arb_gt, :libarb), Cint, (Ptr{ArbFloat{P}}, Ptr{ArbFloat{P}}), &x, &y))
+    return Bool(ccall(@libarb(arb_gt), Cint, (Ptr{ArbFloat{P}}, Ptr{ArbFloat{P}}), &x, &y))
 end
 
 function (>=){P}(x::ArbFloat{P}, y::ArbFloat{P})
-    return Bool(ccall((:arb_ge, :libarb), Cint, (Ptr{ArbFloat{P}}, Ptr{ArbFloat{P}}), &x, &y))
+    return Bool(ccall(@libarb(arb_ge), Cint, (Ptr{ArbFloat{P}}, Ptr{ArbFloat{P}}), &x, &y))
 end
 
 function (<){P}(x::ArbFloat{P}, y::ArbFloat{P})
-    return Bool(ccall((:arb_lt, :libarb), Cint, (Ptr{ArbFloat{P}}, Ptr{ArbFloat{P}}), &x, &y))
+    return Bool(ccall(@libarb(arb_lt), Cint, (Ptr{ArbFloat{P}}, Ptr{ArbFloat{P}}), &x, &y))
 end
 
 function (<=){P}(x::ArbFloat{P}, y::ArbFloat{P})
-    return Bool(ccall((:arb_le, :libarb), Cint, (Ptr{ArbFloat{P}}, Ptr{ArbFloat{P}}), &x, &y))
+    return Bool(ccall(@libarb(libarb), Cint, (Ptr{ArbFloat{P}}, Ptr{ArbFloat{P}}), &x, &y))
 end
 
 (==){R<:Real,P}(x::ArbFloat{P}, y::R) = x == ArbFloat{P}(y)
