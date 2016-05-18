@@ -11,7 +11,7 @@ end
 
 precision{P}(x::ArbFloat{P}) = P
 
-const ArbFloatPrecision = Vector{Int}[123]
+const ArbFloatPrecision = Vector{Int}[123,]
 precision(::Type{ArbFloat}) = ArbFloatPrecision[1]
 
 function setprecision(::Type{ArbFloat}, x::Int)
