@@ -52,9 +52,6 @@ function ArbFloat()
 end
 
 
-ArbFloat(x::Real) = ArbFloat{precision(ArbFloat)}(x)
-
-
 function copy{P}(x::ArbFloat{P})
     z = initializer(ArbFloat{P})
     ccall(@libarb(arb_set), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}), &z, &x)
