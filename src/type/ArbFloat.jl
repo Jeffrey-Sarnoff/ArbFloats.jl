@@ -45,18 +45,6 @@ function initializer{P}(::Type{ArbFloat{P}})
 end
 
 
-function copy{P}(x::ArbFloat{P})
-    z = initializer(ArbFloat{P})
-    ccall(@libarb(arb_set), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}), &z, &x)
-    z
-end
-
-function deepcopy{P}(x::ArbFloat{P})
-    z = initializer(ArbFloat{P})
-    ccall(@libarb(arb_set), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}), &z, &x)
-    z
-end
-
 function midpoint{P}(x::ArbFloat{P})
     z = initializer(ArbFloat{P})
     ccall(@libarb(arb_get_mid_arb), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}), &z, &x)
@@ -69,24 +57,14 @@ function radius{P}(x::ArbFloat{P})
     z
 end
 
-function upperbound{P}(x::ArbFloat{P})
-    midpoint(x) + radius(x)
-end
-function lowerbound{P}(x::ArbFloat{P})
-    midpoint(x) - radius(x)
-end
+upperbound{P}(x::ArbFloat{P}) = midpoint(x) + radius(x)
+lowerbound{P}(x::ArbFloat{P}) = midpoint(x) - radius(x)
+
 function minmax{P}(x::ArbFloat{P})
    m = midpoint(x)
    r = radius(x)
    m-r, m+r
 end
-
-function round{P}(x::ArbFloat{P}; sigbits::Int=P)
-   z = initializer(ArbFloat{P})
-   ccall(@libarb(arb_set_round), Void,  (Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &x, sigbits)
-   z
-end
-round{P}(x::ArbFloat{P}, prec::Int) = round(x,sigbits=prec)
 
 function relativeError{P}(x::ArbFloat{P})
     z = P
@@ -118,9 +96,3 @@ function show{P}(io::IO, x::ArbFloat{P})
 end
 
 
-function decompose{P}(x::ArbFloat{P})
-    # decompose x as num * 2^pow / den
-    # num, pow, den = decompose(x)
-    bf = convert(BigFloat, x)
-    decompose(bf)
-end
