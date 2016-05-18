@@ -9,6 +9,20 @@ type ArbFloat{P}  <: Real
   rad_man::UInt
 end
 
+precision{P}(x::ArbFloat{P}) = P
+
+const ArbFloatPrecision = Vector{Int}[123]
+precision(::Type{ArbFloat}) = ArbFloatPrecision[1]
+
+function setprecision(::Type{ArbFloat}, x::Int)
+    ArbFloatPrecision[1] = abs(x)
+    bigprecisionGTE = trunc(Int, 2.25*x)
+    if precision(BigFloat) < bigprecisionGTE
+        setprecision(BigFloat,bigprecisionGTE)
+    end
+end
+
+
 # a type specific hash function helps the type to 'just work'
 const hash_arbfloat_lo = (UInt === UInt64) ? 0x37e642589da3416a : 0x5d46a6b4
 const hash_0_arbfloat_lo = hash(zero(UInt), hash_arbfloat_lo)
@@ -16,19 +30,6 @@ hash{P}(z::ArbFloat{P}, h::UInt) =
     hash(reinterpret(UInt,z.mid_d1)$z.rad_man, 
          (h $ hash(reinterpret(UInt,z.mid_d2)$(~reinterpret(UInt,P)), hash_arbfloat_lo) $ hash_0_arbfloat_lo))
 
-
-ArbFloatPrecision = 123
-function setprecision(::Type{ArbFloat}, x::Int)
-    ArbFloatPrecision = abs(x)
-    bigprecisionGTE = trunc(Int, 2.25*x)
-    if precision(BigFloat) < bigprecisionGTE
-        setprecision(BigFloat,bigprecisionGTE)
-    end
-end
-precision(::Type{ArbFloat}) = ArbFloatPrecision
-precision{P}(x::ArbFloat{P}) = P
-
-ArbFloat(x::Number) = ArbFloat{precision(ArbFloat)}(x)
 
 @inline function clearArbFloat(x::ArbFloat)
      ccall(@libarb(arb_clear), Void, (Ptr{ArbFloat},), &x)
@@ -45,13 +46,13 @@ function initializer{P}(::Type{ArbFloat{P}})
 end
 
 
-
-
 function ArbFloat()
     p = precision(ArbFloat)
     z = initializer(ArbFloat{p})
     z
 end
+
+ArbFloat(x::Number) = ArbFloat{precision(ArbFloat)}(x)
 
 
 function copy{P}(x::ArbFloat{P})
