@@ -51,10 +51,6 @@ function ArbFloat()
     z
 end
 
-function ArbFloat{P}()
-    z = initializer(ArbFloat{P})
-    z
-end
 
 ArbFloat(x::Real) = ArbFloat{precision(ArbFloat)}(x)
 
