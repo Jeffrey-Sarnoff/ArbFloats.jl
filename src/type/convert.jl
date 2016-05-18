@@ -97,7 +97,7 @@ else
 end
 
 function convert{P,Q}(::Type{ArbFloat{Q}}, y::ArbFloat{P})
-    s = string(round(y,min(P,Q))
+    s = string(round(y,min(P,Q)))
     b = bytestring(s)
     z = initializer(ArbFloat{Q})
     ccall(@libarb(arb_set_str), Void, (Ptr{ArbFloat}, Ptr{UInt8}, Int), &z, b, Q)
