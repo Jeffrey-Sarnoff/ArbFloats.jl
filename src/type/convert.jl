@@ -96,7 +96,7 @@ else
     convert{P}(::Type{Int64}, x::ArbFloat{P}) = convert(Int64,convert(Int32,x))
 end
 
-convert{P}(::Type{ArbFloat{P}, y::ArbFloat{P}) = y
+convert{P}(::Type{ArbFloat{P}}, y::ArbFloat{P}) = y
 
 function convert{P,Q}(::Type{ArbFloat{Q}}, y::ArbFloat{P})
     s = string(round(y,min(P,Q)))
