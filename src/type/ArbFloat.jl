@@ -90,7 +90,13 @@ function minmax{P}(x::ArbFloat{P})
    m-r, m+r
 end
 
-   
+function round{P}(x::ArbFloat{P}; sigbits::Int=P)
+   z = initializer(ArbFloat{P})
+   ccall(@libarb(arb_set_round), Void,  (Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &x, precision)
+   z
+end
+round{P}(x::ArbFloat{P}, prec::Int) = round(x,sigbits=prec)
+
 function relativeError{P}(x::ArbFloat{P})
     z = P
     ccall(@libarb(arb_rel_error_bits), Void, (Ptr{Int}, Ptr{ArbFloat}), &z, &x)
