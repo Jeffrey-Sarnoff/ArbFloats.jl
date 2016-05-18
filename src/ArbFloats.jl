@@ -5,7 +5,7 @@ import Base: hash, convert, promote_rule, isa,
     finalizer, decompose, precision,
     copy, deepcopy,
     zero, one, ldexp, frexp, eps,
-    precision
+    precision,
     isequal, isless, (==),(!=),(<),(<=),(>=),(>),
     min, max, minmax,
     isnan, isinf, isfinite, issubnormal,
