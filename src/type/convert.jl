@@ -1,3 +1,11 @@
+macro ArbFloat(x)
+    convert(ArbFloat, string(:($x)))
+end
+macro ArbFloat(p,x)
+    convert(ArbFloat{:($p)}, string(:($x)))
+end
+
+
 function convert{P}(::Type{ArbFloat{P}}, x::UInt)
     z = initializer(ArbFloat{P})
     ccall(@libarb(arb_set_ui), Void, (Ptr{ArbFloat{P}}, UInt), &z, x)
