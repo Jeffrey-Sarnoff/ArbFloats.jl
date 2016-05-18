@@ -24,6 +24,15 @@ function setprecision(::Type{ArbFloat}, x::Int)
     ArbFloatPrecision[1] = abs(x)
 end
 
+function setprecision(::Type{BigFloat}, x::Int)
+    arbprecisionLTE = trunc(Int, x*4/9)
+    if (precision(ArbFloat) > arbprecisionLTE)
+        ErrorException("Cannot set BigFloat precision less than 2.25*ArbFloat precision")
+    end
+    Base.setprecision(BigFloat,x)
+end    
+    
+
 
 # a type specific hash function helps the type to 'just work'
 const hash_arbfloat_lo = (UInt === UInt64) ? 0x37e642589da3416a : 0x5d46a6b4
