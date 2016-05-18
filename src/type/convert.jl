@@ -105,14 +105,3 @@ end
 for T in (:Int64, :Int32, :Int16, :Float64, :Float32, :Float16)
   @eval promote_rule{P}(::Type{ArbFloat{P}}, ::Type{$T}) = ArbFloat{P}
 end  
-
-ArbFloatHalf = Dict{Int,ArbFloat}(  123 => convert(ArbFloat{123},0.5),
-                                    #122 => convert(ArbFloat{122},0.5),
-                                    #125 => ArbFloat{125}(0.5),
-                                    #128 => ArbFloat{128}(0.5),
-                                    #160 => ArbFloat{160}(0.5),
-                                    #185 => ArbFloat{185}(0.5),
-                                    #192 => ArbFloat{192}(0.5),
-                                    #250 => ArbFloat{250}(0.5),
-                                    );
-                                    
