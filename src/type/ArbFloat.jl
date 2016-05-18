@@ -22,7 +22,7 @@ function setprecision(::Type{ArbFloat}, x::Int)
     ArbFloatPrecision = abs(x)
     bigprecisionGTE = trunc(Int, 2.25*x)
     if precision(BigFloat) < bigprecisionGTE
-        precision(BigFloat,bigprecisionGTE)
+        setprecision(BigFloat,bigprecisionGTE)
     end
 end
 precision(::Type{ArbFloat}) = ArbFloatPrecision
