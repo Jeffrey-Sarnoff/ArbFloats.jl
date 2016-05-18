@@ -2,10 +2,9 @@ module ArbFloats
 
 import Base: hash, convert, promote_rule, isa,
     string, show, showcompact, showall, parse,
-    finalizer, decompose, precision,
+    finalizer, decompose, precision, setprecision,
     copy, deepcopy,
     zero, one, ldexp, frexp, eps,
-    precision,
     isequal, isless, (==),(!=),(<),(<=),(>=),(>),
     min, max, minmax,
     isnan, isinf, isfinite, issubnormal,
@@ -25,7 +24,6 @@ export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round
        midpoint, radius, upperbound, lowerbound, stringInformed,
        invsqrt, pow, root, tanpi, cotpi, logbase, sincos, sincospi, sinhcosh,
        relativeError, relativeAccuracy, midpointPrecision, trimmedAccuracy,
-       setprecision,
        PI,SQRTPI,LOG2,LOG10,EXP1,EULER,CATALAN,KHINCHIN,GLAISHER,APERY # constants
 
                       # Complex( ArbSpan(real), ArbSpan(imaginary) )
