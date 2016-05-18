@@ -100,6 +100,12 @@ else
     convert{P}(::Type{Int64}, x::ArbFloat{P}) = convert(Int64,convert(Int32,x))
 end
 
+
+# Promotion
+for T in (:Int64, :Int32, :Int16, :Float64, :Float32, :Float16)
+  @eval promote_rule{P}(::Type{ArbFloat{P}}, ::Type{$T}) = ArbFloat{P}
+end  
+
 ArbFloatHalf = Dict{Int,ArbFloat}(  123 => convert(ArbFloat{123},0.5),
                                     #122 => convert(ArbFloat{122},0.5),
                                     #125 => ArbFloat{125}(0.5),
