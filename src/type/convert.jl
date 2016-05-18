@@ -106,6 +106,12 @@ function convert{P,Q}(::Type{ArbFloat{Q}}, y::ArbFloat{P})
     z
 end    
 
+
+
+function clearArbFloat{P}(x::ArbFloat{P})
+     ccall(@libarb(arb_clear), Void, (Ptr{ArbFloat{P}},), &x)
+end
+#=
 function convert{P}(::Type{ArbFloat{P}}, i::Int)
     z = ArbFloat{P}(0,0,0,0,0,0)
     ccall(@libarb(arb_init), Void, (Ptr{ArbFloat{P}},), &z)
@@ -113,6 +119,16 @@ function convert{P}(::Type{ArbFloat{P}}, i::Int)
     ccall(@libarb(arb_set_si), Void, (Ptr{ArbFloat{P}}, Int), &z, i)
     z
 end
+=#
+
+function convert{P}(::Type{ArbFloat{P}}, i::Int)
+    z = ArbFloat{P}(0,0,0,0,0,0)
+    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat{P}},), &z)
+    finalizer(z, clearArbFloat)
+    ccall(@libarb(arb_set_si), Void, (Ptr{ArbFloat{P}}, Int), &z, i)
+    z
+end
+
 
 # Promotion
 for T in (:Int64, :Int32, :Int16, :Float64, :Float32, :Float16)
