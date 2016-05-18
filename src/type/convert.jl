@@ -1,4 +1,3 @@
-
 function convert{P}(::Type{ArbFloat{P}}, x::UInt)
     z = initializer(ArbFloat{P})
     ccall(@libarb(arb_set_ui), Void, (Ptr{ArbFloat{P}}, UInt), &z, x)
@@ -107,27 +106,9 @@ function convert{P,Q}(::Type{ArbFloat{Q}}, y::ArbFloat{P})
 end    
 
 
-
-function clearArbFloat{P}(x::ArbFloat{P})
-     ccall(@libarb(arb_clear), Void, (Ptr{ArbFloat{P}},), &x)
-end
-#=
-function convert{P}(::Type{ArbFloat{P}}, i::Int)
-    z = ArbFloat{P}(0,0,0,0,0,0)
-    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat{P}},), &z)
-    #finalizer(z, clearArbFloat{P})
-    ccall(@libarb(arb_set_si), Void, (Ptr{ArbFloat{P}}, Int), &z, i)
-    z
-end
-=#
-
-function convert{P}(::Type{ArbFloat{P}}, i::Int)
-    z = ArbFloat{P}(0,0,0,0,0,0)
-    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat{P}},), &z)
-    finalizer(z, clearArbFloat)
-    ccall(@libarb(arb_set_si), Void, (Ptr{ArbFloat{P}}, Int), &z, i)
-    z
-end
+for T in (:Int64, :Int32, :Int16, :Float64, :Float32, :Float16, :BigFloat, :Rational)
+  @eval convert(::Type{ArbFloat}, x::$T) = convert(ArbFloat{precision(ArbFloat)}, x)
+end  
 
 
 # Promotion
