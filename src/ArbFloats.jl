@@ -85,6 +85,7 @@ include("type/ArbFloat.jl")
 include("type/convert.jl")
 include("type/primitive.jl")
 include("type/compare.jl")
+include("type/string.jl")
 
 include("math/arith.jl")
 include("math/elementary.jl")
