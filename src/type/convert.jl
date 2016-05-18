@@ -100,6 +100,11 @@ else
     convert{P}(::Type{Int64}, x::ArbFloat{P}) = convert(Int64,convert(Int32,x))
 end
 
+function convert{P,Q}(::Type{ArbFloat{Q}}, y::ArbFloat{P})
+    P==Q && return deepcopy(y)
+    P>Q  && return ArbFloat{Q}(string(round(y, Q)))
+    ArbFloat{Q}(string(y))
+end    
 
 # Promotion
 for T in (:Int64, :Int32, :Int16, :Float64, :Float32, :Float16)
