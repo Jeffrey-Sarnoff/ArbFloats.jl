@@ -83,6 +83,7 @@ NotImplemented(info::AbstractString="") = error(string("this is not implemented\
 
 include("type/ArbFloat.jl")
 include("type/convert.jl")
+include("type/primitive.jl")
 include("type/compare.jl")
 
 include("math/arith.jl")
