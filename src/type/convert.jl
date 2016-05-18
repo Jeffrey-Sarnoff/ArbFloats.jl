@@ -107,7 +107,7 @@ function convert{P,Q}(::Type{ArbFloat{Q}}, y::ArbFloat{P})
 end    
 
 
-for T in (:Int64, :Int32, :Int16, :Float64, :Float32, :Float16, :BigFloat, :Rational)
+for T in (:Int64, :Int32, :Int16, :Float64, :Float32, :Float16, :BigFloat, :Rational, :String)
   @eval convert(::Type{ArbFloat}, x::$T) = convert(ArbFloat{precision(ArbFloat)}, x)
 end  
 
