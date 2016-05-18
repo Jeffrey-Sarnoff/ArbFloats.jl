@@ -150,10 +150,14 @@ function stringInformed{P}(x::ArbFloat{P})
     lb = lowerbound(x)
     
     if (ub==lb)
-       if ub.mid_d2==0
-          return string(Float64(ub))
+       if ub.rad_man==0
+          if ub.mid_d2==0
+              return string(Float64(ub))
+          else
+              return string(ub)
+          end
        else
-          return string(ub)
+           return string(ub,"~")
        end
     end
     
