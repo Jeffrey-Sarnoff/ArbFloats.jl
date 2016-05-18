@@ -51,7 +51,12 @@ function ArbFloat()
     z
 end
 
-ArbFloat(x::Number) = ArbFloat{precision(ArbFloat)}(x)
+function ArbFloat{P}()
+    z = initializer(ArbFloat{P})
+    z
+end
+
+ArbFloat(x::Real) = ArbFloat{precision(ArbFloat)}(x)
 
 
 function copy{P}(x::ArbFloat{P})
