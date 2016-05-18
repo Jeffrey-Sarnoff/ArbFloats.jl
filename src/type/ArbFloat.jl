@@ -29,7 +29,7 @@ function setprecision(::Type{BigFloat}, x::Int)
     if (precision(ArbFloat) > arbprecisionLTE)
         ErrorException("Cannot set BigFloat precision less than 2.25*ArbFloat precision")
     end
-    Base.setprecision(BigFloat,x)
+    Base.MPFR.setprecision(BigFloat,x)
 end    
     
 
