@@ -9,9 +9,9 @@ type ArbFloat{P}  <: Real
   rad_man::UInt
 end
 
-# get and set working precision for ArbFloat
-
 precision{P}(x::ArbFloat{P}) = P
+
+# get and set working precision for ArbFloat
 
 const ArbFloatPrecision = [123,]
 precision(::Type{ArbFloat}) = ArbFloatPrecision[1]
@@ -19,7 +19,7 @@ precision(::Type{ArbFloat}) = ArbFloatPrecision[1]
 function setprecision(::Type{ArbFloat}, x::Int)
     bigprecisionGTE = trunc(Int, 2.25*x)
     if precision(BigFloat) < bigprecisionGTE
-        setprecision(BigFloat,bigprecisionGTE)
+        Base.MPFR.setprecision(BigFloat,bigprecisionGTE)
     end
     ArbFloatPrecision[1] = abs(x)
 end
