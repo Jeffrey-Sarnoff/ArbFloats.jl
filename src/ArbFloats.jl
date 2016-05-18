@@ -21,6 +21,7 @@ import Base: hash, convert, promote_rule, isa,
     BigInt, BigFloat,
     Cint
 
+import Base.MPFR:setprecision
 
 export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round(lo,n,10)
        midpoint, radius, upperbound, lowerbound, stringInformed,
