@@ -9,9 +9,11 @@ type ArbFloat{P}  <: Real
   rad_man::UInt
 end
 
+# get and set working precision for ArbFloat
+
 precision{P}(x::ArbFloat{P}) = P
 
-const ArbFloatPrecision = Vector{Int}[123,]
+const ArbFloatPrecision = [123,]
 precision(::Type{ArbFloat}) = ArbFloatPrecision[1]
 
 function setprecision(::Type{ArbFloat}, x::Int)
