@@ -148,6 +148,15 @@ end
 function stringInformed{P}(x::ArbFloat{P})
     ub = upperbound(x)
     lb = lowerbound(x)
+    
+    if (ub==lb)
+       if ub.mid_d2==0
+          return string(Float64(ub))
+       else
+          return string(ub)
+       end
+    end
+    
     ubstr = stringTrimmed(ub,0)
     lbstr = stringTrimmed(lb,0)
     ubstrlen = length(ubstr)
