@@ -45,13 +45,6 @@ function initializer{P}(::Type{ArbFloat{P}})
 end
 
 
-function ArbFloat()
-    p = precision(ArbFloat)
-    z = initializer(ArbFloat{p})
-    z
-end
-
-
 function copy{P}(x::ArbFloat{P})
     z = initializer(ArbFloat{P})
     ccall(@libarb(arb_set), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}), &z, &x)
