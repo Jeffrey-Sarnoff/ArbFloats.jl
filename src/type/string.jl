@@ -1,6 +1,19 @@
 
-# fractionalPart(x), wholePart(x) = modf(x)
-#
+function String{P}(x::ArbFloat{P}, flags::UInt)
+   n = floor(Int, P*0.3010299956639811952137)
+   cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, n, flags)
+   s = bytestring(cstr)
+   ccall(@libflint(flint_free), Void, (Ptr{UInt8},), cstr)
+   s
+end
+
+function string{P}(x::ArbFloat{P})
+   # n=trunc(abs(log(upperbound(x)-lowerbound(x))/log(2))) just the good bits
+   s = String(x,UInt(2)) # midpoint only (within 1ulp), RoundNearest
+   s 
+end
+
+
 function stringInformed{P}(x::ArbFloat{P})
     ub = upperbound(x)
     lb = lowerbound(x)
