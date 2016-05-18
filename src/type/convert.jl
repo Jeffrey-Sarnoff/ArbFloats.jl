@@ -48,14 +48,15 @@ end
 convert(::Type{BigInt}, x::String) = parse(BigInt,x)
 convert(::Type{BigFloat}, x::String) = parse(BigFloat,x)
 
-convert{P}(::Type{ArbFloat{P}}, x::BigFloat) = convert(ArbFloat{P}, string(x))
+function convert{P}(::Type{ArbFloat{P}}, x::BigFloat)
+     s = string(round(x,2,P))
+     ArbFloat{P}(s)
+end
+
 convert{P}(::Type{ArbFloat{P}}, x::BigInt)   = convert(ArbFloat{P}, convert(BigFloat,x))
 convert{P}(::Type{ArbFloat{P}}, x::Rational) = convert(ArbFloat{P}, convert(BigFloat,x))
 convert{P,S}(::Type{ArbFloat{P}}, x::Irrational{S}) = convert(ArbFloat{P}, convert(BigFloat,x))
 
-function convert{P}(::Type{ArbFloat{P}}, x::BigFloat)
-     convert(ArbFloat{P}, string(round(x,2,P)))
-end
 
 #= returns 256.0 for convert(big(1.5))
 function convert{P}(::Type{ArbFloat{P}}, x::BigFloat)
