@@ -96,6 +96,8 @@ else
     convert{P}(::Type{Int64}, x::ArbFloat{P}) = convert(Int64,convert(Int32,x))
 end
 
+convert{P}(::Type{ArbFloat{P}, y::ArbFloat{P}) = y
+
 function convert{P,Q}(::Type{ArbFloat{Q}}, y::ArbFloat{P})
     s = string(round(y,min(P,Q)))
     b = bytestring(s)
@@ -103,6 +105,14 @@ function convert{P,Q}(::Type{ArbFloat{Q}}, y::ArbFloat{P})
     ccall(@libarb(arb_set_str), Void, (Ptr{ArbFloat}, Ptr{UInt8}, Int), &z, b, Q)
     z
 end    
+
+function convert{P}(::Type{ArbFloat{P}, i::Int)
+    z = ArbFloat{P}(0,0,0,0,0,0)
+    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat{P}},), &z)
+    #finalizer(z, clearArbFloat{P})
+    ccall(@libarb(arb_set_si), Void, (Ptr{ArbFloat{P}}, Int), &z, i)
+    z
+end
 
 # Promotion
 for T in (:Int64, :Int32, :Int16, :Float64, :Float32, :Float16)
