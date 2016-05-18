@@ -53,7 +53,8 @@ function convert{P}(::Type{ArbFloat{P}}, x::BigFloat)
      s = string(x)
      ArbFloat{P}(s)
 end
-function convert{P}(::Type{BigFloat} x::ArbFloat{P})
+
+function convert{P}(::Type{BigFloat}, x::ArbFloat{P})
      s = string(midpoint(x))
      parse(BigFloat, s)
 end
