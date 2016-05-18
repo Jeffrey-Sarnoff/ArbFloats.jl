@@ -33,17 +33,14 @@ hash{P}(z::ArbFloat{P}, h::UInt) =
          (h $ hash(reinterpret(UInt,z.mid_d2)$(~reinterpret(UInt,P)), hash_arbfloat_lo) $ hash_0_arbfloat_lo))
 
 
-@inline function clearArbFloat(x::ArbFloat)
-     ccall(@libarb(arb_clear), Void, (Ptr{ArbFloat},), &x)
+@inline function clearArbFloat{P}(x::ArbFloat{P})
+     ccall(@libarb(arb_clear), Void, (Ptr{ArbFloat{P}},), &x)
 end
-@inline function finalizer(x::ArbFloat)
-    finalizer(x, clearArbFloat)
-end    
 
 function initializer{P}(::Type{ArbFloat{P}})
     z = ArbFloat{P}(0,0,0,0,0,0)
-    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat},), &z)
-    finalizer(z, clearArbFloat)
+    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat{P}},), &z)
+    finalizer(z, clearArbFloat{P})
     z
 end
 
