@@ -49,7 +49,8 @@ convert(::Type{BigInt}, x::String) = parse(BigInt,x)
 convert(::Type{BigFloat}, x::String) = parse(BigFloat,x)
 
 function convert{P}(::Type{ArbFloat{P}}, x::BigFloat)
-     s = string(round(x,2,P))
+     x = round(x,P)
+     s = string(x)
      ArbFloat{P}(s)
 end
 
