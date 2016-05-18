@@ -19,12 +19,14 @@ function decompose{P}(x::ArbFloat{P})
     decompose(bf)
 end
 
-function round{P}(x::ArbFloat{P}; sigbits::Int=P)
-   z = initializer(ArbFloat{P})
-   ccall(@libarb(arb_set_round), Void,  (Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &x, sigbits)
-   z
+function round{P}(x::ArbFloat{P}, sigbits::Int=P)
+    nbits = min(sigbits,P)
+    z = ArbFloat{P}(0,0,0,0,0,0)
+    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat{P}},), &z)
+    finalizer(z, clearArbFloat)
+    ccall(@libarb(arb_set_round), Void,  (Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &x, nbits)
+    z
 end
-round{P}(x::ArbFloat{P}, prec::Int) = round(x,sigbits=prec)
 
 
 eps{P}(::Type{ArbFloat{P}}) = ldexp(1.0,-P) # for intertype workings
