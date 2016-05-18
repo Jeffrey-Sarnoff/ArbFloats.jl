@@ -106,7 +106,7 @@ function convert{P,Q}(::Type{ArbFloat{Q}}, y::ArbFloat{P})
     z
 end    
 
-function convert{P}(::Type{ArbFloat{P}, i::Int)
+function convert{P}(::Type{ArbFloat{P}}, i::Int)
     z = ArbFloat{P}(0,0,0,0,0,0)
     ccall(@libarb(arb_init), Void, (Ptr{ArbFloat{P}},), &z)
     #finalizer(z, clearArbFloat{P})
