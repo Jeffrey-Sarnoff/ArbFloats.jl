@@ -1,7 +1,3 @@
-function convert{R<:Real}(::Type{ArbFloat}, x::R)
-    p = precision(ArbFloat)
-    convert(ArbFloat{p}, x)
-end    
 
 function convert{P}(::Type{ArbFloat{P}}, x::UInt)
     z = initializer(ArbFloat{P})
