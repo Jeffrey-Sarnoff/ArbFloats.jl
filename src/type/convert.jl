@@ -25,7 +25,8 @@ convert{P}(::Type{ArbFloat{P}}, x::Int16) = convert(ArbFloat{P}, convert(Int,x))
 
 function convert{P}(::Type{ArbFloat{P}}, x::Float64)
     z = initializer(ArbFloat{P})
-    ccall(@libarb(arb_set_d), Void, (Ptr{ArbFloat{P}}, Float64), &z, x)
+    fp=copy(x)
+    ccall(@libarb(arb_set_d), Void, (Ptr{ArbFloat{P}}, Float64), &z, fp)
     z
 end
 convert{P}(::Type{ArbFloat{P}}, x::Float32) = convert(ArbFloat{P}, convert(Float64,x))
