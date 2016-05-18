@@ -97,9 +97,11 @@ else
 end
 
 function convert{P,Q}(::Type{ArbFloat{Q}}, y::ArbFloat{P})
-    P==Q && return deepcopy(y)
-    P>Q  && return ArbFloat{Q}(string(round(y, Q)))
-    ArbFloat{Q}(string(y))
+    s = string(round(y,min(P,Q))
+    b = bytestring(s)
+    z = initializer(ArbFloat{Q})
+    ccall(@libarb(arb_set_str), Void, (Ptr{ArbFloat}, Ptr{UInt8}, Int), &z, b, Q)
+    z
 end    
 
 # Promotion
