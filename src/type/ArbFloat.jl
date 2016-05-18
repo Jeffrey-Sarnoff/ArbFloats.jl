@@ -19,19 +19,10 @@ precision(::Type{ArbFloat}) = ArbFloatPrecision[1]
 function setprecision(::Type{ArbFloat}, x::Int)
     bigprecisionGTE = trunc(Int, 2.25*x)
     if precision(BigFloat) < bigprecisionGTE
-        Base.MPFR.setprecision(BigFloat,bigprecisionGTE)
+        setprecision(BigFloat,bigprecisionGTE)
     end
     ArbFloatPrecision[1] = abs(x)
 end
-
-function setprecision(::Type{BigFloat}, x::Int)
-    arbprecisionLTE = trunc(Int, x*4/9)
-    if (precision(ArbFloat) > arbprecisionLTE)
-        ErrorException("Cannot set BigFloat precision less than 2.25*ArbFloat precision")
-    end
-    Base.MPFR.setprecision(BigFloat,x)
-end    
-    
 
 
 # a type specific hash function helps the type to 'just work'
