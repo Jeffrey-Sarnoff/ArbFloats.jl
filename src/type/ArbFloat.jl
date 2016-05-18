@@ -173,7 +173,7 @@ function stringInformed{P}(x::ArbFloat{P})
     elseif midpoint(sval) < midpoint(x)
        string(ubstr,"₊")
     else
-       string(ubstr,"±")
+       string(ubstr,"~")
     end
 end    
 
