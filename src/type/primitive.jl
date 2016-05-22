@@ -15,8 +15,12 @@ end
 function decompose{P}(x::ArbFloat{P})
     # decompose x as num * 2^pow / den
     # num, pow, den = decompose(x)
+    bfprec=precision(BigFloat)
+    setprecision(BigFloat,P)
     bf = convert(BigFloat, x)
-    decompose(bf)
+    n,p,d = decompose(bf)
+    setprecision(BigFloat,bfprec)
+    n,p,d
 end
 
 function round{P}(x::ArbFloat{P}, sigbits::Int=P)
