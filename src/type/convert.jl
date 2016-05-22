@@ -53,14 +53,19 @@ convert(::Type{BigInt}, x::String) = parse(BigInt,x)
 convert(::Type{BigFloat}, x::String) = parse(BigFloat,x)
 
 function convert{P}(::Type{ArbFloat{P}}, x::BigFloat)
-     x = round(x,P)
+     x = round(x,2,P)
      s = string(x)
      ArbFloat{P}(s)
 end
 
 function convert{P}(::Type{BigFloat}, x::ArbFloat{P})
      s = string(midpoint(x))
-     parse(BigFloat, s)
+     round(parse(BigFloat, s),2,P)
+end
+
+function convert{I<:Integer,P}(::Type{Rational{I}}, x::ArbFloat{P})
+    bf = convert(BigFloat, x)
+    convert(Rational{I}, bf)
 end
 
 convert{P}(::Type{ArbFloat{P}}, x::BigInt)   = convert(ArbFloat{P}, convert(BigFloat,x))
