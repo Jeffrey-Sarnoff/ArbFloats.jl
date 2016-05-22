@@ -13,11 +13,11 @@ precision{P}(x::ArbFloat{P}) = P
 
 # get and set working precision for ArbFloat
 
-const ArbFloatPrecision = [123,]
+const ArbFloatPrecision = [120,]
 precision(::Type{ArbFloat}) = ArbFloatPrecision[1]
 
 function setprecision(::Type{ArbFloat}, x::Int)
-    bigprecisionGTE = trunc(Int, 2.25*x)
+    bigprecisionGTE = trunc(Int, x*25/12)
     if precision(BigFloat) < bigprecisionGTE
         setprecision(BigFloat,bigprecisionGTE)
     end
