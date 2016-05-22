@@ -107,11 +107,8 @@ end
 convert{P}(::Type{ArbFloat{P}}, y::ArbFloat{P}) = y
 
 function convert{P,Q}(::Type{ArbFloat{Q}}, y::ArbFloat{P})
-    if Q<P
-       ArbFloat{Q}( round(y, Q) )
-    else
-       ArbFloat{Q}(y)
-    end
+    bf = convert(BigFloat,y)
+    convert(ArbFloat{Q}, bf)
 end    
 
 
