@@ -13,7 +13,7 @@ precision{P}(x::ArbFloat{P}) = P
 
 # get and set working precision for ArbFloat
 
-const ArbFloatPrecision = [120,]
+const ArbFloatPrecision = [123,]
 precision(::Type{ArbFloat}) = ArbFloatPrecision[1]
 
 function setprecision(::Type{ArbFloat}, x::Int)
