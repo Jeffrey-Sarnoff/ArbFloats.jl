@@ -60,7 +60,7 @@ end
 
 function convert{P}(::Type{BigFloat}, x::ArbFloat{P})
      s = string(midpoint(x))
-     round(parse(BigFloat, s),2,P)
+     round(parse(BigFloat, s),P)
 end
 
 function convert{I<:Integer,P}(::Type{Rational{I}}, x::ArbFloat{P})
