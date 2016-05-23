@@ -10,7 +10,7 @@ for (op,cfunc) in ((:factorial,:arb_fac_ui), (:doublefactorial,:arb_doublefac_ui
   end
 end
 
-for (op,cfunc) in (:risingfactorial,:arb_rising) 
+for (op,cfunc) in ((:risingfactorial,:arb_rising),)
   @eval begin
     function ($op){P}(x::ArbFloat{P}, y::ArbFloat{P})
       signbit(x) && ErrorException("Domain Error: argument is negative")
