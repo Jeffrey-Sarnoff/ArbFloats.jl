@@ -1,8 +1,8 @@
 for (op,cfunc) in ((:factorial,:arb_fac_ui), (:doublefactorial,:arb_doublefac_ui)) 
   @eval begin
     function ($op){P}(x::ArbFloat{P})
-      y = trunc(Int,x)
-      yy = UInt(y)
+      signbit(x) && ErrorException("Domain Error: argument is negative")
+      y = trunc(UInt, x)
       z = initializer(ArbFloat{P})
       ccall(@libarb($cfunc), Void, (Ptr{ArbFloat}, UInt, Int), &z, &yy, P)
       z
