@@ -10,6 +10,8 @@ type ArbFloat{P}  <: Real
 end
 
 precision{P}(x::ArbFloat{P}) = P
+precision{P}(::Type{ArbFloat{P}}) = P
+
 
 # get and set working precision for ArbFloat
 
