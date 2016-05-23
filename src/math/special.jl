@@ -10,7 +10,7 @@ for (op,cfunc) in ((:factorial,:arb_fac_ui), (:doublefactorial,:arb_doublefac_ui
   end
 end
 
-function doublefactorial{R<:Real}(xx:R)
+function doublefactorial{R<:Real}(xx::R)
    P = precision(ArbFloat)
    x = convert(ArbFloat{P},xx)
    doublefactorial(x)
