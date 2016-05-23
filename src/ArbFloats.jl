@@ -25,7 +25,7 @@ export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round
        midpoint, radius, upperbound, lowerbound, stringInformed, decompose,
        copymidpoint, copyradius, deepcopyradius,
        invsqrt, pow, root, tanpi, cotpi, logbase, sincos, sincospi, sinhcosh,
-       agm, polylog,
+       digamma, rgamma, agm, polylog,
        relativeError, relativeAccuracy, midpointPrecision, trimmedAccuracy,
        PI,SQRTPI,LOG2,LOG10,EXP1,EULER,CATALAN,KHINCHIN,GLAISHER,APERY # constants
 
