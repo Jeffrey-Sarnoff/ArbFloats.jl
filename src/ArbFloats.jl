@@ -23,7 +23,7 @@ import Base: hash, convert, promote_rule, isa,
 export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round(lo,n,10)
        @ArbFloat,     # converts string form of argument, precision is optional first arg in two arg form
        midpoint, radius, upperbound, lowerbound, stringInformed, decompose,
-       copyradius, deepcopyradius,
+       copymidpoint, copyradius, deepcopyradius,
        invsqrt, pow, root, tanpi, cotpi, logbase, sincos, sincospi, sinhcosh,
        relativeError, relativeAccuracy, midpointPrecision, trimmedAccuracy,
        PI,SQRTPI,LOG2,LOG10,EXP1,EULER,CATALAN,KHINCHIN,GLAISHER,APERY # constants
