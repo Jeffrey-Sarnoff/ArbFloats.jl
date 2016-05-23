@@ -9,7 +9,7 @@ end
 
 function string{P}(x::ArbFloat{P})
    # n=trunc(abs(log(upperbound(x)-lowerbound(x))/log(2))) just the good bits
-   s = String(x,UInt(4)) # midpoint only (within 1ulp), RoundNearest
+   s = String(x,UInt(2)) # midpoint only (within 1ulp), RoundNearest
    s 
 end
 
