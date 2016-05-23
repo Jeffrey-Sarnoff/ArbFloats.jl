@@ -56,13 +56,17 @@ function smartstring{P}(x::ArbFloat{P})
         end
     end
     
+    bfprec=precision(BigFloat)
+    setprecision(BigFloat,P+64)
     sval = round(parse(BigFloat,ubstr),P,2)
     mval = round(BigFloat(midpoint(x)),P,2)
     if sval > mval
-       string(ubstr,"₋")
+       ubstr = string(ubstr,"₋")
     elseif sval < mval
-       string(ubstr,"₊")
+       ubstr = string(ubstr,"₊")
     else
-       string(ubstr,"~")
+       ubstr = string(ubstr,"~")
     end
+    setprecision(BigFloat,bfprec)
+    ubstr
 end    
