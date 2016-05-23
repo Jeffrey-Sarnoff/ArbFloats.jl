@@ -38,7 +38,7 @@ function stringRoundFloor{P}(x::ArbFloat{P})
    s
 end
 function stringRoundCeil{P}(x::ArbFloat{P})
-   cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, n, UInt(3)) # round ceil
+   cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, P, UInt(3)) # round ceil
    s = String(cstr)
    ccall(@libflint(flint_free), Void, (Ptr{UInt8},), cstr)
    s
