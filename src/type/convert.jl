@@ -101,9 +101,7 @@ convert{P}(::Type{Float32}, x::ArbFloat{P}) = convert(Float32,convert(Float64,x)
 
 function convert{I<:Integer,P}(::Type{I}, x::ArbFloat{P})
     s = num2str(x, trunc(Int, 1+P*0.30103)) # P * log(2)/log(10)
-    trunc(I,parse(Float64,s))
-    #ccall(@libarb(arb_set_si), Void, (Ptr{ArbFloat{P}}, Int), &x, z)
-    #z
+    parse(I,split(s,".")[1])
 end
 
 function convert{P,Q}(::Type{ArbFloat{Q}}, y::ArbFloat{P})
