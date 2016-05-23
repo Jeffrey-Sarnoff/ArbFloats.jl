@@ -64,18 +64,18 @@ fld{P}(x::ArbFloat{P}, y::ArbFloat{P}) = convert(Int, floor(x/y))
 cld{P}(x::ArbFloat{P}, y::ArbFloat{P}) = convert(Int, ceil(x/y))
 div{P}(x::ArbFloat{P}, y::ArbFloat{P}) = convert(Int, trunc(x/y))
 
-rem{P}(x::ArbFloat{P}, y::ArbFloat{P}) = x - div(x,y)*y
-mod{P}(x::ArbFloat{P}, y::ArbFloat{P}) = x - fld(x,y)*y
+rem{P}(x::ArbFloat{P}, y::ArbFloat{P}) = convert(Int, x - div(x,y)*y)
+mod{P}(x::ArbFloat{P}, y::ArbFloat{P}) = convert(Int, x - fld(x,y)*y)
 
 function divrem{P}(x::ArbFloat{P}, y::ArbFloat{P})
    d = div(x,y)
-   r = x - d*y
+   r = convert(Int, x - d*y)
    d,r
 end
 
 function fldmod{P}(x::ArbFloat{P}, y::ArbFloat{P})
    d = fld(x,y)
-   r = x - d*y
+   r = convert(Int, x - d*y)
    d,r
 end
 
