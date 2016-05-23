@@ -11,6 +11,18 @@ function deepcopy{P}(x::ArbFloat{P})
     z
 end
 
+function copyradius{P}(target::ArbFloat{P}, source::ArbFloat{P})
+    z = deepcopy(target)
+    z.rad_exp = source.rad_exp
+    z.rad_man = source.rad_man
+    z
+end
+
+function deepcopyradius{P}(target::ArbFloat{P}, source::ArbFloat{P})
+    target.rad_exp = source.rad_exp
+    target.rad_man = source.rad_man
+    target
+end
 
 function decompose{P}(x::ArbFloat{P})
     # decompose x as num * 2^pow / den
