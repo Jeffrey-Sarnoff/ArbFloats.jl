@@ -46,12 +46,13 @@ function decompose{P}(x::ArbFloat{P})
 end
 
 function round{P}(x::ArbFloat{P}, sig::Int=P, base::Int=10)
-    nbits = base==2 ? P : (base==10 ? trunc(Int,sig*3.3219281) : trunc(Int,1.0e-8+sig*log(base)/log(2.0)))
-    nbits = min(nbits,sig)
+    sig=abs(sig); base=abs(base)
+    sigbits = ceil(Int, (sig * log(base)/log(2.0)))
+    sigbits = min(P,sigbits)
     z = ArbFloat{P}(0,0,0,0,0,0)
     ccall(@libarb(arb_init), Void, (Ptr{ArbFloat{P}},), &z)
     finalizer(z, clearArbFloat)
-    ccall(@libarb(arb_set_round), Void,  (Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &x, nbits)
+    ccall(@libarb(arb_set_round), Void,  (Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &x, sigbits)
     z
 end
 
