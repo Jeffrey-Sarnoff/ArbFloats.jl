@@ -12,7 +12,7 @@ end
 
 function doublefactorial{R<:Real}(xx:R)
    P = precision(ArbFloat)
-   x = convert(ArbFloat{P},R)
+   x = convert(ArbFloat{P},xx)
    doublefactorial(x)
 end
 
