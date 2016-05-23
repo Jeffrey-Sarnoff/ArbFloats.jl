@@ -8,13 +8,7 @@ type ArfFloat{P}  <: Real
 end
 
 precision{P}(x::ArfFloat{P}) = P
-
-# get and set working precision for ArbFloat
-
-const ArbFloatPrecision = [116,]
-precision(::Type{ArfFloat}) = ArbFloatPrecision[1]
-
-setprecision(::Type{ArfFloat}, x::Int) = setprecision(ArbFloat, x)
+precision{P}(ArfFloat{P}) = P
 
 # a type specific hash function helps the type to 'just work'
 const hash_arffloat_lo = (UInt === UInt64) ? 0x37e642589da3416a : 0x5d46a6b4
