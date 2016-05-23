@@ -42,9 +42,9 @@ convert{P}(::Type{ArbFloat{P}}, x::Float16) = convert(ArbFloat{P}, convert(Float
 
 
 function convert{P}(::Type{ArbFloat{P}}, x::String)
-    b = bytestring(x)
+    s = String(x)
     z = initializer(ArbFloat{P})
-    ccall(@libarb(arb_set_str), Void, (Ptr{ArbFloat}, Ptr{UInt8}, Int), &z, b, P)
+    ccall(@libarb(arb_set_str), Void, (Ptr{ArbFloat}, Ptr{UInt8}, Int), &z, s, P)
     z
 end
 
@@ -84,7 +84,7 @@ end
 function num2str{P}(x::ArbFloat{P}, n::Int)
    flags = UInt(2)
    cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, n, flags)
-   s = bytestring(cstr)
+   s = String(cstr)
    ccall(@libflint(flint_free), Void, (Ptr{UInt8},), cstr)
    s
 end
