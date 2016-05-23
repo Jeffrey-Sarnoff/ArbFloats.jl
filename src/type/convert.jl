@@ -89,6 +89,8 @@ function num2str{P}(x::ArbFloat{P}, n::Int)
    s
 end
 
+convert{P}(::Type{ArbFloat{P}}, y::ArbFloat{P}) = y
+
 function convert{P}(::Type{Float64}, x::ArbFloat{P})
     s = num2str(x,22)
     parse(Float64,s)
@@ -97,19 +99,12 @@ function convert{P}(::Type{Float64}, x::ArbFloat{P})
 end
 convert{P}(::Type{Float32}, x::ArbFloat{P}) = convert(Float32,convert(Float64,x))
 
-function convert{P}(::Type{Int}, x::ArbFloat{P})
-    s = num2str(x, trunc(Int, P*0.30103)) # P * log(2)/log(10)
-    trunc(Int,parse(Float64,s))
+function convert{I<:Integer,P}(::Type{I}, x::ArbFloat{P})
+    s = num2str(x, trunc(I, P*0.30103)) # P * log(2)/log(10)
+    trunc(I,parse(Float64,s))
     #ccall(@libarb(arb_set_si), Void, (Ptr{ArbFloat{P}}, Int), &x, z)
     #z
 end
-if sizeof(Int)==sizeof(Int64)
-    convert{P}(::Type{Int32}, x::ArbFloat{P}) = convert(Int32,convert(Int64,x))
-else
-    convert{P}(::Type{Int64}, x::ArbFloat{P}) = convert(Int64,convert(Int32,x))
-end
-
-convert{P}(::Type{ArbFloat{P}}, y::ArbFloat{P}) = y
 
 function convert{P,Q}(::Type{ArbFloat{Q}}, y::ArbFloat{P})
     bf = convert(BigFloat,y)
