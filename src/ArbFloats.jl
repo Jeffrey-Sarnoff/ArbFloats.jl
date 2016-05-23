@@ -57,15 +57,15 @@ libflint = joinpath(libDir,libFiles[findfirst([startswith(x,"libflint") for x in
 isfile(libarb)   || throw(ErrorException("libarb not found"))
 isfile(libflint) || throw(ErrorException("libflint not found"))
 
-@linux_only begin
+@static if is_linux() begin
     libarb = String(split(libarb,".so")[1])
     libflint = String(split(libflint,".so")[1])
 end
-@osx_only begin
+@static if is_osx() begin
     libarb = String(split(libarb,".dynlib")[1])
     libflint = String(split(libflint,".dynlib")[1])
 end
-@windows_only begin
+@static if is_windows() begin
     libarb = String(split(libarb,".dll")[1])
     libflint = String(split(libflint,".dll")[1])
 end
