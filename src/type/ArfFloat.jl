@@ -39,3 +39,11 @@ end
 midpoint{P}(x::ArfFloat{P}) = x
 
 radius{P}(x::ArfFloat{P}) = zero(ArfFloat{P})
+
+function frexp{P}(x::ArfFloat{P})
+   mantissa = initializer(ArfFloat{P})
+   exponent = zero(Int)
+   ccall(@libarb(arf_frexp), Void, (Ptr{ArfFloat{P}}, Int, Ptr{ArfFloat{P}}), &mantissa, exponent, &x)
+   mantissa, exponent
+end
+
