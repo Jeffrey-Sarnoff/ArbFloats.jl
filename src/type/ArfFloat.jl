@@ -49,3 +49,10 @@ function frexp2{P}(x::ArfFloat{P})
    mantissa, exponent
 end
 
+function frexp3{P}(x::ArfFloat{P})
+   mantissa = initializer(ArfFloat{P})
+   exponent = zero(Int64)
+   ccall(@libarb(arf_frexp), Void, (Ptr{ArfFloat{P}}, Ptr{Int64}, Ptr{ArfFloat{P}}), &mantissa, exponent, &x)
+   mantissa, exponent
+end
+
