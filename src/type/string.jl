@@ -14,36 +14,29 @@ function string{P}(x::ArbFloat{P})
 end
 
 function stringRoundNearest{P}(x::ArbFloat{P})
-   cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, P, UInt(4)) # round nearest
+   cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, P, UInt(2)) # round nearest
    s = String(cstr)
    ccall(@libflint(flint_free), Void, (Ptr{UInt8},), cstr)
    s
 end
-function stringRoundUp{P}(x::ArbFloat{P})
+function stringRoundFromZeroPM{P}(x::ArbFloat{P})
    cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, P, UInt(1)) # round up
    s = String(cstr)
    ccall(@libflint(flint_free), Void, (Ptr{UInt8},), cstr)
    s
 end
-function stringRoundDown{P}(x::ArbFloat{P})
+function stringRoundToZeroPM{P}(x::ArbFloat{P})
    cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, P, UInt(0)) # round down
    s = String(cstr)
    ccall(@libflint(flint_free), Void, (Ptr{UInt8},), cstr)
    s
 end
-function stringRoundFloor{P}(x::ArbFloat{P})
-   cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, P, UInt(2)) # round floor
-   s = String(cstr)
-   ccall(@libflint(flint_free), Void, (Ptr{UInt8},), cstr)
-   s
-end
-function stringRoundCeil{P}(x::ArbFloat{P})
+function stringRoundFromZero{P}(x::ArbFloat{P})
    cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, P, UInt(3)) # round ceil
    s = String(cstr)
    ccall(@libflint(flint_free), Void, (Ptr{UInt8},), cstr)
    s
 end
-
 
 
 function stringTrimmed{P}(x::ArbFloat{P}, ndigitsremoved::Int)
