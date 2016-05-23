@@ -90,6 +90,23 @@ function trunc{P}(x::ArbFloat{P}, sig::Int=P, base::Int=10)
     signbit(x) ? -z : z
 end
 
+function round{T,P}(::Type{T}, x::ArbFloat{P}, sig::Int=P, base::Int=10)
+    z = round(x, sig, base)
+    convert(T, z)
+end
+function ceil{T,P}(::Type{T}, x::ArbFloat{P}, sig::Int=P, base::Int=10)
+    z = ceil(x, sig, base)
+    convert(T, z)
+end
+function floor{T,P}(::Type{T}, x::ArbFloat{P}, sig::Int=P, base::Int=10)
+    z = floor(x, sig, base)
+    convert(T, z)
+end
+function trunc{T,P}(::Type{T}, x::ArbFloat{P}, sig::Int=P, base::Int=10)
+    z = trunc(x, sig, base)
+    convert(T, z)
+end
+
 
 eps{P}(::Type{ArbFloat{P}}) = ldexp(1.0,-P) # for intertype workings
 eps{P}(x::ArbFloat{P}) = ldexp(1.0,-P)*x    # for intratype workings
