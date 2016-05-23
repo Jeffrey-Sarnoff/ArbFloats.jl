@@ -60,7 +60,22 @@ function trunc{T,P}(::Type{T}, x::ArbFloat{P}, sig::Int=P, base::Int=10)
     convert(T, z)
 end
 
-fld{P}(x::ArbFloat{P}, y::ArbFloat{P}) = floor(x/y)
-cld{P}(x::ArbFloat{P}, y::ArbFloat{P}) = ceil(x/y)
-div{P}(x::ArbFloat{P}, y::ArbFloat{P}) = trunc(x/y)
+fld{P}(x::ArbFloat{P}, y::ArbFloat{P}) = convert(Int, floor(x/y))
+cld{P}(x::ArbFloat{P}, y::ArbFloat{P}) = convert(Int, ceil(x/y))
+div{P}(x::ArbFloat{P}, y::ArbFloat{P}) = convert(Int, trunc(x/y))
+
+rem{P}(x::ArbFloat{P}, y::ArbFloat{P}) = x - div(x,y)*y
+mod{P}(x::ArbFloat{P}, y::ArbFloat{P}) = x - fld(x,y)*y
+
+function divrem{P}(x::ArbFloat{P}, y::ArbFloat{P})
+   d = div(x,y)
+   r = x - d*y
+   d,r
+end
+
+function fldmod{P}(x::ArbFloat{P}, y::ArbFloat{P})
+   d = fld(x,y)
+   r = x - d*y
+   d,r
+end
 
