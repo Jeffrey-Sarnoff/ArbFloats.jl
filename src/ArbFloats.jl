@@ -16,7 +16,7 @@ import Base: hash, convert, promote_rule, isa,
     exp, expm1, log, log1p, log2, log10,
     sin, cos, tan, csc, sec, cot, asin, acos, atan, atan2,
     sinh, cosh, tanh, csch, sech, coth, asinh, acosh, atanh,
-    sinc, gamma, lgamma, zeta,
+    sinc, gamma, lgamma, zeta, factorial,
     BigInt, BigFloat,
     Cint
 
