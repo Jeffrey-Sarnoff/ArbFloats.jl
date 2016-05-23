@@ -1,3 +1,13 @@
+for (op, i) in ((:zero,:0), (:one,:1), (:two,:2), (:three,:3), (:four, :4))
+  @eval begin
+    function ($op){P}(::Type{ArbFloat{P}})
+        z = initializer(ArbFloat{P})
+        ccall(@libarb(arb_set_si), Void, (Ptr{ArbFloat}, Int), &z, $i)
+        z
+    end
+    ($op)(::Type{ArbFloat}) = ($op)(ArbFloat{precision(ArbFloat)})
+  end
+end
 
 function copy{P}(x::ArbFloat{P})
     z = initializer(ArbFloat{P})
