@@ -87,9 +87,7 @@ function trunc{P}(x::ArbFloat{P}, sig::Int=P, base::Int=10)
     finalizer(z, clearArbFloat)
     y = abs(x)+0.5
     ccall(@libarb(arb_floor), Void,  (Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &y, sigbits)
-    if signbit(x)
-       z = -z
-    end
+    signbit(x) ? -z : z
 end
 
 
