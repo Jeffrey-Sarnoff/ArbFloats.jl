@@ -46,7 +46,8 @@ function decompose{P}(x::ArbFloat{P})
 end
 
 function round{P}(x::ArbFloat{P}, sig::Int=P, base::Int=10)
-    nbits = base==2 ? min(sig,P) : (base==10 ? trunc(Int,sig*3.3219281) : trunc(Int,1.0e-8+sig*log(base)/log(2.0)))
+    nbits = base==2 ? P : (base==10 ? trunc(Int,sig*3.3219281) : trunc(Int,1.0e-8+sig*log(base)/log(2.0)))
+    nbits = min(nbits,sig)
     z = ArbFloat{P}(0,0,0,0,0,0)
     ccall(@libarb(arb_init), Void, (Ptr{ArbFloat{P}},), &z)
     finalizer(z, clearArbFloat)
@@ -54,6 +55,25 @@ function round{P}(x::ArbFloat{P}, sig::Int=P, base::Int=10)
     z
 end
 
+function ceil{P}(x::ArbFloat{P}, sig::Int=P, base::Int=10)
+    nbits = base==2 ? P : (base==10 ? trunc(Int,sig*3.3219281) : trunc(Int,1.0e-8+sig*log(base)/log(2.0)))
+    nbits = min(sig,nbits)
+    z = ArbFloat{P}(0,0,0,0,0,0)
+    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat{P}},), &z)
+    finalizer(z, clearArbFloat)
+    ccall(@libarb(arb_ceil), Void,  (Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &x, nbits)
+    z
+end
+
+function floor{P}(x::ArbFloat{P}, sig::Int=P, base::Int=10)
+    nbits = base==2 ? P : (base==10 ? trunc(Int,sig*3.3219281) : trunc(Int,1.0e-8+sig*log(base)/log(2.0)))
+    nbits = min(sig,nbits)
+    z = ArbFloat{P}(0,0,0,0,0,0)
+    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat{P}},), &z)
+    finalizer(z, clearArbFloat)
+    ccall(@libarb(arb_floor), Void,  (Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &x, nbits)
+    z
+end
 
 eps{P}(::Type{ArbFloat{P}}) = ldexp(1.0,-P) # for intertype workings
 eps{P}(x::ArbFloat{P}) = ldexp(1.0,-P)*x    # for intratype workings
