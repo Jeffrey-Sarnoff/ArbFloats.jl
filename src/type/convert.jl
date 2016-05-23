@@ -98,7 +98,7 @@ end
 convert{P}(::Type{Float32}, x::ArbFloat{P}) = convert(Float32,convert(Float64,x))
 
 function convert{P}(::Type{Int}, x::ArbFloat{P})
-    s = num2str(x,22)
+    s = num2str(x, trunc(Int, P*0.30103)) # P * log(2)/log(10)
     trunc(Int,parse(Float64,s))
     #ccall(@libarb(arb_set_si), Void, (Ptr{ArbFloat{P}}, Int), &x, z)
     #z
