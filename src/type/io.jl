@@ -16,3 +16,8 @@ function showsmart{P}(io::IO, x::ArbFloat{P})
     s = smartstring(x)
     print(io, s)
 end
+
+function showsmart{P}(x::ArbFloat{P})
+    s = smartstring(x)
+    print(s)
+end
