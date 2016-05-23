@@ -5,6 +5,23 @@ macro ArbFloat(p,x)
     convert(ArbFloat{:($p)}, string(:($x)))
 end
 
+# interconvert Arb with Arf
+
+function convert{P}(::Type{ArbFloat{P}}, x::ArfFloat{P})
+    z = initializer(ArbFloat{P})
+    ccall(@libarb(arb_set_arf), Void, (Ptr{ArbFloat{P}}, Ptr{ArfFloat{P}}), &z, &x)
+    z
+end
+
+function convert{P}(::Type{ArfFloat{P}}, x::ArbFloat{P})
+    z = initializer(ArfFloat{P})
+    z.mid_exp  = x.mid_exp
+    z.mid_size = x.mid_size
+    z.mid_d1   = x.mid_d1
+    z.mid_d2   = x.mid_d2
+    z
+end
+
 
 function convert{P}(::Type{ArbFloat{P}}, x::UInt)
     z = initializer(ArbFloat{P})
