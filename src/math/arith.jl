@@ -1,6 +1,6 @@
 #=
    -x, abs(x), inv(x),
-   floor(x), ceil(x), sqrt(x), invsqrt(x)
+   sqrt(x), invsqrt(x)
    x+y, x-y, x*y, x/y, hypot(x,y)
    muladd(a,b,c), fma(a,b,c)
 =#
@@ -15,8 +15,7 @@ for (op,cfunc) in ((:-,:arb_neg), (:abs, :arb_abs))
   end
 end
 
-for (op,cfunc) in ((:inv, :arb_inv), (:floor,:arb_floor), (:ceil, :arb_ceil), 
-    (:sqrt, :arb_sqrt), (:invsqrt, :arb_rsqrt))
+for (op,cfunc) in ((:inv, :arb_inv), (:sqrt, :arb_sqrt), (:invsqrt, :arb_rsqrt))
   @eval begin
     function ($op){P}(x::ArbFloat{P})
       z = initializer(ArbFloat{P})
