@@ -91,6 +91,7 @@ include("type/compare.jl")
 include("type/io.jl")
 
 include("math/arith.jl")
+include("math/round.jl")
 include("math/elementary.jl")
 include("math/constants.jl")
 include("math/special.jl")
