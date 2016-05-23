@@ -92,7 +92,7 @@ end
 convert{P}(::Type{ArbFloat{P}}, y::ArbFloat{P}) = y
 
 function convert{P}(::Type{Float64}, x::ArbFloat{P})
-    s = num2str(x,22)
+    s = num2str(x,trunc(Int, 1+P*0.30103))
     parse(Float64,s)
     #ccall(@libarb(arb_set_d), Void, (Ptr{ArbFloat{P}}, Float64), &x, z)
     #z
@@ -100,7 +100,7 @@ end
 convert{P}(::Type{Float32}, x::ArbFloat{P}) = convert(Float32,convert(Float64,x))
 
 function convert{I<:Integer,P}(::Type{I}, x::ArbFloat{P})
-    s = num2str(x, trunc(Int, P*0.30103)) # P * log(2)/log(10)
+    s = num2str(x, trunc(Int, 1+P*0.30103)) # P * log(2)/log(10)
     trunc(I,parse(Float64,s))
     #ccall(@libarb(arb_set_si), Void, (Ptr{ArbFloat{P}}, Int), &x, z)
     #z
