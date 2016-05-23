@@ -30,7 +30,7 @@ for (op,cfunc) in ((:risingfactorial,:arb_rising),)
       ccall(@libarb($cfunc), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &x, &y, P)
       z
     end
-    function ($op){R1<:Real,R2<:Real,P}(xx::R1, yy::R2)
+    function ($op){R1<:Real,R2<:Real}(xx::R1, yy::R2)
       P = precision(ArbFloat)
       x = convert(ArbFloat{P},xx)
       y = convert(ArbFloat{P},yy)
