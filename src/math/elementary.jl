@@ -17,7 +17,8 @@ for (op,cfunc) in ((:exp,:arb_exp), (:expm1, :arb_expm1), (:log,:arb_log), (:log
     (:asin, :arb_asin), (:acos, :arb_asin), (:atan, :arb_atan),
     (:asinh, :arb_asinh), (:acosh, :arb_asinh), (:atanh, :arb_atanh),
     (:sinc, :arb_sinc),
-    (:gamma, :arb_gamma), (:lgamma, :arb_lgamma), (:zeta, :arb_zeta)
+    (:gamma, :arb_gamma), (:lgamma, :arb_lgamma), (:zeta, :arb_zeta),
+    (:digamma, :arb_digamma), (:rgamma, :arb_rgamma)
     )
   @eval begin
     function ($op){P}(x::ArbFloat{P})
