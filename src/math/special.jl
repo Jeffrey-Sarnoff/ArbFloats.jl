@@ -4,7 +4,7 @@ for (op,cfunc) in ((:factorial,:arb_fac_ui), (:doublefactorial,:arb_doublefac_ui
       y = trunc(Int,x)
       yy = UInt(y)
       z = initializer(ArbFloat{P})
-      ccall(@libarb($cfunc), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, UInt, Int), &z, &x, &yy, P)
+      ccall(@libarb($cfunc), Void, (Ptr{ArbFloat}, UInt, Int), &z, &yy, P)
       z
     end
   end
