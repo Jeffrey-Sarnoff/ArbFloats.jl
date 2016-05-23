@@ -1,43 +1,39 @@
+#=
+#define FMPR_RND_DOWN  0    RoundingMode{:Down}()
+#define FMPR_RND_UP    1
+#define FMPR_RND_FLOOR 2
+#define FMPR_RND_CEIL  3
+#define FMPR_RND_NEAR  4
+=#
+
 function round{P}(x::ArbFloat{P}, sig::Int=P, base::Int=10)
     sig=abs(sig); base=abs(base)
-    sigbits = ceil(Int, (sig * log(base)/log(2.0)))
-    sigbits = min(P,sigbits)
-    z = ArbFloat{P}(0,0,0,0,0,0)
-    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat{P}},), &z)
-    finalizer(z, clearArbFloat)
+    sigbits = min(P, ceil(Int, (sig * log(base)/log(2.0))))
+    z = initializer(ArbFloat{P})
     ccall(@libarb(arb_set_round), Void,  (Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &x, sigbits)
     z
 end
 
 function ceil{P}(x::ArbFloat{P}, sig::Int=P, base::Int=10)
     sig=abs(sig); base=abs(base)
-    sigbits = ceil(Int, (sig * log(base)/log(2.0)))
-    sigbits = min(P,sigbits)
-    z = ArbFloat{P}(0,0,0,0,0,0)
-    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat{P}},), &z)
-    finalizer(z, clearArbFloat)
+    sigbits = min(P, ceil(Int, (sig * log(base)/log(2.0))))
+    z = initializer(ArbFloat{P})
     ccall(@libarb(arb_ceil), Void,  (Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &x, sigbits)
     z
 end
 
 function floor{P}(x::ArbFloat{P}, sig::Int=P, base::Int=10)
     sig=abs(sig); base=abs(base)
-    sigbits = ceil(Int, (sig * log(base)/log(2.0)))
-    sigbits = min(P,sigbits)
-    z = ArbFloat{P}(0,0,0,0,0,0)
-    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat{P}},), &z)
-    finalizer(z, clearArbFloat)
+    sigbits = min(P, ceil(Int, (sig * log(base)/log(2.0))))
+    z = initializer(ArbFloat{P})
     ccall(@libarb(arb_floor), Void,  (Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &x, sigbits)
     z
 end
 
 function trunc{P}(x::ArbFloat{P}, sig::Int=P, base::Int=10)
     sig=abs(sig); base=abs(base)
-    sigbits = ceil(Int, (sig * log(base)/log(2.0)))
-    sigbits = min(P,sigbits)
-    z = ArbFloat{P}(0,0,0,0,0,0)
-    ccall(@libarb(arb_init), Void, (Ptr{ArbFloat{P}},), &z)
-    finalizer(z, clearArbFloat)
+    sigbits = min(P, ceil(Int, (sig * log(base)/log(2.0))))
+    z = initializer(ArbFloat{P})
     y = abs(x)
     ccall(@libarb(arb_floor), Void,  (Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &y, sigbits)
     signbit(x) ? -z : z
