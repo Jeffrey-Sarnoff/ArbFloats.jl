@@ -1,7 +1,7 @@
-for (op,cfunc) in ((:factorial,:arb_fac_ui), (:doublefactorial,:arb_doublefac_ui), 
-                   (:risingfactorial, :arb_rising_ui))
+for (op,cfunc) in ((:factorial,:arb_fac_ui), (:doublefactorial,:arb_doublefac_ui)) 
   @eval begin
-    function ($op){P}(x::ArbFloat{P}, y::Int)
+    function ($op){P}(x::ArbFloat{P})
+      y = trunc(Int,x)
       yy = UInt(y)
       z = initializer(ArbFloat{P})
       ccall(@libarb($cfunc), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, UInt, Int), &z, &x, &yy, P)
