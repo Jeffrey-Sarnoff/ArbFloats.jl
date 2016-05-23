@@ -21,7 +21,7 @@ function stringTrimmed{P}(x::ArbFloat{P}, ndigitsremoved::Int)
    s
 end
 
-function stringInformed{P}(x::ArbFloat{P})
+function smartstring{P}(x::ArbFloat{P})
     ub = upperbound(x)
     lb = lowerbound(x)
     
@@ -56,10 +56,11 @@ function stringInformed{P}(x::ArbFloat{P})
         end
     end
     
-    sval = ArbFloat{P}(ubstr)
-    if midpoint(sval) > midpoint(x)
+    sval = round(parse(BigFloat,ubstr),P,2)
+    mval = round(BigFloat(midpoint(x)),P,2)
+    if sval > mval
        string(ubstr,"₋")
-    elseif midpoint(sval) < midpoint(x)
+    elseif sval < mval
        string(ubstr,"₊")
     else
        string(ubstr,"~")
