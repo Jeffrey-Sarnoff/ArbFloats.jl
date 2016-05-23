@@ -17,5 +17,24 @@ for (op,cfunc) in ((:agm, :arb_agm), (:polylog, :arb_polylog))
       ccall(@libarb($cfunc), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &x, &y, P)
       z
     end
+    function ($op){R<:Real,P}(xx::R, y::ArbFloat{P}, prec::Int=P)
+      x = convert(ArbFloat{P},xx)
+      z = initializer(ArbFloat{P})
+      ccall(@libarb($cfunc), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &x, &y, P)
+      z
+    end
+    function ($op){R<:Real,P}(x::ArbFloat{P}, yy::R, prec::Int=P)
+      y = convert(ArbFloat{P},yy)
+      z = initializer(ArbFloat{P})
+      ccall(@libarb($cfunc), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &x, &y, P)
+      z
+    end
+    function ($op){R1<:Real,R2<:Real,P}(xx::R1, yy::R2, prec::Int=P)
+      x = convert(ArbFloat{P},xx)
+      y = convert(ArbFloat{P},yy)
+      z = initializer(ArbFloat{P})
+      ccall(@libarb($cfunc), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}, Ptr{ArbFloat}, Int), &z, &x, &y, P)
+      z
+    end
   end  
 end
