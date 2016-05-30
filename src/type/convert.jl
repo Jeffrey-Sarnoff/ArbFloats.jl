@@ -127,7 +127,7 @@ function convert{P,Q}(::Type{ArbFloat{Q}}, y::ArbFloat{P})
 end    
 
 
-for T in (:Int64, :Int32, :Int16, :Float64, :Float32, :Float16, 
+for T in (:Int128, :Int64, :Int32, :Int16, :Float64, :Float32, :Float16, 
           :(Rational{Int64}), :(Rational{Int32}), :(Rational{Int16}), 
           :String)
   @eval convert(::Type{ArbFloat}, x::$T) = convert(ArbFloat{precision(ArbFloat)}, x)
@@ -135,8 +135,14 @@ end
 
 
 # Promotion
-for T in (:Int64, :Int32, :Int16, :Float64, :Float32, :Float16, 
+for T in (:Int128, :Int64, :Int32, :Int16, :Float64, :Float32, :Float16, 
           :(Rational{Int64}), :(Rational{Int32}), :(Rational{Int16}), 
           :String)
   @eval promote_rule{P}(::Type{ArbFloat{P}}, ::Type{$T}) = ArbFloat{P}
 end  
+
+promote_rule{P}(::Type{ArbFloat{P}}, ::Type{BigFloat}) = BigFloat
+promote_rule{P}(::Type{ArbFloat{P}}, ::Type{BigInt}) = ArbFloat{P}
+promote_rule{P}(::Type{ArbFloat{P}}, ::Type{Rational{BigInt}}) = Rational{BigInt}
+
+
