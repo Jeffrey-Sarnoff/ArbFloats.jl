@@ -4,7 +4,7 @@ function show{P}(io::IO, x::ArbFloat{P})
 end
 
 function showall{P}(io::IO, x::ArbFloat{P})
-    s = string(midpoint(x)," ± ", convert(Float64.radius(x)))
+    s = string(midpoint(x)," ± ", convert(Float64,radius(x)))
     print(io, s)
 end
 
