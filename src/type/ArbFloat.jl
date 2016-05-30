@@ -11,6 +11,9 @@ end
 
 precision{P}(x::ArbFloat{P}) = P
 precision{P}(::Type{ArbFloat{P}}) = P
+# allow inquiring the precision of the module: precision(ArbFloats)
+precision(::Type{Type{Val{:ArbFloats}}}) = precision(ArbFloat)
+precision(m::Module) = precision(Type{Val{Symbol(m)}})
 
 
 # get and set working precision for ArbFloat
@@ -25,6 +28,7 @@ function setprecision(::Type{ArbFloat}, x::Int)
     end
     ArbFloatPrecision[1] = abs(x)
 end
+
 
 # get and set working precision for ArbFloat
 
