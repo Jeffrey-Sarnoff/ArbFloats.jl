@@ -73,6 +73,9 @@ eps{P}(x::ArbFloat{P}) = ldexp(1.0,-P)*x    # for intratype workings
    This function is limited to values within the range of Float64.
 """
 function epsilon{P}(x::ArbFloat{P})
+  if (radius(x) == 0)
+     return eps(x)
+  end
   midpoint_fr, midpoint_xp = frexp(eps(convert(Float64,midpoint(x))))
   radius_fr, radius_xp = frexp(eps(convert(Float64,radius(x))))
   fr = (midpoint_fr + radius_fr)*0.5
