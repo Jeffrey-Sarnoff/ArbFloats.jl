@@ -100,7 +100,7 @@ end
 
 """true iff x and y have no common point"""
 function donotoverlap{P}(x::ArbFloat{P}, y::ArbFloat{P})
-    z = ccall(@libarb(arb_overlaps, Int, (Ptr{ArbFloat}, Ptr{ArbFloat}), &x, &y)
+    z = ccall(@libarb(arb_overlaps), Int, (Ptr{ArbFloat}, Ptr{ArbFloat}), &x, &y)
     z == 0
 end
 
