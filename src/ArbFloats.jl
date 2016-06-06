@@ -28,7 +28,7 @@ export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round
        epsilon, trim, tidy, decompose,
        iszero, ntzero, nonzero, isone, ntone, ntinteger,
        ispositive, isnonpositive, nisnegative, isnonnegative,
-       areequal, arenotequal, overlap, donotoverlap, doesnotcontain,
+       areequal, arenotequal, overlap, donotoverlap, iscontainedby, doesnotcontain,
        invsqrt, pow, root, tanpi, cotpi, logbase, sincos, sincospi, sinhcosh,
        doublefactorial, risingfactorial, rgamma, agm, polylog,
        relativeError, relativeAccuracy, midpointPrecision, trimmedAccuracy,
