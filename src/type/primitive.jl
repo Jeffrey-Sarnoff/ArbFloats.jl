@@ -57,7 +57,7 @@ end
 """
 Rounds x to a clean estimate of x as a point value.
 """
-function clean{P}(x::ArbFloat{P})
+function tidy{P}(x::ArbFloat{P})
     s = smartstring(x)
     ArbFloat{P}(s)
 end
