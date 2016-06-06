@@ -54,6 +54,14 @@ function trim{P}(x::ArbFloat{P})
     z
 end
 
+"""
+Rounds x to a clean estimate of x as a point value.
+"""
+function clean{P}(x::ArbFloat{P})
+    s = smartstring(x)
+    ArbFloat{P}(s)
+end
+
 function decompose{P}(x::ArbFloat{P})
     # decompose x as num * 2^pow / den
     # num, pow, den = decompose(x)
