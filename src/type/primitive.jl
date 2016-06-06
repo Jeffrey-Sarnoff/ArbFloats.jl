@@ -67,7 +67,14 @@ end
 
 
 eps{P}(::Type{ArbFloat{P}}) = ldexp(1.0,-P) # for intertype workings
-eps{P}(x::ArbFloat{P}) = ldexp(1.0,-P)*x    # for intratype workings
+function eps{P}(x::ArbFloat{P})   # for intratype workings
+    r = radius(x)
+    if r == 0
+       ldexp(1.0,-P)*x
+    else
+       r
+    end
+end
 
 """Similar to eps(x), epsilon(ArbFloat(x)) adjusts for the uncertainty as given by the radius.
    This function is limited to values within the range of Float64.
