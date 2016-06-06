@@ -43,6 +43,16 @@ function copymidpoint{P}(target::ArbFloat{P}, source::ArbFloat{P})
     z
 end
 
+"""
+Rounds x to a number of bits equal to the accuracy of x (as indicated by its radius), plus a few guard bits. 
+The resulting ball is guaranteed to contain x, but is more economical if x has less than full accuracy.
+(from arb_trim documentation)
+"""
+function trim{P}(x::ArbFloat{P})
+    z = initializer(ArbFloat{P})
+    ccall(@libarb(arb_trim), Void, (Ptr{ArbFloat}, Ptr{ArbFloat}), &z, &x)
+    z
+end
 
 function decompose{P}(x::ArbFloat{P})
     # decompose x as num * 2^pow / den
