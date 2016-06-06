@@ -91,6 +91,7 @@ include("type/ArfFloat.jl")
 include("type/ArbFloat.jl")
 
 include("type/primitive.jl")
+include("type/predicates.jl")
 include("type/string.jl")
 include("type/convert.jl")
 include("type/compare.jl")
