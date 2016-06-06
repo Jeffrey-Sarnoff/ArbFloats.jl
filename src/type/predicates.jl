@@ -110,9 +110,20 @@ function contains{P}(x::ArbFloat{P}, y::ArbFloat{P})
     z != 0
 end
 
-"""true iff x does not span (cover_ all of y"""
+"""true iff y spans (covers) all of x"""
+function iscontainedby{P}(x::ArbFloat{P}, y::ArbFloat{P})
+    z = ccall(@libarb(arb_contains), Int, (Ptr{ArbFloat}, Ptr{ArbFloat}), &y, &x)
+    z != 0
+end
+
+"""true iff x does not span (cover) all of y"""
 function doesnotcontain{P}(x::ArbFloat{P}, y::ArbFloat{P})
     z = ccall(@libarb(arb_contains), Int, (Ptr{ArbFloat}, Ptr{ArbFloat}), &x, &y)
     z == 0
 end
 
+"""true iff y does not span (cover) all of x"""
+function isnotcontainedby{P}(x::ArbFloat{P}, y::ArbFloat{P})
+    z = ccall(@libarb(arb_contains), Int, (Ptr{ArbFloat}, Ptr{ArbFloat}), &y, &x)
+    z == 0
+end
