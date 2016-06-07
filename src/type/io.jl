@@ -42,7 +42,7 @@ function showmany{P,N}(io::IO, x::NTuple{N,ArbFloat{P}}, stringformer::Function)
 end
 
 showmany{P,N}(x::NTuple{N,ArbFloat{P}}, stringformer::Function) = 
-   showmany{P,N}(Base.STDOUT,x,stringformer)
+   showmany(Base.STDOUT,x,stringformer)
 
 
 function showmany{P}(io::IO, x::Vector{ArbFloat{P}}, stringformer::Function)
@@ -69,18 +69,21 @@ function showmany{P}(io::IO, x::Vector{ArbFloat{P}}, stringformer::Function)
 end
 
 showmany{P}(x::Vector{ArbFloat{P}}, stringformer::Function) = 
-    showmany{P}(Base.STDOUT,x,stringformer)
+    showmany(Base.STDOUT,x,stringformer)
 
 
 show{P,N}(io::IO, x::NTuple{N,ArbFloat{P}}) = showmany(io, x, string)
 showall{P,N}(io::IO, x::NTuple{N,ArbFloat{P}}) = showmany(io, x, stringAll)
 showcompact{P,N}(io::IO, x::NTuple{N,ArbFloat{P}}) = showmany(io, x, stringCompact)
+# showsmart is not a Base show function, it needs explict version without io parameter
 showsmart{P,N}(io::IO, x::NTuple{N,ArbFloat{P}}) = showmany(io, x, smartstring)
 showsmart{P,N}(x::NTuple{N,ArbFloat{P}}) = showmany(Base.STDOUT, x, smartstring)
 
 show{P}(io::IO, x::Vector{ArbFloat{P}}) = showmany(io, x, string)
 showall{P}(io::IO, x::Vector{ArbFloat{P}}) = showmany(io, x, stringAll)
 showcompact{P}(io::IO, x::Vector{ArbFloat{P}}) = showmany(io, x, stringCompact)
+# showsmart is not a Base show function, it needs explict version without io parameter
+showsmart{P}(io::IO, x::Vector{ArbFloat{P}}) = showmany(io, x, smartstring)
 showsmart{P}(x::Vector{ArbFloat{P}}) = showmany(Base.STDOUT, x, smartstring)
 
 
