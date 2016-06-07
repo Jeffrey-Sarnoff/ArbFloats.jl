@@ -17,7 +17,7 @@ function showsmart{P}(io::IO, x::ArbFloat{P})
     s = smartstring(x)
     print(io, s)
 end
-
+# showsmart is not a Base show function, it needs explict version without io parameter
 showsmart{P}(x::ArbFloat{P}) = showsmart(Base.STDOUT, x)
 
 function showmany{P,N}(io::IO, x::NTuple{N,ArbFloat{P}}, stringformer::Function)
