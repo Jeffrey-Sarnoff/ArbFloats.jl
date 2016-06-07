@@ -1,5 +1,9 @@
 function show{P}(io::IO, x::ArbFloat{P})
-    s = string(x)
+    if isexact(x)
+      s = string(midpoint(x))
+    else
+      s = string(midpoint(x)" ± ", convert(Float32,radius(x)))
+    end  
     print(io, s)
 end
 
