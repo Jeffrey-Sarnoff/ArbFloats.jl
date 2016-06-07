@@ -49,7 +49,7 @@ end
 isexact{T<:Integer}(x::T) = true
 
 """true iff radius is nonzero"""
-function ntexact{P}(x::ArbFloat{P})
+function notexact{P}(x::ArbFloat{P})
     z = ccall(@libarb(arb_is_exact), Int, (Ptr{ArbFloat},), &x)
     z == 0
 end
