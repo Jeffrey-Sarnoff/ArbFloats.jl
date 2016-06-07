@@ -18,6 +18,8 @@ function showsmart{P}(io::IO, x::ArbFloat{P})
     print(io, s)
 end
 
+showsmart{P}(x::ArbFloat{P}) = showsmart(Base.STDOUT, x)
+
 function showmany{P,N}(io::IO, x::NTuple{N,ArbFloat{P}}, stringformer::Function)
     if N==0
        print(io,"()")
@@ -71,13 +73,14 @@ showmany{P}(x::Vector{ArbFloat{P}}, stringformer::Function) =
 
 
 show{P,N}(io::IO, x::NTuple{N,ArbFloat{P}}) = showmany(io, x, string)
-showsmart{P,N}(io::IO, x::NTuple{N,ArbFloat{P}}) = showmany(io, x, smartstring)
 showall{P,N}(io::IO, x::NTuple{N,ArbFloat{P}}) = showmany(io, x, stringAll)
 showcompact{P,N}(io::IO, x::NTuple{N,ArbFloat{P}}) = showmany(io, x, stringCompact)
+showsmart{P,N}(io::IO, x::NTuple{N,ArbFloat{P}}) = showmany(io, x, smartstring)
+showsmart{P,N}(x::NTuple{N,ArbFloat{P}}) = showmany(x, smartstring)
 
 show{P}(io::IO, x::Vector{ArbFloat{P}}) = showmany(io, x, string)
-showsmart{P}(io::IO, x::Vector{ArbFloat{P}}) = showmany(io, x, smartstring)
 showall{P}(io::IO, x::Vector{ArbFloat{P}}) = showmany(io, x, stringAll)
 showcompact{P}(io::IO, x::Vector{ArbFloat{P}}) = showmany(io, x, stringCompact)
+showsmart{P}(x::Vector{ArbFloat{P}}) = showmany(x, smartstring)
 
 
