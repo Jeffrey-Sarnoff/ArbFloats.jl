@@ -108,13 +108,13 @@ function notequal{P}(x::ArbFloat{P}, y::ArbFloat{P})
 end
 
 """true iff x and y have a common point"""
-function overlapping{P}(x::ArbFloat{P}, y::ArbFloat{P})
+function overlap{P}(x::ArbFloat{P}, y::ArbFloat{P})
     z = ccall(@libarb(arb_overlaps), Int, (Ptr{ArbFloat}, Ptr{ArbFloat}), &x, &y)
     z != 0
 end
 
 """true iff x and y have no common point"""
-function nonoverlapping{P}(x::ArbFloat{P}, y::ArbFloat{P})
+function donotoverlap{P}(x::ArbFloat{P}, y::ArbFloat{P})
     z = ccall(@libarb(arb_overlaps), Int, (Ptr{ArbFloat}, Ptr{ArbFloat}), &x, &y)
     z == 0
 end
