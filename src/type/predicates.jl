@@ -145,9 +145,15 @@ end
 
 """true if it is quite likely that the arguments indicate the same value"""
 function approxeq{P}(x::ArbFloat{P}, y::ArbFloat{P})
-    delta = tidy(x)-tidy(y)
-    delta = min(abs(upperbound(delta)), abs(lowerbound(delta)))
-    delta < max(eps(x), eps(y))
+    if contains(x,y)
+       true
+    elseif contains(y,x)
+       true
+    else
+       x = tidy(x)
+       y = tidy(y)
+       contains(x,y) || contains(y,x)
+    end
 end
 
 (≊){P}(x::ArbFloat{P}, y::ArbFloat{P}) = approxeq(x,y)
