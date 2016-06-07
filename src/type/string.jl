@@ -49,6 +49,10 @@ end
 
 
 function smartarbstring{P}(x::ArbFloat{P})
+    if midpoint(x)==0 && notexact(x)
+       return string("±",radius(x))
+    end
+    
     ub = upperbound(x)
     lb = lowerbound(x)
     
@@ -88,6 +92,10 @@ end
 
 
 function smartstring{P}(x::ArbFloat{P})
+    if midpoint(x)==0 && notexact(x)
+       return string("±",radius(x))
+    end
+
     ub = upperbound(x)
     lb = lowerbound(x)
     
