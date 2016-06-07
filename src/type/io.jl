@@ -8,6 +8,34 @@ function showall{P}(io::IO, x::ArbFloat{P})
     print(io, s)
 end
 
+#=
+function showall{P,N}(io::IO, x::NTuple{N,ArbFloat{P}})
+    for z in x
+      s = string(midpoint(z)," ± ", convert(Float64,radius(z)))
+      print(io, s);print(io,"\n")
+    end
+end
+=#
+
+function showall{P,N}(io::IO, x::NTuple{N,ArbFloat{P}})
+    ss = Vector{String}(N)
+    for i in 1:N
+      z = x[i]
+      ss[i] = string(midpoint(z)," ± ", convert(Float64,radius(z)))
+    end
+    print(io, (ss...))
+end
+
+function showall{P}(io::IO, x::Vector{ArbFloat{P}})
+    n = length(x)
+    ss = Vector{String}(n)
+    for i in 1:n
+      z = x[i]
+      ss[i] = string(midpoint(z)," ± ", convert(Float64,radius(z)))
+    end
+    print(io, ss)
+end
+
 function showcompact{P}(io::IO, x::ArbFloat{P})
     showcompact(io, Float64(midpoint(x)))
 end
