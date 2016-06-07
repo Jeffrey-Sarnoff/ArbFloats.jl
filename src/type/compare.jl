@@ -38,5 +38,5 @@ end
 (<){R<:Real,P}(x::R, y::ArbFloat{P}) = ArbFloat{P}(x) < y
 (>){R<:Real,P}(x::R, y::ArbFloat{P}) = ArbFloat{P}(x) > y
 
-isequal{P}(x::ArbFloat{P}, y::ArbFloat{P}) = (x==y)
+# see predicates.jl for isequal{P}(x::ArbFloat{P}, y::ArbFloat{P}) 
 isless{P}(x::ArbFloat{P}, y::ArbFloat{P}) = (x<y)
