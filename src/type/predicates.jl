@@ -150,4 +150,4 @@ function approxeq{P}(x::ArbFloat{P}, y::ArbFloat{P})
     delta < max(eps(x), eps(y))
 end
 
-(≊)(x::ArbFloat{P}, y::ArbFloat{P}) = approxeq(x,y)
+(≊){P}(x::ArbFloat{P}, y::ArbFloat{P}) = approxeq(x,y)
