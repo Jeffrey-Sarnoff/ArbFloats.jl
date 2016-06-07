@@ -50,7 +50,13 @@ end
 
 function smartarbstring{P}(x::ArbFloat{P})
     if midpoint(x)==0 && notexact(x)
-       return string("±",radius(x))
+       s = string(radius(x))
+       s1,s2 = split(s,"e")
+       if length(s2)>0
+          return string("±", rstrip(s1,'0'),"e",s2)
+       else
+          return string("±", rstrip(s1,'0'))
+       end    
     end
     
     ub = upperbound(x)
@@ -93,7 +99,13 @@ end
 
 function smartstring{P}(x::ArbFloat{P})
     if midpoint(x)==0 && notexact(x)
-       return string("±",radius(x))
+       s = string(radius(x))
+       s1,s2 = split(s,"e")
+       if length(s2)>0
+          return string("±", rstrip(s1,'0'),"e",s2)
+       else
+          return string("±", rstrip(s1,'0'))
+       end    
     end
 
     ub = upperbound(x)
