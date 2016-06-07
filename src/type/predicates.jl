@@ -144,8 +144,10 @@ function isnotcontainedby{P}(x::ArbFloat{P}, y::ArbFloat{P})
 end
 
 """true if it is quite likely that the arguments indicate the same value"""
-function equalish{P}(x::ArbFloat{P}, y::ArbFloat{P})
+function approxeq{P}(x::ArbFloat{P}, y::ArbFloat{P})
     delta = tidy(x)-tidy(y)
     delta = min(abs(upperbound(delta)), abs(lowerbound(delta)))
     delta < max(eps(x), eps(y))
 end
+
+(≊)(x::ArbFloat{P}, y::ArbFloat{P}) = approxeq(x,y)
