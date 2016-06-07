@@ -21,6 +21,8 @@ function showall{P,N}(io::IO, x::NTuple{N,ArbFloat{P}})
     if N==0
        print(io,"()")
        return nothing
+    elseif N==1
+       print(io,string("(",midpoint(x[1])," ± ", convert(Float64,radius(x[1])),")"))
     end
     
     ss = Vector{String}(N)
@@ -29,11 +31,11 @@ function showall{P,N}(io::IO, x::NTuple{N,ArbFloat{P}})
       ss[i] = string(midpoint(z)," ± ", convert(Float64,radius(z)))
     end
     
-    print(io,string("( ", ss[1],","));
+    println(io,string("( ", ss[1], ","));
     for s in ss[2:end-1]
-      println(io, string("  ",s,","))
+      println(io, string("  ", s, ","))
     end  
-    println(io,string("  ".ss[end],")"))
+    println(io,string("  ", ss[end], ")"))
 end
 
 function showall{P}(io::IO, x::Vector{ArbFloat{P}})
