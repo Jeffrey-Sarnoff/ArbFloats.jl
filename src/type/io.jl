@@ -86,4 +86,10 @@ showcompact{P}(io::IO, x::Vector{ArbFloat{P}}) = showmany(io, x, stringCompact)
 showsmart{P}(io::IO, x::Vector{ArbFloat{P}}) = showmany(io, x, smartstring)
 showsmart{P}(x::Vector{ArbFloat{P}}) = showmany(Base.STDOUT, x, smartstring)
 
+show{P,N}(io::IO, x::Vararg{ArbFloat{P},N}) = showmany(io, x, string)
+showall{P,N}(io::IO, x::Vararg{ArbFloat{P},N}) = showmany(io, x, stringAll)
+showcompact{P,N}(io::IO, x::Vararg{ArbFloat{P},N}) = showmany(io, x, stringCompact)
+# showsmart is not a Base show function, it needs explict version without io parameter
+showsmart{P,N}(io::IO, x::Vararg{ArbFloat{P},N}) = showmany(io, x, smartstring)
+showsmart{P,N}(x::Vararg{ArbFloat{P},N}) = showmany(Base.STDOUT, x, smartstring)
 
