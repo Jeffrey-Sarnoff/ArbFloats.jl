@@ -2,7 +2,12 @@ function show{P}(io::IO, x::ArbFloat{P})
     if isexact(x)
       s = string(midpoint(x))
     else
-      s = string(midpoint(x)" ± ", convert(Float32,radius(x)))
+      m = midpoint(x)
+      if iszero(m)
+        s = string("±", convert(Float64,radius(x)))
+      else
+         s = string(m, " ± ", convert(Float32,radius(x)))
+      end     
     end  
     print(io, s)
 end
