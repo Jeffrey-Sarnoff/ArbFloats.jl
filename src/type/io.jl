@@ -69,14 +69,9 @@ showsmart{P,N}(io::IO, x::NTuple{N,ArbFloat{P}}) = showmany{P,N}(io, x, smartstr
 showall{P,N}(io::IO, x::NTuple{N,ArbFloat{P}}) = showmany{P,N}(io, x, stringAll)
 showcompact{P,N}(io::IO, x::NTuple{N,ArbFloat{P}}) = showmany{P,N}(io, x, stringCompact)
 
-show{P}(io::IO, x::Vector{ArbFloat{P}}) = showmany(io, x, string)
-showsmart{P}(io::IO, x::Vector{ArbFloat{P}}) = showmany(io, x, smartstring)
-showall{P}(io::IO, x::Vector{ArbFloat{P}}) = showmany(io, x, stringAll)
-showcompact{P}(io::IO, x::Vector{ArbFloat{P}}) = showmany(io, x, stringCompact)
+show{P}(io::IO, x::Vector{ArbFloat{P}}) = showmany{P}(io, x, string)
+showsmart{P}(io::IO, x::Vector{ArbFloat{P}}) = showmany{P}(io, x, smartstring)
+showall{P}(io::IO, x::Vector{ArbFloat{P}}) = showmany{P}(io, x, stringAll)
+showcompact{P}(io::IO, x::Vector{ArbFloat{P}}) = showmany{P}(io, x, stringCompact)
 
 
-
-function showsmart{P}(x::ArbFloat{P})
-    s = smartstring(x)
-    print(s)
-end
