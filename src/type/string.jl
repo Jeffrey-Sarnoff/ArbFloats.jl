@@ -47,6 +47,7 @@ function stringTrimmed{P}(x::ArbFloat{P}, ndigitsremoved::Int)
    s
 end
 
+
 function smartarbstring{P}(x::ArbFloat{P})
     ub = upperbound(x)
     lb = lowerbound(x)
@@ -84,6 +85,7 @@ function smartarbstring{P}(x::ArbFloat{P})
     
     ubstr
 end    
+
 
 function smartstring{P}(x::ArbFloat{P})
     ub = upperbound(x)
@@ -134,3 +136,12 @@ function smartstring{P}(x::ArbFloat{P})
     setprecision(BigFloat,bfprec)
     ubstr
 end    
+
+function stringAll{P}(x::ArbFloat{P})
+    string(midpoint(x)," ± ", convert(Float64,radius(x)))
+end
+
+function stringCompact{P}(x::ArbFloat{P})
+    string(convert(Float64,ArbFloat(smartarbstring(x))))
+end
+
