@@ -81,13 +81,14 @@ end
 # two parameter predicates
 
 """true iff midpoint(x)==midpoint(y) and radius(x)==radius(y)"""
-function areequal{P}(x::ArbFloat{P}, y::ArbFloat{P})
+function isequal{P}(x::ArbFloat{P}, y::ArbFloat{P})
     z = ccall(@libarb(arb_equal), Int, (Ptr{ArbFloat}, Ptr{ArbFloat}), &x, &y)
     z != 0
 end
 
+
 """true iff midpoint(x)!=midpoint(y) or radius(x)!=radius(y)"""
-function arenotequal{P}(x::ArbFloat{P}, y::ArbFloat{P})
+function isnotequal{P}(x::ArbFloat{P}, y::ArbFloat{P})
     z = ccall(@libarb(arb_equal), Int, (Ptr{ArbFloat}, Ptr{ArbFloat}), &x, &y)
     z == 0
 end
