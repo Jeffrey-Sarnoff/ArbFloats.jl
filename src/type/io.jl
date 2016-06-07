@@ -39,6 +39,9 @@ function showmany{P,N}(io::IO, x::NTuple{N,ArbFloat{P}}, stringformer::Function)
     println(io,string("  ", ss[end], " )"))
 end
 
+showmany{P,N}(x::NTuple{N,ArbFloat{P}}, stringformer::Function) = showmany(Base.STDOUT,x,stringformer)
+
+
 function showmany{P}(io::IO, x::Vector{ArbFloat{P}}, stringformer::Function)
     n = length(x)
 
@@ -62,6 +65,7 @@ function showmany{P}(io::IO, x::Vector{ArbFloat{P}}, stringformer::Function)
     println(io,string("  ", ss[end], " ]"))
 end
 
+showmany{P}(x::Vector{ArbFloat{P}}, stringformer::Function) = showmany(Base.STDOUT,x,stringformer)
 
 
 show{P,N}(io::IO, x::NTuple{N,ArbFloat{P}}) = showmany{P,N}(io, x, string)
