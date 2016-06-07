@@ -18,16 +18,22 @@ end
 =#
 
 function showall{P,N}(io::IO, x::NTuple{N,ArbFloat{P}})
+    if N==0
+       print(io,"()")
+       return nothing
+    end
+    
     ss = Vector{String}(N)
     for i in 1:N
       z = x[i]
       ss[i] = string(midpoint(z)," ± ", convert(Float64,radius(z)))
     end
-    print(io,"( ");
-    for s in ss[1:end-1]
-      println(io, string(s,",\n"))
+    
+    print(io,string("( ", ss[1],","));
+    for s in ss[2:end-1]
+      println(io, string("  ",s,","))
     end  
-    println(io,string(ss[end],")"))
+    println(io,string("  ".ss[end],")"))
 end
 
 function showall{P}(io::IO, x::Vector{ArbFloat{P}})
