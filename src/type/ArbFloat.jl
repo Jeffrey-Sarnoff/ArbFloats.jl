@@ -69,8 +69,20 @@ function radius{P}(x::ArbFloat{P})
     z
 end
 
-upperbound{P}(x::ArbFloat{P}) = midpoint(x) + radius(x)
+function upperbound{P}(x::ArbFloat{P})
+    a = ArfFloat{P}(0,0,0,0)
+    ccall(@libarb(arf_init), Void, (Ptr{ArfFloat{P}},), &a)
+    z = initializer(ArbFloat{P})
+    ccall(@libarb(arb_get_ubound_arf), Void, (Ptr{ArbFloat}, Ptr{ArfFloat}, Int), &x, &a, P)
+    ccall(@libarb(arb_set_arf), Void, (Ptr{ArbFloat}, Ptr{ArfFloat}), &z, &a)
+    ccall(@libarb(arf_clear), Void, (Ptr{ArfFloat{P}},), &a)
+    z
+end
+
+#upperbound{P}(x::ArbFloat{P}) = midpoint(x) + radius(x)
 lowerbound{P}(x::ArbFloat{P}) = midpoint(x) - radius(x)
+
+
 
 function minmax{P}(x::ArbFloat{P})
    m = midpoint(x)
