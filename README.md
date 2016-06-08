@@ -21,7 +21,31 @@ the digits which remain after rounding the ArbFloat so that the radius is subsum
 ####Use
 ```julia
 using ArbFloats
-exactFloat = ArbFloatExact(0.125)
+
+five = ArbFloat(5)
+5
+
+e = exp(ArbFloat(1))
+2.7182_8182_8459_0452_3536_0287_4713_5266_2 ± 4.8148250e-35
+
+lowerbound(e)
+2.7182_8182_8459_0452_3536_0287_4713_5266_2
+upperbound(e)
+2.7182_8182_8459_0452_3536_0287_4713_5266_3
+
+smartbound(e)
+2.7182_8182_8459_0452_3536_0287_4713_5266₊
+
+
+fuzzed_e = tan(atanh(tanh(atan(e))))
+2.7182_8182_8459_0452_3536_0287_4713_52662 ± 7.8836806e-33
+
+round(Int, Float64(radius(fuzzed_e)/radius(e)))
+162
+
+`setprecision(ArbFloat, 53)`
+
+exactFloat = ArbExact(0.125)
 0.125
 approxFloat = ArbFloat(0.125)
 0.125±0.1388e-17
