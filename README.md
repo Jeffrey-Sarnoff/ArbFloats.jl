@@ -52,10 +52,10 @@ fpOneThird = 1.0f0 / 3.0f0
 afOneThird = ArbFloat(1) / ArbFloat(3)
 0.3333_333 ± 2.9803_322e-8
 
-# gamma(1/3) == 2.6789_353_4707_7476_4465+
+# gamma(1/3) is 2.6789_3853_4707_7476_3365_5692_9409_7467_7644~
 
 fpGammaOfOneThird = gamma( fpOneThird )
-2.6789_384f0
+2.6789_384
 
 afGammaOfOneThird = gamma( afOneThird )
 2.6789_380  ± 1.8211887e-6
@@ -66,13 +66,4 @@ lowerbound(afGammaOfOneThird), upperbound(afGammaOfOneThird)
 
 
 
-0.125
-approxFloat = ArbFloat(0.125)
-0.125±0.1388e-17
-showall(approxFloat)
-0.125±0.138877788f-17
-midpoint(approxFloat)
-0.125
-radius(approxFloat)
-0.138877788f-17
 ```
