@@ -43,9 +43,29 @@ fuzzed_e = tan(atanh(tanh(atan(e))))
 round(Int, Float64(radius(fuzzed_e)/radius(e)))
 162
 
-`setprecision(ArbFloat, 53)`
+# an informed view of Float32 values
+setprecision(ArbFloat, 24)
 
-exactFloat = ArbExact(0.125)
+fpOneThird = 1.0f0 / 3.0f0
+0.3333_334f0
+
+afOneThird = ArbFloat(1) / ArbFloat(3)
+0.3333_333 ± 2.9803_322e-8
+
+# gamma(1/3) == 2.6789_353_4707_7476_4465+
+
+fpGammaOfOneThird = gamma( fpOneThird )
+2.6789_384f0
+
+afGammaOfOneThird = gamma( afOneThird )
+2.6789_380  ± 1.8211887e-6
+
+lowerbound(afGammaOfOneThird), upperbound(afGammaOfOneThird)
+2.6789_360, 2.6789_400
+
+
+
+
 0.125
 approxFloat = ArbFloat(0.125)
 0.125±0.1388e-17
