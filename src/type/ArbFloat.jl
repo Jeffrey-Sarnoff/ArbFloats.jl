@@ -20,10 +20,11 @@ for (F,A) in [(:Float64, :ArbFloat64), (:Float32, :ArbFloat32)]
 end
 
 # precision is significand precision, significand_bits(FloatNN) + 1, for the hidden bit
-typealias ArbFloat16  ArbFloat{11}   # read  2  ?3 or fewer decimal digits to write the same digits
-typealias ArbFloat32  ArbFloat{24}   # read  6  ?7 or fewer decimal digits to write the same digits
-typealias ArbFloat64  ArbFloat{53}   # read 15 ?15 or fewer decimal digits to write the same digits
+typealias ArbFloat16  ArbFloat{ 11}  # read  2 ? 3 or fewer decimal digits to write the same digits
+typealias ArbFloat32  ArbFloat{ 24}  # read  6 ? 7 or fewer decimal digits to write the same digits
+typealias ArbFloat64  ArbFloat{ 53}  # read 15 ?15 or fewer decimal digits to write the same digits
 typealias ArbFloat128 ArbFloat{113}  # read 33 ?34 or fewer decimal digits to write the same digits
+typealias ArbFloat256 ArbFloat{237}  # read 71 ?71 or fewer decimal digits to write the same digits
 
 
 # get and set working precision for ArbFloat
