@@ -12,6 +12,8 @@ function show{P}(io::IO, x::ArbFloat{P})
     print(io, s)
 end
 
+show{P}(x::ArbFloat{P}) = show(Base.STDOUT, x)
+
 function showcompact{P}(io::IO, x::ArbFloat{P})
     showcompact(io, Float64(midpoint(x)))
 end
