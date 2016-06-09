@@ -121,9 +121,31 @@ function convert{I<:Integer,P}(::Type{I}, x::ArbFloat{P})
     parse(I,split(s,".")[1])
 end
 
+#=
+# precision(BigFloat) may be less than max(P,Q)
 function convert{P,Q}(::Type{ArbFloat{Q}}, y::ArbFloat{P})
     bf = convert(BigFloat,y)
     convert(ArbFloat{Q}, bf)
+end    
+=#
+
+function convert{P,Q}(::Type{ArbFloat{Q}}, x::ArbFloat{P})
+    if (Q < P)
+        x = round(x, Q, 2)
+    end
+    
+    a = initialize(ArfFloat{Q})
+    a.mid_exp  = x.mid_exp
+    a.mid_size = x.mid_size
+    a.mid_d1   = x.mid_d1
+    a.mid_d2   = x.mid_d2
+
+    z = convert(ArbFloat{Q}, a)
+    ccall(@libarb(arf_clear), Void, (Ptr{ArfFloat{P}},), &a)
+    
+    z.rad_exp = x.rad_exp
+    z.ran_man = x.rad_man
+    z
 end    
 
 
