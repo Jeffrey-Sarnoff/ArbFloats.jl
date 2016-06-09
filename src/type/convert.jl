@@ -134,7 +134,7 @@ function convert{P,Q}(::Type{ArbFloat{Q}}, x::ArbFloat{P})
         x = round(x, Q, 2)
     end
     
-    a = initialize(ArfFloat{Q})
+    a = initializer(ArfFloat{Q})
     a.mid_exp  = x.mid_exp
     a.mid_size = x.mid_size
     a.mid_d1   = x.mid_d1
