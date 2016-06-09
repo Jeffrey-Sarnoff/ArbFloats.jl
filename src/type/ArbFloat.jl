@@ -15,9 +15,6 @@ precision{P}(::Type{ArbFloat{P}}) = P
 precision(::Type{Type{Val{:ArbFloats}}}) = precision(ArbFloat)
 precision(m::Module) = precision(Type{Val{Symbol(m)}})
 
-for (F,A) in [(:Float64, :ArbFloat64), (:Float32, :ArbFloat32)]
-    @eval typealias $A ArbFloat{1+Base.significand_bits($F))}  # include hidden bit
-end
 
 # precision is significand precision, significand_bits(FloatNN) + 1, for the hidden bit
 typealias ArbFloat16  ArbFloat{ 11}  # read  2 ? 3 or fewer decimal digits to write the same digits
