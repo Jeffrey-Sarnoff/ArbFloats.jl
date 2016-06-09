@@ -38,12 +38,6 @@ function setprecision(::Type{ArbFloat}, x::Int)
 end
 
 
-# get and set working precision for ArbFloat
-
-precision(::Type{ArfFloat}) = ArbFloatPrecision[1]
-setprecision(::Type{ArfFloat}, x::Int) = setprecision(ArbFloat, x)
-
-
 
 # a type specific hash function helps the type to 'just work'
 const hash_arbfloat_lo = (UInt === UInt64) ? 0x37e642589da3416a : 0x5d46a6b4
