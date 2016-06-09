@@ -129,23 +129,19 @@ function convert{P,Q}(::Type{ArbFloat{Q}}, y::ArbFloat{P})
 end    
 =#
 
-function convert{P,Q}(::Type{ArbFloat{Q}}, x::ArbFloat{P})
+function convert{P,Q}(::Type{ArbFloat{Q}}, a::ArbFloat{P})
     if (Q < P)
-        x = round(x, Q, 2)
+        a = round(a, Q, 2)
     end
     
-    a = initializer(ArfFloat{Q})
-    a.mid_exp  = x.mid_exp
-    a.mid_size = x.mid_size
-    a.mid_d1   = x.mid_d1
-    a.mid_d2   = x.mid_d2
-
     z = initializer(ArbFloat{Q})
-    ccall(@libarb(arb_set_arf), Void, (Ptr{ArbFloat}, Ptr{ArfFloat}), &z, &a)
-    z.rad_exp = x.rad_exp
-    z.rad_man = x.rad_man
-    ccall(@libarb(arf_clear), Void, (Ptr{ArfFloat{P}},), &a)
-    
+    z.mid_exp  = a.mid_exp
+    z.mid_size = a.mid_size
+    z.mid_d1   = a.mid_d1
+    z.mid_d2   = a.mid_d2
+    z.rad_exp  = a.rad_exp
+    z.rad_man  = a.rad_man
+
     z
 end    
 
