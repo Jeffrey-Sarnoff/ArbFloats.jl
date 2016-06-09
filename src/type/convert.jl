@@ -140,11 +140,12 @@ function convert{P,Q}(::Type{ArbFloat{Q}}, x::ArbFloat{P})
     a.mid_d1   = x.mid_d1
     a.mid_d2   = x.mid_d2
 
-    z = convert(ArbFloat{Q}, a)
-    ccall(@libarb(arf_clear), Void, (Ptr{ArfFloat{P}},), &a)
-    
+    z = initializer(ArbFloat{Q})
+    ccall(@libarb(arb_set_arf), Void, (Ptr{ArbFloat}, Ptr{ArfFloat}), &z, &a)
     z.rad_exp = x.rad_exp
     z.ran_man = x.rad_man
+    ccall(@libarb(arf_clear), Void, (Ptr{ArfFloat{P}},), &a)
+    
     z
 end    
 
