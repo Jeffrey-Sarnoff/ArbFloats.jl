@@ -10,6 +10,12 @@ end
 precision{P}(x::ArfFloat{P}) = P
 precision{P}(::Type{ArfFloat{P}}) = P
 
+precision(::Type{ArfFloat}) = ArbFloatPrecision[1]
+setprecision(::Type{ArfFloat}, x::Int) = setprecision(ArbFloat, x)
+
+
+
+
 # a type specific hash function helps the type to 'just work'
 const hash_arffloat_lo = (UInt === UInt64) ? 0x37e642589da3416a : 0x5d46a6b4
 const hash_0_arffloat_lo = hash(zero(UInt), hash_arffloat_lo)
