@@ -22,6 +22,25 @@ function convert{P}(::Type{ArfFloat{P}}, x::ArbFloat{P})
     z
 end
 
+#interconvert ArbFloat{P} with ArbFloat{Q}
+
+function convert{P,Q}(::Type{ArbFloat{Q}}, a::ArbFloat{P})
+    if (Q < P)
+        a = round(a, Q, 2)
+    end
+    
+    z = initializer(ArbFloat{Q})
+    z.mid_exp  = a.mid_exp
+    z.mid_size = a.mid_size
+    z.mid_d1   = a.mid_d1
+    z.mid_d2   = a.mid_d2
+    z.rad_exp  = a.rad_exp
+    z.rad_man  = a.rad_man
+
+    z
+end    
+
+#
 
 function convert{P}(::Type{ArbFloat{P}}, x::UInt)
     z = initializer(ArbFloat{P})
@@ -121,30 +140,6 @@ function convert{I<:Integer,P}(::Type{I}, x::ArbFloat{P})
     parse(I,split(s,".")[1])
 end
 
-#=
-# precision(BigFloat) may be less than max(P,Q)
-function convert{P,Q}(::Type{ArbFloat{Q}}, y::ArbFloat{P})
-    bf = convert(BigFloat,y)
-    convert(ArbFloat{Q}, bf)
-end    
-=#
-
-function convert{P,Q}(::Type{ArbFloat{Q}}, a::ArbFloat{P})
-    if (Q < P)
-        a = round(a, Q, 2)
-    end
-    
-    z = initializer(ArbFloat{Q})
-    z.mid_exp  = a.mid_exp
-    z.mid_size = a.mid_size
-    z.mid_d1   = a.mid_d1
-    z.mid_d2   = a.mid_d2
-    z.rad_exp  = a.rad_exp
-    z.rad_man  = a.rad_man
-
-    z
-end    
-
 
 for T in (:Int128, :Int64, :Int32, :Int16, :Float64, :Float32, :Float16, 
           :(Rational{Int64}), :(Rational{Int32}), :(Rational{Int16}), 
@@ -164,4 +159,5 @@ promote_rule{P}(::Type{ArbFloat{P}}, ::Type{BigFloat}) = BigFloat
 promote_rule{P}(::Type{ArbFloat{P}}, ::Type{BigInt}) = ArbFloat{P}
 promote_rule{P}(::Type{ArbFloat{P}}, ::Type{Rational{BigInt}}) = Rational{BigInt}
 
+promote_rule{P,Q}(::Type{ArbFloat{P}}, ::Type{ArbFloat{Q}}) = ifelse(P>Q, ArbFloat{P}, ArbFloat{Q})
 
