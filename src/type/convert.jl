@@ -143,7 +143,7 @@ function convert{P,Q}(::Type{ArbFloat{Q}}, x::ArbFloat{P})
     z = initializer(ArbFloat{Q})
     ccall(@libarb(arb_set_arf), Void, (Ptr{ArbFloat}, Ptr{ArfFloat}), &z, &a)
     z.rad_exp = x.rad_exp
-    z.ran_man = x.rad_man
+    z.rad_man = x.rad_man
     ccall(@libarb(arf_clear), Void, (Ptr{ArfFloat{P}},), &a)
     
     z
