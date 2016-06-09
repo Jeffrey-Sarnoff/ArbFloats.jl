@@ -91,6 +91,7 @@ function lowerbound{P}(x::ArbFloat{P})
     z
 end
 
+bounds{P}(x::ArbFloat{P}) = ( lowerbound(x), upperbound(x) )
 
 
 function minmax{P}(x::ArbFloat{P})
