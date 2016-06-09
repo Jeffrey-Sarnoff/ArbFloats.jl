@@ -23,7 +23,8 @@ import Base: hash, convert, promote_rule, isa,
 export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round(lo,n,10)
        ArbFloat256, ArbFloat128, ArbFloat64, ArbFloat32, ArbFloat16,
        @ArbFloat,     # converts string form of argument, precision is optional first arg in two arg form
-       midpoint, radius, upperbound, lowerbound, smartvalue, smartstring, showsmart,
+       midpoint, radius, upperbound, lowerbound, bounds, 
+       smartvalue, smartstring, showsmart,
        two, three, four, copymidpoint, copyradius, deepcopyradius, 
        epsilon, trim, decompose, isexact, notexact,
        iszero, notzero, nonzero, isone, notone, notinteger,
