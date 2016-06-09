@@ -21,7 +21,7 @@ import Base: hash, convert, promote_rule, isa,
     Cint
 
 export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round(lo,n,10)
-       ArbFloat128, ArbFloat64, ArbFloat32,
+       ArbFloat256, ArbFloat128, ArbFloat64, ArbFloat32, ArbFloat16,
        @ArbFloat,     # converts string form of argument, precision is optional first arg in two arg form
        showsmart,
        midpoint, radius, upperbound, lowerbound, smartstring,
