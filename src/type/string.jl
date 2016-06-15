@@ -180,10 +180,10 @@ function smartstring{P}(x::ArbFloat{P})
 end    
 
 function stringAll{P}(x::ArbFloat{P})
-    string(midpoint(x)," ± ", radius(x))
+    string(midpoint(x)," ± ", string(radius(x),12))
 end
 
 function stringCompact{P}(x::ArbFloat{P})
-    string(x,7)
+    string(x,8)
 end
 
