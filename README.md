@@ -68,7 +68,7 @@ fpGammaOfOneThird = gamma( fpOneThird )
 lowerbound(afGammaOfOneThird), upperbound(afGammaOfOneThird)
 2.6789_360, 2.6789_400
 
-
-
+bounds(afGammaOfOneThird)
+(2.6789_360, 2.6789_400)
 
 ```
