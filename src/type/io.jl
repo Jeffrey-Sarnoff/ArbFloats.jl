@@ -15,7 +15,7 @@ function showcompact{P}(io::IO, x::ArbFloat{P})
 end
 
 function showall{P}(io::IO, x::ArbFloat{P})
-    s = stringAll(s)
+    s = stringAll(x)
     print(io, s)
 end
 
