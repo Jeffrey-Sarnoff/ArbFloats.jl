@@ -17,7 +17,7 @@ the digits which remain after rounding the ArbFloat so that the radius is subsum
 
 
 ####Install
-```F#
+```julia
 Pkg.clone("https://github.com/Jeffrey-Sarnoff/ArbFloats.jl")  # requires a recent Julia v0.5.0-dev
 ```
 
