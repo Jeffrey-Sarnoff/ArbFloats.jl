@@ -40,7 +40,8 @@ end
 
 
 function stringTrimmed{P}(x::ArbFloat{P}, ndigitsremoved::Int)
-   n = max(4,floor(Int, P*0.3010299956639811952137))-ndigitsremoved
+   n = max(8, (floor(Int, P*0.3010299956639811952137))-ndigitsremoved))
+   n = round(Int, n/0.3010299956639811952137) # digits -> bits
    cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, n, UInt(2)) # no radius, round nearest
    s = String(cstr)
    ccall(@libflint(flint_free), Void, (Ptr{UInt8},), cstr)
