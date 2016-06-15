@@ -16,6 +16,10 @@ When an ArbFloat has a nonzero radius, the user sees only those digits that _don
 the digits which remain after rounding the ArbFloat so that the radius is subsumed (as if 0.0).
 
 
+####Install
+```F#
+Pkg.clone("https://github.com/Jeffrey-Sarnoff/ArbFloats.jl")  # requires a recent Julia v0.5.0-dev
+```
 
 ####Use
 ```F#
