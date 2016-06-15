@@ -2,12 +2,7 @@ function show{P}(io::IO, x::ArbFloat{P})
     if isexact(x)
       s = string(midpoint(x))
     else
-      m = midpoint(x)
-      if iszero(m)
-        s = string("±", convert(Float64,radius(x)))
-      else
-         s = string(m, " ± ", convert(Float32,radius(x)))
-      end     
+      s = string(x)
     end  
     print(io, s)
 end
@@ -15,11 +10,12 @@ end
 show{P}(x::ArbFloat{P}) = show(Base.STDOUT, x)
 
 function showcompact{P}(io::IO, x::ArbFloat{P})
-    showcompact(io, Float64(midpoint(x)))
+    s = stringCompact(x)
+    print(io, s)
 end
 
 function showall{P}(io::IO, x::ArbFloat{P})
-    s = string(midpoint(x)," ± ", convert(Float64,radius(x)))
+    s = stringAll(s)
     print(io, s)
 end
 
