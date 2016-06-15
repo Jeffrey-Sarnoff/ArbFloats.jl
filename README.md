@@ -73,8 +73,9 @@ gamma( fpOneThird )
 
 precision, setprecision, copy, deepcopy, zero, one, eps,  
 isequal, isless, (==),(!=),(<),(<=),(>=),(>), notequal, approxeq, ≊,
-contains, overlap, donotoverlap, iscontainedby, doesnotcontain, isnotcontainedby,  
-min, max, minmax,  
+isexact, notexact, midpoint, radius, lowerbound, upperbound, bounds,  
+min, max, minmax, overlap, donotoverlap, 
+contains, iscontainedby, doesnotcontain, isnotcontainedby,  
 isnan, isinf, isfinite, issubnormal, isinteger,  
 iszero, notzero, nonzero, isone, notone, notinteger,  
 ispositive, notpositive, isnegative, notnegative,  
