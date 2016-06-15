@@ -187,3 +187,7 @@ function stringCompact{P}(x::ArbFloat{P})
     string(x,8)
 end
 
+function stringAllCompact{P}(x::ArbFloat{P})
+    string(string(midpoint(x),8)," ± ", string(radius(x),5))
+end
+
