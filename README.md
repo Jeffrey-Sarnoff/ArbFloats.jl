@@ -71,7 +71,7 @@ gamma( fpOneThird )
 
 ## Exports (including re-exports)
 
-precision, setprecision, copy, deepcopy, zero, one, eps,  
+precision, setprecision, copy, deepcopy, zero, one, eps, epsilon,    
 isequal, isless, (==),(!=),(<),(<=),(>=),(>), notequal, approxeq, ≊,  
 isexact, notexact, midpoint, radius, lowerbound, upperbound, bounds,  
 min, max, minmax, overlap, donotoverlap,  
