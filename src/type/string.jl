@@ -28,7 +28,7 @@ end
 
 function stringTrimmed{P}(x::ArbFloat{P}, ndigitsremoved::Int)
    n = max(0, ndigitsremoved)
-   n = min(1, floor(Int, P*0.3010299956639811952137) - n)
+   n = max(1, floor(Int, P*0.3010299956639811952137) - n)
    string(x, n)
 end
 
