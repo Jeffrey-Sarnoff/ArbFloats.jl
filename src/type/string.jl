@@ -1,3 +1,10 @@
+function String{P}(x::ArbFloat{P}, ndigits::Int, flags::UInt)
+   n = max(1,min(abs(ndigits), floor(Int, P*0.3010299956639811952137)))
+   cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, n, flags)
+   s = String(cstr)
+   ccall(@libflint(flint_free), Void, (Ptr{UInt8},), cstr)
+   s
+end
 
 function String{P}(x::ArbFloat{P}, flags::UInt)
    n = floor(Int, P*0.3010299956639811952137)
@@ -7,11 +14,24 @@ function String{P}(x::ArbFloat{P}, flags::UInt)
    s
 end
 
+function string{P}(x::ArbFloat{P}, ndigits::Int)
+   # n=trunc(abs(log(upperbound(x)-lowerbound(x))/log(2))) just the good bits
+   s = String(x, ndigits, UInt(2)) # midpoint only (within 1ulp), RoundNearest
+   s 
+end
+
 function string{P}(x::ArbFloat{P})
    # n=trunc(abs(log(upperbound(x)-lowerbound(x))/log(2))) just the good bits
    s = String(x,UInt(2)) # midpoint only (within 1ulp), RoundNearest
    s 
 end
+
+function stringTrimmed{P}(x::ArbFloat{P}, ndigitsremoved::Int)
+   n = max(0, ndigitsremoved)
+   n = min(1, floor(Int, P*0.3010299956639811952137) - n)
+   string(x, n)
+end
+
 
 function stringRoundNearest{P}(x::ArbFloat{P})
    cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, P, UInt(2)) # round nearest
@@ -39,14 +59,6 @@ function stringRoundFromZero{P}(x::ArbFloat{P})
 end
 
 
-function stringTrimmed{P}(x::ArbFloat{P}, ndigitsremoved::Int)
-   n = max(8, floor(Int, P*0.3010299956639811952137)-ndigitsremoved)
-   n = round(Int, n/0.3010299956639811952137) # digits -> bits
-   cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, n, UInt(2)) # no radius, round nearest
-   s = String(cstr)
-   ccall(@libflint(flint_free), Void, (Ptr{UInt8},), cstr)
-   s
-end
 
 
 function smartarbstring{P}(x::ArbFloat{P})
