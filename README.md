@@ -23,8 +23,6 @@ Pkg.clone("https://github.com/Jeffrey-Sarnoff/ArbFloats.jl")  # requires a recen
 
 ####Use
 ```F#
-Pkg.clone("https://github.com/Jeffrey-Sarnoff/ArbFloats.jl")  # to install, requires a recent Julia v0.5.0-dev
-
 using ArbFloats
 
 five = ArbFloat(5)
