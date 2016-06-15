@@ -68,3 +68,21 @@ bounds(gamma_oneThird)
 gamma( fpOneThird )
 2.6789_384f0
 ```
+
+## Exports (including re-exports)
+
+precision, setprecision, copy, deepcopy, zero, one, eps,  
+isequal, isless, (==),(!=),(<),(<=),(>=),(>), notequal, approxeq, ≊,
+contains, overlap, donotoverlap, iscontainedby, doesnotcontain, isnotcontainedby,  
+min, max, minmax,  
+isnan, isinf, isfinite, issubnormal, isinteger,  
+iszero, notzero, nonzero, isone, notone, notinteger,  
+ispositive, notpositive, isnegative, notnegative,  
+signbit, sign, flipsign, copysign, abs, inv,  
+(+),(-),(*),(/),(\),(%),(^), sqrt, invsqrt, hypot,
+trunc, round, ceil, floor, 
+pow, root, exp, expm1, log, log1p, log2, log10, logbase,  
+sin, cos, sincos, sincospi, tan, csc, sec, cot, asin, acos, atan, atan2,  
+sinh, cosh, sinhcosh, tanh, csch, sech, coth, asinh, acosh, atanh,  
+factorial, doublefactorial, risingfactorial, gamma, lgamma, digamma,  
+sinc, zeta, polylog, agm  
