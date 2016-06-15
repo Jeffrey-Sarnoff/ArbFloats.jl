@@ -56,7 +56,7 @@ fpOneThird = 1.0f0 / 3.0f0
 
 afOneThird = ArbFloat(1) / ArbFloat(3)
 0.3333_333 ± 2.9803_322e-8
-+
+
 # gamma(1/3) is 2.6789_3853_4707_7476_3365_5692_9409_7467_7644~
 
 afGammaOfOneThird = gamma( afOneThird )
