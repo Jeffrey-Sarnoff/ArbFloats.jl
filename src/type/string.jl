@@ -19,13 +19,13 @@ function stringRoundNearest{P}(x::ArbFloat{P})
    ccall(@libflint(flint_free), Void, (Ptr{UInt8},), cstr)
    s
 end
-function stringRoundFromZeroPM{P}(x::ArbFloat{P})
+function stringRoundFromZeroWithRadius{P}(x::ArbFloat{P})
    cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, P, UInt(1)) # round up
    s = String(cstr)
    ccall(@libflint(flint_free), Void, (Ptr{UInt8},), cstr)
    s
 end
-function stringRoundToZeroPM{P}(x::ArbFloat{P})
+function stringRoundToZeroWithRadius{P}(x::ArbFloat{P})
    cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, P, UInt(0)) # round down
    s = String(cstr)
    ccall(@libflint(flint_free), Void, (Ptr{UInt8},), cstr)
