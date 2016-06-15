@@ -19,6 +19,11 @@ function showall{P}(io::IO, x::ArbFloat{P})
     print(io, s)
 end
 
+function showallcompact{P}(io::IO, x::ArbFloat{P})
+    s = stringAllCompact(x)
+    print(io, s)
+end
+
 
 function showsmart{P}(io::IO, x::ArbFloat{P})
     s = smartstring(x)
