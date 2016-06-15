@@ -36,7 +36,6 @@ export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round
        relativeError, relativeAccuracy, midpointPrecision, trimmedAccuracy,
        PI,SQRTPI,LOG2,LOG10,EXP1,EULER,CATALAN,KHINCHIN,GLAISHER,APERY # constants
 
-using Compat
 
 # ensure the requisite libraries are available
 
