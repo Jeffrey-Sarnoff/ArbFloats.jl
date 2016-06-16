@@ -29,10 +29,62 @@ end
 function stringTrimmed{P}(x::ArbFloat{P}, ndigitsremoved::Int)
    n = max(0, ndigitsremoved)
    n = max(1, floor(Int, P*0.3010299956639811952137) - n)
-   string(x, n)
+   cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, n, UInt(2))
+   s = String(cstr)
+   ccall(@libflint(flint_free), Void, (Ptr{UInt8},), cstr)
+   s
+end
+
+#=
+     find the smallest N such that stringTrimmed(lowerbound(x), N) == stringTrimmed(upperbound(x), N)
+
+     digits = floor(Int, precision(x)*0.3010299956639811952137)-1
+     lb, ub = bounds(x)
+     lbs = String(lb, digits, UInt(2))
+     ubs = String(ub, digits, UInt(2))
+     for i in (digits-1):-1:4
+         if lbs[end]==ubs[end]
+            if lbs == ubs
+               break
+            end
+         end
+         lbs = String(lb, i, UInt(2))
+         ubs = String(ub, i, UInt(2))
+     end
+     if lbs != ubs
+        ubs = String(x, 3, UInt(2))
+     end
+     ubs
+     
+=#
+
+function smartarbstring{P}(x::ArbFloat{P})
+     digits = floor(Int, precision(x)*0.3010299956639811952137)-1
+
+     if isexact(x)
+        return(String(x, digits, UInt(2))
+     end
+     
+     lb, ub = bounds(x)
+     lbs = String(lb, digits, UInt(2))
+     ubs = String(ub, digits, UInt(2))
+     for i in (digits-1):-1:4
+         if lbs[end]==ubs[end]
+            if lbs == ubs
+               break
+            end
+         end
+         lbs = String(lb, i, UInt(2))
+         ubs = String(ub, i, UInt(2))
+     end
+     if lbs != ubs
+        ubs = String(x, 3, UInt(2))
+     end
+     ubs
 end
 
 
+#=
 function stringRoundNearest{P}(x::ArbFloat{P})
    cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, P, UInt(2)) # round nearest
    s = String(cstr)
@@ -57,10 +109,10 @@ function stringRoundFromZero{P}(x::ArbFloat{P})
    ccall(@libflint(flint_free), Void, (Ptr{UInt8},), cstr)
    s
 end
+=#
 
 
-
-
+#=
 function smartarbstring{P}(x::ArbFloat{P})
     if midpoint(x)==0 && notexact(x)
        s = string(radius(x))
@@ -113,7 +165,7 @@ function smartarbstring{P}(x::ArbFloat{P})
     
     ubstr
 end    
-
+=#
 
 function smartstring{P}(x::ArbFloat{P})
     if midpoint(x)==0 && notexact(x)
