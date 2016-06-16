@@ -159,5 +159,6 @@ promote_rule{P}(::Type{ArbFloat{P}}, ::Type{BigFloat}) = BigFloat
 promote_rule{P}(::Type{ArbFloat{P}}, ::Type{BigInt}) = ArbFloat{P}
 promote_rule{P}(::Type{ArbFloat{P}}, ::Type{Rational{BigInt}}) = Rational{BigInt}
 
-promote_rule{P,Q}(::Type{ArbFloat{P}}, ::Type{ArbFloat{Q}}) = ifelse(P>Q, ArbFloat{P}, ArbFloat{Q})
+promote_rule{P,Q}(::Type{ArbFloat{P}}, ::Type{ArbFloat{Q}}) = 
+    ifelse(P>Q, ArbFloat{P}, ArbFloat{Q})
 
