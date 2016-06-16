@@ -198,13 +198,13 @@ function includesNegative{P}(x::ArbFloat{P})
 end
 
 """true iff x contains a nonpositive value"""
-function includesNonPositive{P}(x::ArbFloat{P})
+function includesNonpositive{P}(x::ArbFloat{P})
     z = ccall(@libarb(arb_contains_nonpositive), Int, (Ptr{ArbFloat},), &x)
     z != 0
 end
 
 """true iff x contains a nonnegative value"""
-function includesNonNegative{P}(x::ArbFloat{P})
+function includesNonnegative{P}(x::ArbFloat{P})
     z = ccall(@libarb(arb_contains_nonnegative), Int, (Ptr{ArbFloat},), &x)
     z != 0
 end
