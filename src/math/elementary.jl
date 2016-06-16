@@ -12,8 +12,8 @@
 
 for (op,cfunc) in ((:exp,:arb_exp), (:expm1, :arb_expm1), (:log,:arb_log), (:log1p, :arb_log1p),
     (:sin, :arb_sin), (:sinpi, :arb_sinpi), (:cos, :arb_cos), (:cospi, :arb_cospi), 
-    (:tan, :arb_tan), (:tanpi, :arb_tanpi), (:cot, :arb_cot), (:cotpi, :arb_cotpi),
-    (:sinh, :arb_sinh), (:cosh, :arb_sinh), (:tanh, :arb_tanh), (:coth, :arb_coth),
+    (:tan, :arb_tan), (:cot, :arb_cot), 
+    (:sinh, :arb_sinh), (:cosh, :arb_cosh), (:tanh, :arb_tanh), (:coth, :arb_coth),
     (:asin, :arb_asin), (:acos, :arb_asin), (:atan, :arb_atan),
     (:asinh, :arb_asinh), (:acosh, :arb_asinh), (:atanh, :arb_atanh),
     (:sinc, :arb_sinc),
