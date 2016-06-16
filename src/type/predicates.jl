@@ -183,30 +183,6 @@ function excludesZero{P}(x::ArbFloat{P})
     z == 0
 end
 
-"""true iff all x is positive"""
-function ispositive{P}(x::ArbFloat{P})
-    z = ccall(@libarb(arb_is_positive), Int, (Ptr{ArbFloat},), &x)
-    z != 0
-end
-
-"""true iff all x is negative"""
-function isnegative{P}(x::ArbFloat{P})
-    z = ccall(@libarb(arb_is_negative), Int, (Ptr{ArbFloat},), &x)
-    z != 0
-end
-
-"""true iff all x is nonpositive (no x is negative)"""
-function isnonpositive{P}(x::ArbFloat{P})
-    z = ccall(@libarb(arb_is_nonpositive), Int, (Ptr{ArbFloat},), &x)
-    z != 0
-end
-
-"""true iff all x is nonnegative (no x is positive)"""
-function isnonnegative{P}(x::ArbFloat{P})
-    z = ccall(@libarb(arb_is_nonnegative), Int, (Ptr{ArbFloat},), &x)
-    z != 0
-end
-
 """true iff x contains a positive value"""
 function includesPositive{P}(x::ArbFloat{P})
     z = ccall(@libarb(arb_contains_positive), Int, (Ptr{ArbFloat},), &x)
