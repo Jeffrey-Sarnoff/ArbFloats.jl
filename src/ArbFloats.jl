@@ -32,6 +32,7 @@ export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round
        ispositive, notpositive, isnegative, notnegative,
        includesAnInteger, excludesIntegers, includesZero, excludesZero,
        includesPositive, excludesPositive, includesNegative, excludesNegative,
+       includesNonpositive,  includesNonnegative, 
        notequal, approxeq, ≊,
        overlap, donotoverlap, iscontainedby, doesnotcontain, isnotcontainedby,
        invsqrt, pow, root, tanpi, cotpi, logbase, sincos, sincospi, sinhcosh,
