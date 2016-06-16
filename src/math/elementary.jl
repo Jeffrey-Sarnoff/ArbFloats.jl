@@ -10,7 +10,8 @@
     gamma, lgamma, zeta
 =#
 
-for (op,cfunc) in ((:exp,:arb_exp), (:expm1, :arb_expm1), (:log,:arb_log), (:log1p, :arb_log1p),
+for (op,cfunc) in ((:exp,:arb_exp), (:expm1, :arb_expm1), 
+    (:log,:arb_log), (:log1p, :arb_log1p),
     (:sin, :arb_sin), (:sinpi, :arb_sinpi), (:cos, :arb_cos), (:cospi, :arb_cospi), 
     (:tan, :arb_tan), (:cot, :arb_cot), 
     (:sinh, :arb_sinh), (:cosh, :arb_cosh), (:tanh, :arb_tanh), (:coth, :arb_coth),
