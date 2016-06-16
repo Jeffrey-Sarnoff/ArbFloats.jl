@@ -62,7 +62,7 @@ function smartarbstring{P}(x::ArbFloat{P})
      digits = floor(Int, precision(x)*0.3010299956639811952137)-1
 
      if isexact(x)
-        return(String(x, digits, UInt(2))
+        return String(x, digits, UInt(2))
      end
      
      lb, ub = bounds(x)
