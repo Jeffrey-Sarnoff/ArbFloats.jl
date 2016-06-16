@@ -5,6 +5,10 @@
    muladd(a,b,c), fma(a,b,c)
 =#
 
+function signbit{P}(x::ArbFloat{P})
+    0 != ccall(@libarb(arb_is_negative), Int, (Ptr{ArbFloat},), &x)
+end
+
 for (op,cfunc) in ((:-,:arb_neg), (:abs, :arb_abs), (:sign, :arb_sgn))
   @eval begin
     function ($op){P}(x::ArbFloat{P})
