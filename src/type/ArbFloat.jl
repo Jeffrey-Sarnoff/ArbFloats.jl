@@ -1,11 +1,12 @@
 
-            # P is the precision used for this value
-type ArbFloat{P}  <: Real
-  mid_exp::Int # fmpz
-  mid_size::UInt # mp_size_t
-  mid_d1::Int # mantissa_struct
+            # P is the precision used as the type occurs
+            # |
+type ArbFloat{P}  <: Real     # from arb.h 
+  mid_exp::Int                # fmpz
+  mid_size::UInt              # mp_size_t
+  mid_d1::Int                 # mantissa_struct
   mid_d2::Int
-  rad_exp::Int # fmpz
+  rad_exp::Int                # fmpz
   rad_man::UInt
 end
 
