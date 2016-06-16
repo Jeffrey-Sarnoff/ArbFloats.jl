@@ -157,3 +157,52 @@ function approxeq{P}(x::ArbFloat{P}, y::ArbFloat{P})
 end
 
 (≊){P}(x::ArbFloat{P}, y::ArbFloat{P}) = approxeq(x,y)
+
+
+"""true iff x contains an integer"""
+function includesAnInteger{P}(x::ArbFloat{P})
+    z = ccall(@libarb(arb_contains_int), Int, (Ptr{ArbFloat},), &x)
+    z != 0
+end
+
+"""true iff x does not contain an integer"""
+function excludesIntegers{P}(x::ArbFloat{P})
+    z = ccall(@libarb(arb_contains_int), Int, (Ptr{ArbFloat},), &x)
+    z == 0
+end
+
+"""true iff x contains zero"""
+function includesZero{P}(x::ArbFloat{P})
+    z = ccall(@libarb(arb_contains_int), Int, (Ptr{ArbFloat},), &x)
+    z != 0
+end
+
+"""true iff x does not contain zero"""
+function excludesZero{P}(x::ArbFloat{P})
+    z = ccall(@libarb(arb_contains_int), Int, (Ptr{ArbFloat},), &x)
+    z == 0
+end
+
+"""true iff x contains a positive value"""
+function includesPositive{P}(x::ArbFloat{P})
+    z = ccall(@libarb(arb_contains_positive), Int, (Ptr{ArbFloat},), &x)
+    z != 0
+end
+
+"""true iff x contains a negative value"""
+function includesNegative{P}(x::ArbFloat{P})
+    z = ccall(@libarb(arb_contains_negative), Int, (Ptr{ArbFloat},), &x)
+    z != 0
+end
+
+"""true iff x contains a nonpositive value"""
+function includesNonPositive{P}(x::ArbFloat{P})
+    z = ccall(@libarb(arb_contains_nonpositive), Int, (Ptr{ArbFloat},), &x)
+    z != 0
+end
+
+"""true iff x contains a nonnegative value"""
+function includesNonNegative{P}(x::ArbFloat{P})
+    z = ccall(@libarb(arb_contains_nonnegative), Int, (Ptr{ArbFloat},), &x)
+    z != 0
+end
