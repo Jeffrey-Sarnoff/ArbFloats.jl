@@ -68,9 +68,13 @@ function smartarbstring{P}(x::ArbFloat{P})
      lb, ub = bounds(x)
      lbs = String(lb, digits, UInt(2))
      ubs = String(ub, digits, UInt(2))
-     for i in (digits-1):-1:4
+     for i in (digits-1):-2:4
          if lbs[end]==ubs[end]
             if lbs == ubs
+               s = String(ub, i+1, UInt(2))
+               if s == String(lb, i+1, UInt(2))
+                  ubs = lbs = s
+               end
                break
             end
          end
