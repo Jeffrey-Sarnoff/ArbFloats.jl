@@ -92,7 +92,6 @@ function lowerbound{P}(x::ArbFloat{P})
 end
 
 bounds{P}(x::ArbFloat{P}) = ( lowerbound(x), upperbound(x) )
-smartvalue{P}(x::ArbFloat{P}) = ArbFloat{P}(smartarbstring(x))
 
 function minmax{P}(x::ArbFloat{P})
    m = midpoint(x)
