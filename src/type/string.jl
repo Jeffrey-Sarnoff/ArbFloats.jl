@@ -73,7 +73,7 @@ function smartarbstring{P}(x::ArbFloat{P})
             us = String(ub, i+1, UInt(2))
             ls = String(lb, i+1, UInt(2))
             if us[end] == ls[end] && us==ls # tests rounding to every digit position
-               ubs = lbs = s
+               ubs = lbs = us
             end
             break
          end
