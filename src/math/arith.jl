@@ -5,7 +5,7 @@
    muladd(a,b,c), fma(a,b,c)
 =#
 
-for (op,cfunc) in ((:-,:arb_neg), (:abs, :arb_abs))
+for (op,cfunc) in ((:-,:arb_neg), (:abs, :arb_abs), (:sign, :arb_sgn))
   @eval begin
     function ($op){P}(x::ArbFloat{P})
       z = initializer(ArbFloat{P})
