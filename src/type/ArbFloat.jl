@@ -30,11 +30,7 @@ const ArbFloatPrecision = [116,]
 precision(::Type{ArbFloat}) = ArbFloatPrecision[1]
 
 function setprecision(::Type{ArbFloat}, x::Int)
-    bigprecisionGTE = trunc(Int, x*25/12)
-    if precision(BigFloat) < bigprecisionGTE
-        setprecision(BigFloat,bigprecisionGTE)
-    end
-    ArbFloatPrecision[1] = abs(x)
+    ArbFloatPrecision[1] = max(24, abs(x))
 end
 
 
