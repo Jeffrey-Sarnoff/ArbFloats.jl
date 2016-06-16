@@ -93,10 +93,8 @@ end
 
 bounds{P}(x::ArbFloat{P}) = ( lowerbound(x), upperbound(x) )
 
-function minmax{P}(x::ArbFloat{P})
-   m = midpoint(x)
-   r = radius(x)
-   m-r, m+r
+function minmax{P}(x::ArbFloat{P}, y::ArbFloat{P})
+   x < y ? (x,y) : (y,x)
 end
 
 function relativeError{P}(x::ArbFloat{P})
