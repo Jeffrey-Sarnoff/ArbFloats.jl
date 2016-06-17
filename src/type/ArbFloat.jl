@@ -1,6 +1,6 @@
 
-            # P is the precision used as the type occurs
-            # |
+            # P is the precision used with the typed occurance
+            # 
 type ArbFloat{P}  <: Real     # field and struct names from arb.h 
   mid_exp ::Int               #           fmpz
   mid_size::UInt              #           mp_size_t
