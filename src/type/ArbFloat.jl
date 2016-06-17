@@ -32,7 +32,11 @@ const ArbFloatPrecision = [116,]
 precision(::Type{ArbFloat}) = ArbFloatPrecision[1]
 
 function setprecision(::Type{ArbFloat}, x::Int)
-    ArbFloatPrecision[1] = max(24, abs(x))
+    priorprecision = precision(ArbFloat)
+    x = max(11, abs(x))
+    x > 4095 && warn("ArbFloats are designed to work best at precisions < 4096 bits")
+    ArbFloatPrecision[1] = x
+    priorprecision
 end
 
 
