@@ -2,12 +2,12 @@
             # P is the precision used as the type occurs
             # |
 type ArbFloat{P}  <: Real     # field and struct names from arb.h 
-  mid_exp::Int                #           fmpz
+  mid_exp ::Int               #           fmpz
   mid_size::UInt              #           mp_size_t
-  mid_d1::Int                 #           mantissa_struct
-  mid_d2::Int
-  rad_exp::Int                #           fmpz
-  rad_man::UInt
+  mid_d1  ::Int               #           mantissa_struct
+  mid_d2  ::Int               #
+  rad_exp ::Int               #           fmpz
+  rad_man ::UInt              # 
 end
 
 precision{P}(x::ArbFloat{P}) = P
