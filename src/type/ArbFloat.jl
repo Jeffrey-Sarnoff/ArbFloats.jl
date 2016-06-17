@@ -1,12 +1,12 @@
 
             # P is the precision used as the type occurs
             # |
-type ArbFloat{P}  <: Real     # from arb.h 
-  mid_exp::Int                # fmpz
-  mid_size::UInt              # mp_size_t
-  mid_d1::Int                 # mantissa_struct
+type ArbFloat{P}  <: Real     # field and struct names from arb.h 
+  mid_exp::Int                #           fmpz
+  mid_size::UInt              #           mp_size_t
+  mid_d1::Int                 #           mantissa_struct
   mid_d2::Int
-  rad_exp::Int                # fmpz
+  rad_exp::Int                #           fmpz
   rad_man::UInt
 end
 
@@ -39,10 +39,13 @@ end
 # a type specific hash function helps the type to 'just work'
 const hash_arbfloat_lo = (UInt === UInt64) ? 0x37e642589da3416a : 0x5d46a6b4
 const hash_0_arbfloat_lo = hash(zero(UInt), hash_arbfloat_lo)
+# two values of the same precision with identical midpoints and identical radial exponents hash equal
+# they are the same value, one is less accurate yet centered about the more accurate 
 hash{P}(z::ArbFloat{P}, h::UInt) = 
-    hash(reinterpret(UInt,z.mid_d1)$z.rad_man, 
+    hash(reinterpret(UInt,z.mid_d1)$z.rad_exp, 
          (h $ hash(reinterpret(UInt,z.mid_d2)$(~reinterpret(UInt,P)), hash_arbfloat_lo) $ hash_0_arbfloat_lo))
 
+(==){P}(a::ArbFloat{P}, b::ArbFloat{P})
 
 function clearArbFloat{P}(x::ArbFloat{P})
      ccall(@libarb(arb_clear), Void, (Ptr{ArbFloat{P}},), &x)
