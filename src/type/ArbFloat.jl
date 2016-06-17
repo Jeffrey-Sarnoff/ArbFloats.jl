@@ -23,7 +23,7 @@ typealias ArbFloat32  ArbFloat{ 24}  # read  6 ? 7 or fewer decimal digits to wr
 typealias ArbFloat64  ArbFloat{ 53}  # read 15 ?15 or fewer decimal digits to write the same digits ( 64bit Float)
 typealias ArbFloat128 ArbFloat{113}  # read 33 ?34 or fewer decimal digits to write the same digits (128bit Float)
 typealias ArbFloat256 ArbFloat{237}  # read 71 ?71 or fewer decimal digits to write the same digits (256bit Float)
-typealias ArbFloat512 ArbFloat{496}  # read 71 ?71 or fewer decimal digits to write the same digits (512bit Float)
+typealias ArbFloat512 ArbFloat{496}  # read 148?149 or fewer decimal digits to write the same digits (512bit Float)
 
 
 # get and set working precision for ArbFloat
