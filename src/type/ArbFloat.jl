@@ -44,9 +44,14 @@ const hash_0_arbfloat_lo = hash(zero(UInt), hash_arbfloat_lo)
 # they are the same value, one is less accurate yet centered about the other
 hash{P}(z::ArbFloat{P}, h::UInt) = 
     hash(reinterpret(UInt,z.mid_d1)$z.rad_exp, 
-         (h $ hash(reinterpret(UInt,z.mid_d2)$(~reinterpret(UInt,P)), hash_arbfloat_lo) $ hash_0_arbfloat_lo))
+         (h $ hash(reinterpret(UInt,z.mid_d2)$(~reinterpret(UInt,P)), hash_arbfloat_lo) 
+            $ hash_0_arbfloat_lo))
 
-(==){P}(a::ArbFloat{P}, b::ArbFloat{P})
+# two values of the same precision 
+#    with identical midpoints and identical radial exponents test equal
+# they are the same value, one is less accurate yet centered about the other
+(==){P}(a::ArbFloat{P}, b::ArbFloat{P}) ==
+    (a.mid_d2 == b.mid_d2) && ((a.rad_exp == b.rad_exp) & (a.mid_d1 == b.mid_d1))
 
 function clearArbFloat{P}(x::ArbFloat{P})
      ccall(@libarb(arb_clear), Void, (Ptr{ArbFloat{P}},), &x)
