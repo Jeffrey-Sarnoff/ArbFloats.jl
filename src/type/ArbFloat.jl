@@ -39,8 +39,9 @@ end
 # a type specific hash function helps the type to 'just work'
 const hash_arbfloat_lo = (UInt === UInt64) ? 0x37e642589da3416a : 0x5d46a6b4
 const hash_0_arbfloat_lo = hash(zero(UInt), hash_arbfloat_lo)
-# two values of the same precision with identical midpoints and identical radial exponents hash equal
-# they are the same value, one is less accurate yet centered about the more accurate 
+# two values of the same precision 
+#    with identical midpoints and identical radial exponents hash equal
+# they are the same value, one is less accurate yet centered about the other
 hash{P}(z::ArbFloat{P}, h::UInt) = 
     hash(reinterpret(UInt,z.mid_d1)$z.rad_exp, 
          (h $ hash(reinterpret(UInt,z.mid_d2)$(~reinterpret(UInt,P)), hash_arbfloat_lo) $ hash_0_arbfloat_lo))
