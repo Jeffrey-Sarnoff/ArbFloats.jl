@@ -6,14 +6,23 @@
    Float64(tst2.val) == -0.8273960599468214
 =#   
 
-function RumpChallenge()
-    x = ArbFloat(77617); y = ArbFloat(33096)
+function RumpChallenge(NumType, prec)
+    setprecision(NumType,prec)
+    k77617 = convert(NumType, 77617)
+    k33096 = convert(NumType, 33096)
+    k33375 = convert(NumType, 333) + convert(NumType, 0.75)
+    k11 = convert(NumType, 11)
+    k121 = convert(NumType, 121)
+    k2 = convert(NumType, 2)
+    k55 = convert(NumType, 5) + convert(NumType, 0.5)
+    
+    x = k77617; y = k33096
     x2 = x*x
     y2 = y*y; y3 = y2*y; y4 = y2*y2; y6 = y3*y3; y8 = y4*y4
-    a=ArbFloat("333.75")*y6
-    b=x2 * (ArbFloat("11")*x2*y2 - y6 - ArbFloat("121")*y4 - ArbFloat("2"))
-    c=ArbFloat("5.5")*y8;  d=x/(y+y)
-    b=x2 * (ArbFloat("11")*x2*y2 - y6 - ArbFloat("121")*y4 - ArbFloat("2"))
+    a=k33375*y6
+    b=x2 * (k11*x2*y2 - y6 - k121)*y4 - k2)
+    c=k55*y8;  d=x/(y+y)
+    b=x2 * (k11*x2*y2 - y6 - k121)*y4 - k2)
     a+b+c+d
 end
 
