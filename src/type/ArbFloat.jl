@@ -51,11 +51,11 @@ hash{P}(z::ArbFloat{P}, h::UInt) =
     hash(reinterpret(UInt,z.mid_d1)$z.mid_exp, 
          (h $ hash(reinterpret(UInt,z.mid_d2)$(~reinterpret(UInt,P)), hash_arbfloat_lo) 
             $ hash_0_arbfloat_lo))
-
+            
 # two values of the same precision 
 #    with identical midpoints and identical radial exponents test equal
 # they are the same value, one is less accurate yet centered about the other
-(==){P}(a::ArbFloat{P}, b::ArbFloat{P}) ==
+(==){P}(a::ArbFloat{P}, b::ArbFloat{P}) =
     (a.mid_d2 == b.mid_d2) && ((a.mid_exp == b.mid_exp) & (a.mid_d1 == b.mid_d1))
 
 function clearArbFloat{P}(x::ArbFloat{P})
