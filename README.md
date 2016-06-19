@@ -75,9 +75,8 @@ used with Arb and ArbFloat | nature
 ---------------------------|-------
 precision, setprecision,   | as with BigFloat
 
-```Arb values: midpoint +/- radius```  
 
-used with underlying Arb values | nature
+Arb values are intervals | nature
 --------|--------
 midpoint, radius, lowerbound, upperbound, bounds,          | Arb's constituent parts  
 isexact, notexact,                                         | float-y or interval-y  
@@ -93,14 +92,18 @@ The least significant digit observable, through show(af) or with string(af),
   is smallest transparent _(intrisically non-misleading)_ refinement of value.
 ```
 
+ArbFloat attributes | nature
+--------|--------
+isnan, isinf, isfinite, issubnormal, isinteger, notinteger,  | floatingpoint predicates
+iszero, notzero, nonzero, isone, notone,  | number predicates
+ispositive, notpositive, isnegative, notnegative,   | numerical predicates
+
+
 copy, deepcopy, 
 zero, one, eps, epsilon,    
 isequal, isless, (==),(!=),(<),(<=),(>=),(>), notequal, approxeq, ≊,  
 min, max, minmax, 
 
-isnan, isinf, isfinite, issubnormal, isinteger,  
-iszero, notzero, nonzero, isone, notone, notinteger,  
-ispositive, notpositive, isnegative, notnegative,  
 signbit, sign, flipsign, copysign, abs, inv,  
 (+),(-),(*),(/),(\),(%),(^), sqrt, invsqrt, hypot,  
 trunc, round, ceil, floor,   
