@@ -52,11 +52,13 @@ hash{P}(z::ArbFloat{P}, h::UInt) =
          (h $ hash(reinterpret(UInt,z.mid_d2)$(~reinterpret(UInt,P)), hash_arbfloat_lo) 
             $ hash_0_arbfloat_lo))
             
-# two values of the same precision 
-#    with identical midpoints and identical radial exponents test equal
-# they are the same value, one is less accurate yet centered about the other
-(==){P}(a::ArbFloat{P}, b::ArbFloat{P}) =
-    (a.mid_d2 == b.mid_d2) && ((a.mid_exp == b.mid_exp) & (a.mid_d1 == b.mid_d1))
+# adapted from Nemo
+function (==){P}(x::ArbFloat{P}, y::ArbFloat{P})
+    return Bool(ccall(@libarb(arb_eq), Cint, (Ptr{ArbFloat{P}}, Ptr{ArbFloat{P}}), &x, &y))
+end
+function (!=){P}(x::ArbFloat{P}, y::ArbFloat{P})
+    return !Bool(ccall(@libarb(arb_eq), Cint, (Ptr{ArbFloat{P}}, Ptr{ArbFloat{P}}), &x, &y))
+end
 
 function clearArbFloat{P}(x::ArbFloat{P})
      ccall(@libarb(arb_clear), Void, (Ptr{ArbFloat{P}},), &x)
