@@ -33,7 +33,7 @@ end
 =#       
 
 function MullerKahanChallenge{P}(x::Int, ::Type{Val{P}})
-    prec = int(string(P))
+    prec = Int(string(P))
     a = ArbFloat{P}(x)
     H(a)
 end    
