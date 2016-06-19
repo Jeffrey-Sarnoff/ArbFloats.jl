@@ -71,11 +71,13 @@ gamma( fpOneThird )
 
 ## Exports (including re-exports)
 
-precision, setprecision,   # work-alike with BigFloat
+used with Arb and ArbFloat | nature
+---------------------------|-------
+precision, setprecision,   | as with BigFloat
 
 ```Arb values: midpoint +/- radius```  
 
-exports | nature
+used with underlying Arb values | nature
 --------|--------
 midpoint, radius, lowerbound, upperbound, bounds,          | Arb's constituent parts  
 isexact, notexact,                                         | float-y or interval-y  
