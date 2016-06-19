@@ -1,7 +1,7 @@
 function String{P}(x::ArbFloat{P}, ndigits::Int, flags::UInt)
    n = max(1,min(abs(ndigits), floor(Int, P*0.3010299956639811952137)))
    cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, n, flags)
-   s = ASCIIString(cstr)
+   s = unsafe_string(cstr)
    ccall(@libflint(flint_free), Void, (Ptr{UInt8},), cstr)
    s
 end
@@ -9,7 +9,7 @@ end
 function String{P}(x::ArbFloat{P}, flags::UInt)
    n = floor(Int, P*0.3010299956639811952137)
    cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, n, flags)
-   s = ASCIIString(cstr)
+   s = unsafe_string(cstr)
    ccall(@libflint(flint_free), Void, (Ptr{UInt8},), cstr)
    s
 end
@@ -30,7 +30,7 @@ function stringTrimmed{P}(x::ArbFloat{P}, ndigitsremoved::Int)
    n = max(0, ndigitsremoved)
    n = max(1, floor(Int, P*0.3010299956639811952137) - n)
    cstr = ccall(@libarb(arb_get_str), Ptr{UInt8}, (Ptr{ArbFloat}, Int, UInt), &x, n, UInt(2))
-   s = Base.unsafe_string(cstr)
+   s = unsafe_string(cstr)
    ccall(@libflint(flint_free), Void, (Ptr{UInt8},), cstr)
    s
 end
