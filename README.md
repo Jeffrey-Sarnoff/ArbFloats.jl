@@ -71,14 +71,16 @@ gamma( fpOneThird )
 
 ## Exports (including re-exports)
 
-precision, setprecision,                                   # work-alike with BigFloat
+precision, setprecision,   # work-alike with BigFloat
 
-````Arb values: midpoint +/- radius```
+```Arb values: midpoint +/- radius```  
 
-midpoint, radius, lowerbound, upperbound, bounds,          # Arb's constituent parts  
-isexact, notexact,                                         # float-y or interval-y  
-overlap, donotoverlap,                                     # of interval suborder  
-contains, iscontainedby, doesnotcontain, isnotcontainedby, # of interval partial order  
+exports | nature
+--------|--------
+midpoint, radius, lowerbound, upperbound, bounds,          | Arb's constituent parts  
+isexact, notexact,                                         | float-y or interval-y  
+overlap, donotoverlap,                                     | of interval suborder  
+contains, iscontainedby, doesnotcontain, isnotcontainedby, | of interval partial order  
 
 ```
 ArbFloat values: Arb seen as precisely accurate floats   
