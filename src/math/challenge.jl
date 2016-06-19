@@ -38,5 +38,5 @@ function MullersKahanChallenge{P}(x::Int, ::Type{Val{P}})
     H(a)
 end    
     
-MullerKahanChallenge( x::Int) = MullersKahanChallenge{P}(x, Val{precision(ArbFloat)})
+MullerKahanChallenge( x::Int) = MullersKahanChallenge(x, Val{precision(ArbFloat)})
 
