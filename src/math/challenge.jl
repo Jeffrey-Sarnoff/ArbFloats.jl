@@ -1,16 +1,21 @@
 #=
     J-M Muller's "Kahan Challenge"
-=#    
+=#
+
+zero{P}(::Type{ArbFloat{P}}) = ArbFloat{P}(0)
+ one{P}(::Type{ArbFloat{P}}) = ArbFloat{P}(1)
+
 function E(x)
     if iszero(x)
-        ArbFloat(1)
+        ArbFloat{precision(x)}(1)
     else
-        (expm1(x))//x
+        expm1(x) / x
     end
 end
 function Q(x)
-    a = abs(x - sqrt(x*x+ArbFloat(1)))
-    b = ArbFloat(1)//(x+sqrt(x*x + ArbFloat(1)))
+    af1 = one(ArbFloat{precision(x)})
+    a = abs(x - sqrt(x*x+af1))
+    b = af1 / (x+sqrt(x*x + af1))
     a - b
 end
 function H(x)
