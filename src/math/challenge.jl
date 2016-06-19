@@ -8,13 +8,13 @@
 
 function E(x)
     if iszero(x)
-        ArbFloat{precision(x)}(1)
+        ArbFloat{precision(ArbFloat)}(1)
     else
         expm1(x) / x
     end
 end
 function Q(x)
-    af1 = one(ArbFloat{precision(x)})
+    af1 = one(ArbFloat{precision(ArbFloat)})
     a = abs(x - sqrt(x*x+af1))
     b = af1 / (x+sqrt(x*x + af1))
     a - b
