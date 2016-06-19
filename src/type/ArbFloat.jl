@@ -57,7 +57,7 @@ function (==){P}(x::ArbFloat{P}, y::ArbFloat{P})
     return Bool(ccall(@libarb(arb_eq), Cint, (Ptr{ArbFloat{P}}, Ptr{ArbFloat{P}}), &x, &y))
 end
 function (!=){P}(x::ArbFloat{P}, y::ArbFloat{P})
-    return !Bool(ccall(@libarb(arb_eq), Cint, (Ptr{ArbFloat{P}}, Ptr{ArbFloat{P}}), &x, &y))
+    return Bool(ccall(@libarb(arb_ne), Cint, (Ptr{ArbFloat{P}}, Ptr{ArbFloat{P}}), &x, &y))
 end
 
 function clearArbFloat{P}(x::ArbFloat{P})
