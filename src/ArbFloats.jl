@@ -38,7 +38,8 @@ export ArbFloat,      # co-matched decimal rounding, n | round(hi,n,10) == round
        invsqrt, pow, root, tanpi, cotpi, logbase, sincos, sincospi, sinhcosh,
        doublefactorial, risingfactorial, rgamma, agm, polylog,
        relativeError, relativeAccuracy, midpointPrecision, trimmedAccuracy,
-       PI,SQRTPI,LOG2,LOG10,EXP1,EULER,CATALAN,KHINCHIN,GLAISHER,APERY # constants
+       PI,SQRTPI,LOG2,LOG10,EXP1,EULER,CATALAN,KHINCHIN,GLAISHER,APERY, # constants
+       MullerKahanChallenge
 
 
 # ensure the requisite libraries are available
