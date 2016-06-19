@@ -20,9 +20,9 @@ function RumpChallenge(NumType, prec)
     x2 = x*x
     y2 = y*y; y3 = y2*y; y4 = y2*y2; y6 = y3*y3; y8 = y4*y4
     a=k33375*y6
-    b=x2 * (k11*x2*y2 - y6 - k121)*y4 - k2)
+    b=x2 * (k11*x2*y2 - y6 - k121*y4 - k2)
     c=k55*y8;  d=x/(y+y)
-    b=x2 * (k11*x2*y2 - y6 - k121)*y4 - k2)
+    b=x2 * (k11*x2*y2 - y6 - k121*y4 - k2)
     a+b+c+d
 end
 
