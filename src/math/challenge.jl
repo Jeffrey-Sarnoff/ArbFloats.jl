@@ -32,9 +32,9 @@ end
    Float64(midpoint(H(ArbFloat("9999"))).val) == 1.0
 =#       
 
-function MullerKahanChallenge(x::Int)
-    a = ArbFloat(x)
-    H(x)
+function MullerKahanChallenge{P}(x::Int, prec::Int=P)
+    a = ArbFloat{P}(x)
+    H(a)
 end    
     
     
