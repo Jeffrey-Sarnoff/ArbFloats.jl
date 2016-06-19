@@ -92,4 +92,6 @@ include("math/elementary.jl")
 include("math/constants.jl")
 include("math/special.jl")
 
+include("math/challenge.jl")
+
 end # ArbFloats
