@@ -2,8 +2,9 @@
     J-M Muller's "Kahan Challenge"
 =#
 
-zero{P}(::Type{ArbFloat{P}}) = ArbFloat{P}(0)
- one{P}(::Type{ArbFloat{P}}) = ArbFloat{P}(1)
+
+# zero{P}(::Type{ArbFloat{P}}) = ArbFloat{P}(0)
+#  one{P}(::Type{ArbFloat{P}}) = ArbFloat{P}(1)
 
 function E(x)
     if iszero(x)
