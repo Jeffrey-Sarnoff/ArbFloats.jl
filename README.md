@@ -71,11 +71,29 @@ gamma( fpOneThird )
 
 ## Exports (including re-exports)
 
-precision, setprecision, copy, deepcopy, zero, one, eps, epsilon,    
+precision, setprecision,                                   # work-alike with BigFloat
+
+````Arb values: midpoint +/- radius```
+
+midpoint, radius, lowerbound, upperbound, bounds,          # Arb's constituent parts  
+isexact, notexact,                                         # float-y or interval-y  
+overlap, donotoverlap,                                     # of interval suborder  
+contains, iscontainedby, doesnotcontain, isnotcontainedby, # of interval partial order  
+
+```
+ArbFloat values: Arb seen as precisely accurate floats   
+   elevates transparant information over number mumble  
+   each digit shown is an accurate refinement of value  
+
+The least significant digit observable, through show(af) or with string(af),   
+  is smallest transparent _(intrisically non-misleading)_ refinement of value.
+```
+
+copy, deepcopy, 
+zero, one, eps, epsilon,    
 isequal, isless, (==),(!=),(<),(<=),(>=),(>), notequal, approxeq, ≊,  
-isexact, notexact, midpoint, radius, lowerbound, upperbound, bounds,  
-min, max, minmax, overlap, donotoverlap,  
-contains, iscontainedby, doesnotcontain, isnotcontainedby,  
+min, max, minmax, 
+
 isnan, isinf, isfinite, issubnormal, isinteger,  
 iszero, notzero, nonzero, isone, notone, notinteger,  
 ispositive, notpositive, isnegative, notnegative,  
