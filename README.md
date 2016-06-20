@@ -6,7 +6,7 @@
 ```
 #####This is for Julia v0.5
 ####About
-Arb is software by Fredrik Johansson with contributions from others including William Hart, Tommy Hofmann, Sebastian Pancratz.  Dr. Johansson has permitted Julia to use Arb under the MIT License.  
+Arb is software designed and written by Fredrik Johansson. All contributors are given at [http://fredrikj.net/arb/credits.html](credits).  Dr. Johansson graciously permits Julia to use Arb under the MIT License.
   
 An Arb value is an interval given by its midpoint and a radius of _inclusion_ about the midpoint.  
 An ArbFloat is a floating point value that is represented internally as an Arb (interval) value.  
