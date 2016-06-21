@@ -6,6 +6,12 @@
 ```
 #####This is for Julia v0.5
 
+####Appropriateness
+
+Best for use where extended precision floating point values are helpful and 150 decimal digits or 500 binary digits suffice.  
+Very good for use where arithemetic, elementary, and some special functions are to be evaluated and 500 decimal digits suffice.  
+
+
 ####Conceptual Background
 
 Without loss of _relevant_ generality, allow that `floats` be precision parameterized floating point types which enfold only finite, fully resolved, uniquely represented, nonnegative and exponentless (significands only, no sign field, no exponent field).
