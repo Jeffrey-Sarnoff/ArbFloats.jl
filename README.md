@@ -16,8 +16,7 @@ A `Transparent Float` is a number concept, an apperceptual framing of value from
 
 An `ArbFloat`, when viewed, looks just like an extended precision floating point value; yet when mapped through mathematical functions, transforms as an extended precision floating point interval.  Their confluence clarifys what distinguishes obtained value from calculated value.
 
-An `ArbFloat` is a transparent value, neither misleading nor leading, with an invariant intrisic semantic context.  
-
+An `ArbFloat` is a transparent value, informing while neither misleading nor leading.
 
 ####About Arb
 
