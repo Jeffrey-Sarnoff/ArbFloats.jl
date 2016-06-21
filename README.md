@@ -6,11 +6,14 @@
 ```
 #####This is for Julia v0.5
 ####About
-    This work is constructed atop a state-of-the-art C library for working with _midpoint ± radius_ intervals:   
-      Arb is software designed and written by Fredrik Johansson ([with credits]([http://fredrikj.net/arb/credits.html)).  
+
+    This work is constructed atop a state-of-the-art C library for working with _midpoint ± radius_ intervals, `Arb`.   
+      `Arb` is designed and written by Fredrik Johansson, who graciously allows Julia to use it under the MIT License.  
+      
+      
+([with credits]([http://fredrikj.net/arb/credits.html)).  
       Dr. Johansson graciously permits Julia to use `Arb` under the MIT License.
 
-, midpoint+radius  floating point quantities.  That C library establishes the state-of-the-art  represented by a midpoint and a radius about that midpoint. floating point intervals. called `Arb`.  
 `Arb` is software designed and written by Fredrik Johansson ([with credits]([http://fredrikj.net/arb/credits.html)).  
 Dr. Johansson graciously permits Julia to use `Arb` under the MIT License.
   
