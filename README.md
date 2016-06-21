@@ -9,7 +9,7 @@
 ####Appropriateness
 
 Best for use where extended precision floating point values are helpful and 150 decimal digits or 500 binary digits suffice.  
-Very good for use where arithemetic, elementary, and some special functions are to be evaluated and 500 decimal digits suffice.  
+Very good for use where elementary or special functions are to be evaluated and 500 decimal digits or 1600 bits suffice.  
 
 
 ####Conceptual Background
