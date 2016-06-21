@@ -6,7 +6,7 @@
 ```
 #####This is for Julia v0.5
 ####About
-Arb is software designed and written by Fredrik Johansson (and see [http://fredrikj.net/arb/credits.html](credits)).  
+Arb is software designed and written by Fredrik Johansson ([with credits]([http://fredrikj.net/arb/credits.html)).  
 Dr. Johansson graciously permits Julia to use Arb under the MIT License.
   
 An Arb value is an interval given by its midpoint and a radius of inclusion about the midpoint.  
