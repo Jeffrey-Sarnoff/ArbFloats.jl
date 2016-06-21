@@ -12,9 +12,12 @@ Without loss of _relevant_ generality, allow that `floats` be precision paramete
 
 #####Transparent Numeration
 
-An `ArbFloat` is a number concept that, when viewed, looks just like an extended precision floating point value;  
-when mapped through mathematical functions, is operated upon as an extended precision floating point interval.  
+A `Transparent Float` is a number concept, an apperceptual framing of value from which clarity obtains as immediacy and the the qualitatively utilitarian obtains as conveyable. 
+
+An `ArbFloat`, when viewed, looks just like an extended precision floating point value; yet when mapped through mathematical functions, transforms as an extended precision floating point interval.  The specifics of each aspect evince a joint semiotic; the interdependence is directed rather than reflexive.  Manners of expression become a confluence, wherewith the expressive manner.
+
 An `ArbFloat` is a transparent value, neither misleading nor leading, with an invariant intrisic semantic context.  
+
 
 ####About Arb
 
