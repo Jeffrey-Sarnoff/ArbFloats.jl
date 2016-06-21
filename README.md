@@ -12,7 +12,7 @@
 
 
 An `ArbFloat` is a number concept that, when viewed, looks just like an extended precision floating point value;  
-and, when mapped through mathematical functions, is operated upon as an extended precision floating point interval.  
+when mapped through mathematical functions, is operated upon as an extended precision floating point interval.  
 An `ArbFloat` is a transparent value, neither misleading nor leading, with an invariant intrisic semantic context.  
 
 
