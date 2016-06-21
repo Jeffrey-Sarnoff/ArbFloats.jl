@@ -10,9 +10,6 @@
 
 Without loss of _relevant_ generality, allow that `floats` be precision parameterized floating point types which enfold only finite, fully resolved, uniquely represented, nonnegative and exponentless (significands only, no sign field, no exponent field).
 
-(exponent 0)and nonnegative floating point representations to be the domain of nonnegative  
-The precision of a floating point number type quantifies the extensiveness of its significand, mantissa width significance of d extensiveness of 
-A floating point number type is well characterized by the precisioncan of is numeric quantityintensity given as floating point  are content 
 `Transparent`
 
 An `ArbFloat` is a number concept that, when viewed, looks just like an extended precision floating point value;  
