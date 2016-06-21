@@ -5,16 +5,24 @@
                                                          Jeffrey Sarnoff © 2016˗May˗26 in New York City
 ```
 #####This is for Julia v0.5
-####About
 
-  This work is constructed atop a state-of-the-art C library for working with _midpoint ± radius_ intervals, `Arb`.   
-  `Arb` is designed and written by Fredrik Johansson, who graciously allows Julia to use it under the MIT License.  
+####Conceptual Background
 
+Without loss of _relevant_ generality, allow that `floats` be precision parameterized floating point types which enfold only finite, fully resolved, uniquely represented, nonnegative and exponentless (0, [0.5000..0, 0.9999..9).
+
+(exponent 0)and nonnegative floating point representations to be the domain of nonnegative  
+The precision of a floating point number type quantifies the extensiveness of its significand, mantissa width significance of d extensiveness of 
+A floating point number type is well characterized by the precisioncan of is numeric quantityintensity given as floating point  are content 
+`Transparent`
 
 An `ArbFloat` is a number concept that, when viewed, looks just like an extended precision floating point value;  
 when mapped through mathematical functions, is operated upon as an extended precision floating point interval.  
 An `ArbFloat` is a transparent value, neither misleading nor leading, with an invariant intrisic semantic context.  
 
+####About Arb
+
+  This work is constructed atop a state-of-the-art C library for working with _midpoint ± radius_ intervals, `Arb`.   
+  `Arb` is designed and written by Fredrik Johansson, who graciously allows Julia to use it under the MIT License.  
 
 
 It is a useful fiction to think of ArbFloats as Arb values with a zero radius -- and sometimes they are.  
