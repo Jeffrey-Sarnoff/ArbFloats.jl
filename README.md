@@ -9,14 +9,10 @@
 
     This work is constructed atop a state-of-the-art C library for working with _midpoint ± radius_ intervals, `Arb`.   
     `Arb` is designed and written by Fredrik Johansson, who graciously allows Julia to use it under the MIT License.  
-      
-    `Arb` is software designed and written by Fredrik Johansson [with credits](http://fredrikj.net/arb/credits.html).  
-  
-`Arb` is software designed and written by Fredrik Johansson [with credits](http://fredrikj.net/arb/credits.html).  
-Dr. Johansson graciously permits Julia to use `Arb` under the MIT License.
-  
+        
+
+An `ArbFloat` is entered and shown as a floating point value while maintained as an `Arb` interval.  
 An `Arb` value is an interval given by its midpoint and a radius of inclusion about the midpoint.  
-An `ArbFloat` is shown as a floating point value and represented internally as an `Arb` interval.  
 
 It is a useful fiction to think of ArbFloats as Arb values with a zero radius -- and sometimes they are.  
 When an ArbFloat has a nonzero radius, the user sees only those digits that _don`t care_:  
