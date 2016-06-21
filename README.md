@@ -6,11 +6,16 @@
 ```
 #####This is for Julia v0.5
 ####About
-Arb is software designed and written by Fredrik Johansson ([with credits]([http://fredrikj.net/arb/credits.html)).  
-Dr. Johansson graciously permits Julia to use Arb under the MIT License.
+    This work is constructed atop a state-of-the-art C library for working with _midpoint ± radius_ intervals:   
+      Arb is software designed and written by Fredrik Johansson ([with credits]([http://fredrikj.net/arb/credits.html)).  
+      Dr. Johansson graciously permits Julia to use `Arb` under the MIT License.
+
+, midpoint+radius  floating point quantities.  That C library establishes the state-of-the-art  represented by a midpoint and a radius about that midpoint. floating point intervals. called `Arb`.  
+`Arb` is software designed and written by Fredrik Johansson ([with credits]([http://fredrikj.net/arb/credits.html)).  
+Dr. Johansson graciously permits Julia to use `Arb` under the MIT License.
   
-An Arb value is an interval given by its midpoint and a radius of inclusion about the midpoint.  
-An ArbFloat is a floating point value that is represented internally as an Arb (interval) value.  
+An `Arb` value is an interval given by its midpoint and a radius of inclusion about the midpoint.  
+An `ArbFloat` is shown as a floating point value and represented internally as an `Arb` interval.  
 
 It is a useful fiction to think of ArbFloats as Arb values with a zero radius -- and sometimes they are.  
 When an ArbFloat has a nonzero radius, the user sees only those digits that _don`t care_:  
