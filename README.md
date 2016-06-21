@@ -10,7 +10,7 @@
 
 Without loss of _relevant_ generality, allow that `floats` be precision parameterized floating point types which enfold only finite, fully resolved, uniquely represented, nonnegative and exponentless (significands only, no sign field, no exponent field).
 
-`Transparent`
+#####Transparent`
 
 An `ArbFloat` is a number concept that, when viewed, looks just like an extended precision floating point value;  
 when mapped through mathematical functions, is operated upon as an extended precision floating point interval.  
