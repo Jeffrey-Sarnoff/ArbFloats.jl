@@ -8,7 +8,7 @@
 
 ####Conceptual Background
 
-Without loss of _too much relevant_ generality, allow that `floats` be precision parameterized floating point types which enfold only finite, fully resolved, uniquely represented, nonnegative and exponentless (significands only, no sign field, no exponent field).
+Without loss of _relevant_ generality, allow that `floats` be precision parameterized floating point types which enfold only finite, fully resolved, uniquely represented, nonnegative and exponentless (significands only, no sign field, no exponent field).
 
 (exponent 0)and nonnegative floating point representations to be the domain of nonnegative  
 The precision of a floating point number type quantifies the extensiveness of its significand, mantissa width significance of d extensiveness of 
