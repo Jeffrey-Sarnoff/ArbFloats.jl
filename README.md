@@ -9,27 +9,19 @@
 ####Appropriateness 
 
 Preferred for extending the precision of floating point computations from 64 bits [17 digits] up to 512 bits [150 digits].  
-This is roughtly the same as extnding the precision of floating point significands from 53 bits up to ~480 bits.
-
 Recommended for use where elementary or special functions are evaluated to obtain results with up to 250 digits [800 bits].
-The internal mathematical work to obtain 225 digits should use floating point values with at least 475 signficant digits. 
-
-
-
 
 ####Conceptual Background
 
-Without loss of _relevant_ generality, allow that `floats` be precision parameterized floating point types which enfold only finite, fully resolved, uniquely represented, nonnegative and exponentless (significands only, no sign field, no exponent field).
+`Transparency`: a desireable quality that may obtain in the presentation of numerical quantity. Where `transparency` exists, it may not persist. A diminution of `transparency` increases `opacity`, and vice versa. Presentation of a floating point value either evinces `transparency` or furthers `opacity`.  With the `transparent`, Looking at is looking through.  With the `opaque` looking at is neither looking through nor looking into nor gazing upon -- it is the remaining sort of "to be looking", looking away.  And it is that nonresponsive, nonparticipative engagement of cognitive attention that is the `opaqueness` underlying `opacity`. With the presentation of a `transparent` floating point value, an anti-opacity functional sequence engages the perciever of the presented float.  And that is why `transparency` favors its own persistance.
 
-#####Transparent Numeration
 
-A `Transparent Float` is a number concept, an apperceptual framing of value from which clarity obtains as immediacy and the the qualitatively utilitarian obtains as conveyable. 
+
 
 An `ArbFloat`, when viewed, looks just like an extended precision floating point value; yet when mapped through mathematical functions, transforms as an extended precision floating point interval.  Their confluence clarifys what distinguishes obtained value from calculated value.
 
 An `ArbFloat` is a transparent value, informing while neither misleading nor leading.
-
-####About Arb
+###About Arb
 
   This work is constructed atop a state-of-the-art C library for working with _midpoint ± radius_ intervals, `Arb`.   
   `Arb` is designed and written by Fredrik Johansson, who graciously allows Julia to use it under the MIT License.  
