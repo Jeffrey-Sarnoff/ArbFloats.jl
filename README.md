@@ -115,23 +115,25 @@ iszero, notzero, nonzero, isone, notone,  | number predicates
 ispositive, notpositive, isnegative, notnegative,   | numerical predicates
 
 
-copy, deepcopy, 
-zero, one, eps, epsilon,    
-isequal, notequal, isless, 
-(==),(!=),(<),(<=),(>=),(>), 
-approxeq, ≊,  
-min, max, minmax, 
+> copy, deepcopy, 
+> zero, one, eps, epsilon,    
+> isequal, notequal, isless, 
+> (==),(!=),(<),(<=),(>=),(>), 
+> approxeq, ≊,  
+> min, max, minmax, 
 
-signbit, sign, flipsign, copysign, abs,  
-(+),(-),(*),(/),(\),(%),(^),
-inv, sqrt, invsqrt, hypot,  
-trunc, round, ceil, floor,   
-pow, root, 
-exp, expm1, log, log1p, log2, log10, logbase,  
-sin, cos, sincos, sincospi, tan, csc, sec, cot, 
-asin, acos, atan, atan2,  
-sinh, cosh, sinhcosh, tanh, csch, sech, coth, 
-asinh, acosh, atanh,  
-factorial, doublefactorial, risingfactorial, 
-gamma, lgamma, digamma,  
-sinc, zeta, polylog, agm  
+> signbit, sign, flipsign, copysign, abs,  
+> (+),(-),(*),(/),(\),(%),(^),
+> inv, sqrt, invsqrt, hypot,  
+> factorial, doublefactorial, risingfactorial, 
+> trunc, round, ceil, floor,   
+
+> pow, root, 
+> exp, expm1, log, log1p, log2, log10, logbase,  
+> sin, cos, sincos, sincospi, tan, csc, sec, cot, 
+> asin, acos, atan, atan2,  
+> sinh, cosh, sinhcosh, tanh, csch, sech, coth, 
+> asinh, acosh, atanh,  
+
+> gamma, lgamma, digamma,  
+> sinc, zeta, polylog, agm  
