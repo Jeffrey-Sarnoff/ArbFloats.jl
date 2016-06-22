@@ -13,14 +13,14 @@ Recommended for use where elementary or special functions are evaluated to obtai
 
 ####Conceptual Background
 
-`Transparency`: a desireable quality that may obtain in the presentation of numerical quantity. Where `transparency` exists, it may not persist. A diminution of `transparency` increases `opacity`, and vice versa. Presentation of a floating point value either evinces `transparency` or furthers `opacity`.  With the `transparent`, Looking at is looking through.  With the `opaque` looking at is neither looking through nor looking into nor gazing upon -- it is the remaining sort of "to be looking", looking away.  And it is that nonresponsive, nonparticipative engagement of cognitive attention that is the `opaqueness` underlying `opacity`. With the presentation of a `transparent` floating point value, an anti-opacity functional sequence engages the perciever of the presented float.  And that is why `transparency` favors its own persistance.
+`Transparency`: a desireable quality that may obtain in the presentation of numerical quantity. Where `transparency` exists, it may not persist. A diminution of `transparency` increases `opacity`, and vice versa. Presentation of a floating point value either evinces `transparency` or furthers `opacity`.  With the `transparent`, Looking at is looking through.  With the `opaque` looking at is neither looking through nor looking into nor gazing upon -- it is the remaining sort of "to be looking", looking away.  And it is that nonresponsive, nonparticipative engagement of cognitive attention that is the `opaqueness` underlying `opacity`. 
 
+Presented with a `transparent` floating point value, the perceiver is become best informed.  There is no other rendition of that floating point realization which is intrinsically more informing and none which relays the value of that floating point realization more accurately -- none with fewer digits, none with more digits, none of greater magnitude, none of lesser magnitude.
 
-
+An `ArbFloat` is an extended precision float architected to evince `transparency`. It informs without leading or misleading.
 
 An `ArbFloat`, when viewed, looks just like an extended precision floating point value; yet when mapped through mathematical functions, transforms as an extended precision floating point interval.  Their confluence clarifys what distinguishes obtained value from calculated value.
 
-An `ArbFloat` is a transparent value, informing while neither misleading nor leading.
 ###About Arb
 
   This work is constructed atop a state-of-the-art C library for working with _midpoint ± radius_ intervals, `Arb`.   
