@@ -4,12 +4,17 @@
 ```ruby
                                                          Jeffrey Sarnoff © 2016˗May˗26 in New York City
 ```
-#####This is for Julia v0.5
+#####This is for Julia v0.5.
 
-####Appropriateness
+####Appropriateness 
 
-Best for use where extended precision floating point values are helpful and 150 decimal digits or 500 binary digits suffice.  
-Very good for use where elementary or special functions are to be evaluated and 500 decimal digits or 1600 bits suffice.  
+Preferred for extending the precision of floating point computations from 64 bits [17 digits] up to 512 bits [150 digits].  
+This is roughtly the same as extnding the precision of floating point significands from 53 bits up to ~480 bits.
+
+Recommended for use where elementary or special functions are evaluated to obtain results with up to 250 digits [800 bits].
+The internal mathematical work to obtain 225 digits should use floating point values with at least 475 signficant digits. 
+
+
 
 
 ####Conceptual Background
