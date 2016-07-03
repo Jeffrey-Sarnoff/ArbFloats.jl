@@ -1,5 +1,14 @@
+> ****
+>>> ***
+>> Please use [**this repository**](https://github.com/jsarnoff-juliacon/ArbFloats.jl)
+>>> ***
+
+> ***
+
+
 ## ArbFloats.jl
 ###### Arb available as an extended precision floating point context.
+
 
 ```ruby
                                                          Jeffrey Sarnoff © 2016˗May˗26 in New York City
