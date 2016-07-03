@@ -1,6 +1,6 @@
 > ****
 >>> ***
->> Please use [**this repository**](https://github.com/jsarnoff-juliacon/ArbFloats.jl)
+>> Please use [**the current repository**](https://github.com/jsarnoff-juliacon/ArbFloats.jl)
 >>> ***
 
 > ***
